@@ -86,35 +86,35 @@ TEST(Day1, SingleMeasurementsReturnsZero)
 
 TEST(Day1, IncreasingMeasurementsReturnsOne)
 {
-	std::vector<int> measurement{ 100, 101 };
+	std::vector<int> measurements{ 100, 101 };
 
-	EXPECT_EQ(GetIncreasedMeasurements(measurement), 1);
+	EXPECT_EQ(GetIncreasedMeasurements(measurements), 1);
 }
 
 TEST(Day1, ConstMeasurementsReturnsZero)
 {
-	std::vector<int> measurement{ 1000, 1000 };
+	std::vector<int> measurements{ 1000, 1000 };
 
-	EXPECT_EQ(GetIncreasedMeasurements(measurement), 0);
+	EXPECT_EQ(GetIncreasedMeasurements(measurements), 0);
 }
 
 TEST(Day1, DecreasingMeasurementsReturnsZero)
 {
-	std::vector<int> measurement{ 200, 1 };
+	std::vector<int> measurements{ 200, 1 };
 
-	EXPECT_EQ(GetIncreasedMeasurements(measurement), 0);
+	EXPECT_EQ(GetIncreasedMeasurements(measurements), 0);
 }
 
 TEST(Day1, SimpleMeasurementsReturnsThree)
 {
-	std::vector<int> measurement{ 100, 101, 0, 0, 1, 2 };
+	std::vector<int> measurements{ 100, 101, 0, 0, 1, 2 };
 
-	EXPECT_EQ(GetIncreasedMeasurements(measurement), 3);
+	EXPECT_EQ(GetIncreasedMeasurements(measurements), 3);
 }
 
 TEST(Day1, ExampleMeasurementReturnsSeven)
 {
-	std::vector<int> measurement{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 };
+	std::vector<int> measurements{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 };
 
-	EXPECT_EQ(GetIncreasedMeasurements(measurement), 7);
+	EXPECT_EQ(GetIncreasedMeasurements(measurements), 7);
 }
