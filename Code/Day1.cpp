@@ -18,13 +18,13 @@ std::vector<int> LoadIntStream(std::istream& in)
 
 int GetIncreasedMeasurements(std::vector<int> measurements)
 {
-	int prevM = std::numeric_limits<int>::max();
 	int increased = 0;
-	for (int m : measurements)
+	for (int i = 1; i < measurements.size(); ++i)
 	{
-		if (m > prevM)
+		int prev = measurements[i - 1] ;
+		int curr =                     measurements[i - 0];
+		if (curr > prev)
 			++increased;
-		prevM = m;
 	}
 	return increased;
 }
