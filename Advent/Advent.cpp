@@ -3,6 +3,7 @@
 #include <vector>
 
 extern std::vector<int> LoadIntStream(std::istream& in);
+extern int GetIncreasedMeasurements(std::vector<int> measurements);
 
 int main()
 {
@@ -12,5 +13,5 @@ int main()
 		inputData = LoadIntStream(ifile);
 	}
 
-	std::cout << "Loaded " << inputData.size() << " elements." << std::endl;
+	std::cout << "Increased measurements: " << GetIncreasedMeasurements(inputData) << std::endl;
 }

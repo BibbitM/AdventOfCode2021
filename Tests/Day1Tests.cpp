@@ -5,6 +5,7 @@
 #include <vector>
 
 extern std::vector<int> LoadIntStream(std::istream& in);
+extern int GetIncreasedMeasurements(std::vector<int> measurements);
 
 TEST(Day1, LoadFromEmptyStream)
 {
@@ -67,4 +68,53 @@ TEST(Day1, LoadNotANumberThrows)
 	std::stringstream valueStream{ "1\ntext\2" };
 
 	EXPECT_THROW(LoadIntStream(valueStream), std::invalid_argument);
+}
+
+TEST(Day1, EmptyMeasurementsReturnsZero)
+{
+	std::vector<int> emptyMeasurement;
+
+	EXPECT_EQ(GetIncreasedMeasurements(emptyMeasurement), 0);
+}
+
+TEST(Day1, SingleMeasurementsReturnsZero)
+{
+	std::vector<int> singleMeasurement{ 100 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(singleMeasurement), 0);
+}
+
+TEST(Day1, IncreasingMeasurementsReturnsOne)
+{
+	std::vector<int> measurement{ 100, 101 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(measurement), 1);
+}
+
+TEST(Day1, ConstMeasurementsReturnsZero)
+{
+	std::vector<int> measurement{ 1000, 1000 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(measurement), 0);
+}
+
+TEST(Day1, DecreasingMeasurementsReturnsZero)
+{
+	std::vector<int> measurement{ 200, 1 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(measurement), 0);
+}
+
+TEST(Day1, SimpleMeasurementsReturnsThree)
+{
+	std::vector<int> measurement{ 100, 101, 0, 0, 1, 2 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(measurement), 3);
+}
+
+TEST(Day1, ExampleMeasurementReturnsSeven)
+{
+	std::vector<int> measurement{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 };
+
+	EXPECT_EQ(GetIncreasedMeasurements(measurement), 7);
 }
