@@ -6,6 +6,7 @@
 
 extern std::vector<int> LoadIntStream(std::istream& in);
 extern int GetIncreasedMeasurements(std::vector<int> measurements);
+extern int GetIncreasedThreeMeasurements(std::vector<int> measurements);
 
 TEST(Day1, LoadFromEmptyStream)
 {
@@ -117,4 +118,25 @@ TEST(Day1, ExampleMeasurementReturnsSeven)
 	std::vector<int> measurements{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 };
 
 	EXPECT_EQ(GetIncreasedMeasurements(measurements), 7);
+}
+
+TEST(Day1, IncreasingThreeMeasurementsReturnsOne)
+{
+	std::vector<int> measurements{ 1, 2, 3, 4 };
+
+	EXPECT_EQ(GetIncreasedThreeMeasurements(measurements), 1);
+}
+
+TEST(Day1, DecreasingThreeMeasurementsReturnsOne)
+{
+	std::vector<int> measurements{ 1, 0, 1, 0 };
+
+	EXPECT_EQ(GetIncreasedThreeMeasurements(measurements), 0);
+}
+
+TEST(Day1, ExampleThreeMeasurementReturnsFive)
+{
+	std::vector<int> measurements{ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 };
+
+	EXPECT_EQ(GetIncreasedThreeMeasurements(measurements), 5);
 }

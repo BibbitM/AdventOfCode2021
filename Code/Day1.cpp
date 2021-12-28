@@ -28,3 +28,16 @@ int GetIncreasedMeasurements(std::vector<int> measurements)
 	}
 	return increased;
 }
+
+int GetIncreasedThreeMeasurements(std::vector<int> measurements)
+{
+	int increased = 0;
+	for (int i = 3; i < measurements.size(); ++i)
+	{
+		int prev = measurements[i - 3] /*+ measurements[i - 2] + measurements[i - 1]*/;
+		int curr =                       /*measurements[i - 2] + measurements[i - 1] +*/ measurements[i - 0];
+		if (curr > prev)
+			++increased;
+	}
+	return increased;
+}

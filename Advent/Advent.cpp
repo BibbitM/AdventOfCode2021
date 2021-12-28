@@ -4,6 +4,7 @@
 
 extern std::vector<int> LoadIntStream(std::istream& in);
 extern int GetIncreasedMeasurements(std::vector<int> measurements);
+extern int GetIncreasedThreeMeasurements(std::vector<int> measurements);
 
 int main()
 {
@@ -14,4 +15,5 @@ int main()
 	}
 
 	std::cout << "Increased measurements: " << GetIncreasedMeasurements(inputData) << std::endl;
+	std::cout << "Increased three measurements: " << GetIncreasedThreeMeasurements(inputData) << std::endl;
 }
