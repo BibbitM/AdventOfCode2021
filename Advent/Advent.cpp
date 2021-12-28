@@ -1,10 +1,16 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 
-extern void fnCode();
+extern std::vector<int> LoadIntStream(std::istream& in);
 
 int main()
 {
-    fnCode();
+	std::vector<int> inputData;
+	{
+		std::ifstream ifile("..\\Inputs\\Day1.txt");
+		inputData = LoadIntStream(ifile);
+	}
 
-    std::cout << "Hello World!\n";
+	std::cout << "Loaded " << inputData.size() << " elements." << std::endl;
 }
