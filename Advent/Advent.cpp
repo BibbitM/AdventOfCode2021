@@ -12,6 +12,7 @@ extern int GetSubmarineMultipliedPosition(const std::vector<IntVector2>& command
 extern int64_t GetSubmarineMultipliedPositionWithAim(const std::vector<IntVector2>& commands);
 
 extern std::vector<int> LoadBinaryStream(std::istream& in);
+int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
 
 int main()
 {
@@ -47,6 +48,6 @@ int main()
 			numbers = LoadBinaryStream(ifile);
 		}
 
-		std::cout << "Day3: loaded numbers count: " << numbers.size() << std::endl;
+		std::cout << "Day3: power consumption: " << GetPowerConsumption(numbers, 12) << std::endl;
 	}
 }
