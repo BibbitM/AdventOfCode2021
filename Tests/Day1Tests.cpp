@@ -5,8 +5,8 @@
 #include <vector>
 
 extern std::vector<int> LoadIntStream(std::istream& in);
-extern int GetIncreasedMeasurements(std::vector<int> measurements);
-extern int GetIncreasedThreeMeasurements(std::vector<int> measurements);
+extern int GetIncreasedMeasurements(const std::vector<int>& measurements);
+extern int GetIncreasedThreeMeasurements(const std::vector<int>& measurements);
 
 TEST(Day1, LoadFromEmptyStream)
 {

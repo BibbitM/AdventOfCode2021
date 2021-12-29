@@ -5,7 +5,8 @@
 #include <vector>
 
 extern std::vector<IntVector2> LoadSubmarineCommandsStream(std::istream& in);
-extern int GetSubmarineMultipliedPosition(std::vector<IntVector2> commands);
+extern int GetSubmarineMultipliedPosition(const std::vector<IntVector2>& commands);
+
 TEST(Day2, IntVector2CreateEmpty)
 {
 	IntVector2 vec{};

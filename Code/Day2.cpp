@@ -23,7 +23,7 @@ std::vector<IntVector2> LoadSubmarineCommandsStream(std::istream& in)
 	return commands;
 }
 
-int GetSubmarineMultipliedPosition(std::vector<IntVector2> commands)
+int GetSubmarineMultipliedPosition(const std::vector<IntVector2>& commands)
 {
 	IntVector2 position{};
 

@@ -16,7 +16,7 @@ std::vector<int> LoadIntStream(std::istream& in)
 	return intVector;
 }
 
-int GetIncreasedMeasurements(std::vector<int> measurements)
+int GetIncreasedMeasurements(const std::vector<int>& measurements)
 {
 	int increased = 0;
 	for (int i = 1; i < measurements.size(); ++i)
@@ -29,7 +29,7 @@ int GetIncreasedMeasurements(std::vector<int> measurements)
 	return increased;
 }
 
-int GetIncreasedThreeMeasurements(std::vector<int> measurements)
+int GetIncreasedThreeMeasurements(const std::vector<int>& measurements)
 {
 	int increased = 0;
 	for (int i = 3; i < measurements.size(); ++i)
