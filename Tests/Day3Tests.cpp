@@ -8,6 +8,9 @@ extern std::vector<int> LoadBinaryStream(std::istream& in);
 extern int GetGammaRate(const std::vector<int>& numbers, int bits);
 extern int GetEpsilonRate(const std::vector<int>& numbers, int bits);
 extern int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
+extern int GetOxygenGeneratorRating(const std::vector<int>& numbers, int bits);
+extern int GetCO2ScrubberRating(const std::vector<int>& numbers, int bits);
+extern int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits);
 
 namespace
 {
@@ -117,4 +120,19 @@ TEST(Day3, PowerConsumptionSimple)
 TEST(Day3, PowerConsumptionExample)
 {
 	EXPECT_EQ(GetPowerConsumption(s_exampleNumbers, 5), 198);
+}
+
+TEST(Day3, OxygenGeneratorRatingExample)
+{
+	EXPECT_EQ(GetOxygenGeneratorRating(s_exampleNumbers, 5), 0b10111);
+}
+
+TEST(Day3, CO2ScrubberRatingExample)
+{
+	EXPECT_EQ(GetCO2ScrubberRating(s_exampleNumbers, 5), 0b01010);
+}
+
+TEST(Day3, LifeSupportRatingExample)
+{
+	EXPECT_EQ(GetLifeSupportRating(s_exampleNumbers, 5), 230);
 }

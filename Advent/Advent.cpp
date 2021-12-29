@@ -12,7 +12,8 @@ extern int GetSubmarineMultipliedPosition(const std::vector<IntVector2>& command
 extern int64_t GetSubmarineMultipliedPositionWithAim(const std::vector<IntVector2>& commands);
 
 extern std::vector<int> LoadBinaryStream(std::istream& in);
-int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
+extern int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
+extern int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits);
 
 int main()
 {
@@ -49,5 +50,6 @@ int main()
 		}
 
 		std::cout << "Day3: power consumption: " << GetPowerConsumption(numbers, 12) << std::endl;
+		std::cout << "Day3: life support rating: " << GetLifeSupportRating(numbers, 12) << std::endl;
 	}
 }

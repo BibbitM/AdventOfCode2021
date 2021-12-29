@@ -71,3 +71,56 @@ int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits)
 {
 	return static_cast<int64_t>(GetGammaRate(numbers, bits)) * static_cast<int64_t>(GetEpsilonRate(numbers, bits));
 }
+
+int GetOxygenGeneratorRating(const std::vector<int>& inNumbers, int bits)
+{
+	std::vector<int> numbers = inNumbers;
+
+	for (int b = bits - 1; b >= 0; --b)
+	{
+		if (numbers.size() <= 1)
+			break;
+
+		int bitsCount = 0;
+		const int bitMask = 1 << b;
+		for (int num : numbers)
+		{
+			bitsCount += ((num & bitMask) != 0) ? 1 : -1;
+		}
+
+		const int bitToKeep = (bitsCount >= 0) ? bitMask : 0;
+		numbers.erase(std::remove_if(numbers.begin(), numbers.end(), [bitMask, bitToKeep](int num) { return (num & bitMask) != bitToKeep; }), numbers.end());
+	}
+
+	assert(numbers.size() == 1);
+	return numbers[0];
+}
+
+int GetCO2ScrubberRating(const std::vector<int>& inNumbers, int bits)
+{
+	std::vector<int> numbers = inNumbers;
+
+	for (int b = bits - 1; b >= 0; --b)
+	{
+		if (numbers.size() <= 1)
+			break;
+
+		int bitsCount = 0;
+		const int bitMask = 1 << b;
+		for (int num : numbers)
+		{
+			bitsCount += ((num & bitMask) != 0) ? 1 : -1;
+		}
+
+		const int bitToKeep = (bitsCount < 0) ? bitMask : 0;
+		numbers.erase(std::remove_if(numbers.begin(), numbers.end(), [bitMask, bitToKeep](int num) { return (num & bitMask) != bitToKeep; }), numbers.end());
+	}
+
+	assert(numbers.size() == 1);
+	return numbers[0];
+}
+
+int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits)
+{
+	return static_cast<int64_t>(GetOxygenGeneratorRating(numbers, bits)) * static_cast<int64_t>(GetCO2ScrubberRating(numbers, bits));;
+}
