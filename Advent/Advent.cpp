@@ -11,6 +11,8 @@ extern std::vector<IntVector2> LoadSubmarineCommandsStream(std::istream& in);
 extern int GetSubmarineMultipliedPosition(const std::vector<IntVector2>& commands);
 extern int64_t GetSubmarineMultipliedPositionWithAim(const std::vector<IntVector2>& commands);
 
+extern std::vector<int> LoadBinaryStream(std::istream& in);
+
 int main()
 {
 	{
@@ -35,5 +37,16 @@ int main()
 
 		std::cout << "Day2: multiplied position: " << GetSubmarineMultipliedPosition(commands) << std::endl;
 		std::cout << "Day2: multiplied position with aim: " << GetSubmarineMultipliedPositionWithAim(commands) << std::endl;
+	}
+
+	{
+		std::vector<int> numbers;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day3.txt");
+			numbers = LoadBinaryStream(ifile);
+		}
+
+		std::cout << "Day3: loaded numbers count: " << numbers.size() << std::endl;
 	}
 }
