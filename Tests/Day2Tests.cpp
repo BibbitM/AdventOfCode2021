@@ -5,7 +5,7 @@
 #include <vector>
 
 extern std::vector<IntVector2> LoadSubmarineCommandsStream(std::istream& in);
-
+extern int GetSubmarineMultipliedPosition(std::vector<IntVector2> commands);
 TEST(Day2, IntVector2CreateEmpty)
 {
 	IntVector2 vec{};
@@ -30,6 +30,21 @@ TEST(Day2, IntVector2Equals)
 
 	EXPECT_EQ(vec, vecEq);
 	EXPECT_NE(vec, vecNe);
+}
+
+TEST(Day2, IntVector2AccumulateZeros)
+{
+	constexpr IntVector2 zero{};
+
+	IntVector2 vec = zero;
+
+	EXPECT_EQ(vec += zero, zero);
+}
+
+TEST(Day2, IntVector2AccumulateValues)
+{
+	IntVector2 vec(1, 2);
+	EXPECT_EQ(vec += IntVector2(10, 20), IntVector2(11, 22));
 }
 
 TEST(Day2, LoadFromEmptyStream)
@@ -96,4 +111,24 @@ forward 2)--" };
 	std::vector<IntVector2> commands = LoadSubmarineCommandsStream(stream);
 
 	EXPECT_EQ(commands, std::vector<IntVector2>({ { 5, 0 }, { 0, 5 }, { 8, 0 }, { 0, -3 }, { 0, 8 }, { 2, 0 } }));
+}
+
+TEST(Day2, SubmarineMultipliedPositionEmptyCommands)
+{
+	EXPECT_EQ(GetSubmarineMultipliedPosition({}), 0);
+}
+
+TEST(Day2, SubmarineMultipliedPositionSingleCommand)
+{
+	EXPECT_EQ(GetSubmarineMultipliedPosition({ { 3, 4 } }), 12);
+}
+
+TEST(Day2, SubmarineMultipliedPositionNegativeCommand)
+{
+	EXPECT_EQ(GetSubmarineMultipliedPosition({ { 1, -2 } }), 2);
+}
+
+TEST(Day2, SubmarineMultipiedPositionExampleCommands)
+{
+	EXPECT_EQ(GetSubmarineMultipliedPosition({ { 5, 0 }, { 0, 5 }, { 8, 0 }, { 0, -3 }, { 0, 8 }, { 2, 0 } }), 150);
 }

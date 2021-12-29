@@ -8,6 +8,7 @@ extern int GetIncreasedMeasurements(std::vector<int> measurements);
 extern int GetIncreasedThreeMeasurements(std::vector<int> measurements);
 
 extern std::vector<IntVector2> LoadSubmarineCommandsStream(std::istream& in);
+extern int GetSubmarineMultipliedPosition(std::vector<IntVector2> commands);
 
 int main()
 {
@@ -31,6 +32,6 @@ int main()
 			commands = LoadSubmarineCommandsStream(ifile);
 		}
 
-		std::cout << "Day2: commands count: " << commands.size() << std::endl;
+		std::cout << "Day2: multiplied position: " << GetSubmarineMultipliedPosition(commands) << std::endl;
 	}
 }
