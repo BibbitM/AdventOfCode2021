@@ -9,6 +9,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Code", "Code\Code.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{729BB857-ADA4-43F2-AC51-D7D534195A06}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inputs", "Inputs", "{05A18F03-2831-43B9-81D0-D1096737BB4E}"
+	ProjectSection(SolutionItems) = preProject
+		Inputs\Day1.txt = Inputs\Day1.txt
+		Inputs\Day2.txt = Inputs\Day2.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
