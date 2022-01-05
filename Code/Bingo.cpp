@@ -2,35 +2,6 @@
 
 #include "Bingo.h"
 
-#include <cassert>
-
-Bingo::Bingo(std::initializer_list<std::initializer_list<int>> initialValues)
-{
-	assert(initialValues.size() == SIZE);
-	auto rowIt = initialValues.begin();
-
-	for (size_t row = 0; row < SIZE; ++row, ++rowIt)
-	{
-		assert(rowIt->size() == SIZE);
-		auto colIt = rowIt->begin();
-		for (size_t col = 0; col < SIZE; ++col, ++colIt)
-		{
-			m_values[row][col] = *colIt;
-		}
-	}
-}
-
-Bingo::Bingo(const int(&initialValues)[5][5])
-{
-	for (size_t row = 0; row < SIZE; ++row)
-	{
-		for (size_t col = 0; col < SIZE; ++col)
-		{
-			m_values[row][col] = initialValues[row][col];
-		}
-	}
-}
-
 bool Bingo::Check(int value) const
 {
 	for (size_t row = 0; row < SIZE; ++row)

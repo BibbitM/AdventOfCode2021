@@ -2,6 +2,9 @@
 
 #include "../Code/Bingo.h"
 
+#include <array>
+#include <vector>
+
 namespace
 {
 	const int c_boardValues[5][5] = {
@@ -11,6 +14,8 @@ namespace
 		{ 41, 45, 43, 44, 45 },
 		{ 51, 52, 53, 54, 55 }
 	};
+
+	const std::array<std::vector<short int>, 2> c_arrayOfArraysOfShorts = { std::vector<short int>{ 11, 12 }, std::vector<short int>{ 21, 22 } };
 }
 
 TEST(Day4, CreateEmptyBingoBoard)
@@ -23,20 +28,17 @@ TEST(Day4, CreateEmptyBingoBoard)
 
 TEST(Day4, CreateBingoBoardFromDefinedNumbers)
 {
-	Bingo bingoFromInitializerList({
-		{ 11, 12, 13, 14, 15 },
-		{ 21, 22, 23, 24, 25 },
-		{ 31, 32, 33, 34, 35 },
-		{ 41, 45, 43, 44, 45 },
-		{ 51, 52, 53, 54, 55 }
-		});
-
-	EXPECT_TRUE(bingoFromInitializerList.Check(11));
-	EXPECT_FALSE(bingoFromInitializerList.Check(1));
-
 	Bingo bingoBoardFromIntArray(c_boardValues);
 
 	EXPECT_TRUE(bingoBoardFromIntArray.Check(21));
+	EXPECT_FALSE(bingoBoardFromIntArray.Check(2));
+}
+
+TEST(Day4, CreateBingoBoardFromTwoDimensionArray)
+{
+	Bingo bingoBoardFromIntArray(c_arrayOfArraysOfShorts);
+
+	EXPECT_TRUE(bingoBoardFromIntArray.Check(11));
 	EXPECT_FALSE(bingoBoardFromIntArray.Check(2));
 }
 
