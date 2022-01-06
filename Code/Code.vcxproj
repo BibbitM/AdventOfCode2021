@@ -160,12 +160,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bingo.h" />
+    <ClInclude Include="BingoCard.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="IntVector2.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bingo.cpp" />
+    <ClCompile Include="BingoCard.cpp" />
     <ClCompile Include="Day1.cpp" />
     <ClCompile Include="Day2.cpp" />
     <ClCompile Include="Day3.cpp" />
