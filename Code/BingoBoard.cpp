@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include "Bingo.h"
+#include "BingoBoard.h"
 
-bool Bingo::Check(int value) const
+bool BingoBoard::Check(int value) const
 {
 	for (size_t row = 0; row < SIZE; ++row)
 	{
@@ -15,7 +15,7 @@ bool Bingo::Check(int value) const
 	return false;
 }
 
-bool Bingo::Match(int value)
+bool BingoBoard::Match(int value)
 {
 	for (size_t row = 0; row < SIZE; ++row)
 	{
@@ -53,7 +53,7 @@ bool Bingo::Match(int value)
 	return false;
 }
 
-int Bingo::SumOfUnmatched() const
+int BingoBoard::SumOfUnmatched() const
 {
 	int sum = 0;
 	for (size_t row = 0; row < SIZE; ++row)
@@ -67,11 +67,11 @@ int Bingo::SumOfUnmatched() const
 	return sum;
 }
 
-std::istream& operator>>(std::istream& in, Bingo& board)
+std::istream& operator>>(std::istream& in, BingoBoard& board)
 {
-	for (size_t row = 0; row < Bingo::SIZE; ++row)
+	for (size_t row = 0; row < BingoBoard::SIZE; ++row)
 	{
-		for (size_t col = 0; col < Bingo::SIZE; ++col)
+		for (size_t col = 0; col < BingoBoard::SIZE; ++col)
 		{
 			in >> board.m_values[row][col];
 		}

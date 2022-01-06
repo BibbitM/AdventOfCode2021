@@ -1,4 +1,4 @@
-#include "../Code/Bingo.h"
+#include "../Code/BingoBoard.h"
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
 #include "../Code/IntVector2.h"
@@ -65,7 +65,7 @@ int main()
 			std::ifstream ifile("..\\Inputs\\Day4.txt");
 			ifile >> numbers;
 
-			for (Bingo board; ifile >> board; )
+			for (BingoBoard board; ifile >> board; )
 			{
 				card.AddBoard(board);
 			}

@@ -13,30 +13,30 @@ concept TwoDimensionArray = requires(T t)
 	{ std::end(*std::begin(t)) };
 };
 
-class Bingo
+class BingoBoard //< TODO: rename to BingoBoard (and the file)
 {
 public:
 	static constexpr size_t SIZE = 5;
 	static constexpr int MATCHED_VALUE = -1;
 
-	Bingo() : m_values{} { }
+	BingoBoard() : m_values{} { }
 	template<TwoDimensionArray T>
-	Bingo(T&& initialValues);
+	BingoBoard(T&& initialValues);
 
-	bool operator==(const Bingo&) const = default;
+	bool operator==(const BingoBoard&) const = default;
 
 	bool Check(int value) const;
 	bool Match(int value);
 	int SumOfUnmatched() const;
 
 private:
-	friend std::istream& operator>>(std::istream& in, Bingo& board);
+	friend std::istream& operator>>(std::istream& in, BingoBoard& board);
 
 	std::array<std::array<int, SIZE>, SIZE > m_values;
 };
 
 template<TwoDimensionArray T>
-Bingo::Bingo(T&& initialValues)
+BingoBoard::BingoBoard(T&& initialValues)
 	: m_values{}
 {
 	auto rowIt = std::begin(initialValues);
@@ -52,4 +52,4 @@ Bingo::Bingo(T&& initialValues)
 	}
 }
 
-std::istream& operator>>(std::istream& in, Bingo& board);
+std::istream& operator>>(std::istream& in, BingoBoard& board);
