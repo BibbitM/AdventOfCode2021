@@ -11,6 +11,7 @@ public:
 	
 	void AddBoard(const BingoBoard& bingoBoard);
 	int Play(const std::vector<int>& numbers);
+	int PlayTillLast(const std::vector<int>& numbers);
 
 private:
 	std::vector<BingoBoard> m_boards;

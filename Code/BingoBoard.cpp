@@ -17,6 +17,9 @@ bool BingoBoard::Check(int value) const
 
 bool BingoBoard::Match(int value)
 {
+	if (m_win)
+		return false;
+
 	for (size_t row = 0; row < SIZE; ++row)
 	{
 		for (size_t col = 0; col < SIZE; ++col)
@@ -35,7 +38,10 @@ bool BingoBoard::Match(int value)
 					}
 				}
 				if (allMatched)
+				{
+					m_win = true;
 					return true;
+				}
 
 				allMatched = true;
 				for (size_t r = 0; r < SIZE; ++r)
@@ -46,7 +52,12 @@ bool BingoBoard::Match(int value)
 						break;
 					}
 				}
-				return allMatched;
+				if (allMatched)
+				{
+					m_win = true;
+					return true;
+				}
+				return false;
 			}
 		}
 	}

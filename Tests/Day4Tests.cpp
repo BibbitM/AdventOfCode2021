@@ -223,3 +223,19 @@ TEST(Day4, RunBingoOnExampleInput)
 
 	EXPECT_EQ(card.Play(numbers.AsVector()), 4512);
 }
+
+TEST(Day4, RunBingoOnExampleInputTillLastWin)
+{
+	std::istringstream input{ c_exampleInputString };
+
+	BingoNumbers numbers;
+	input >> numbers;
+
+	BingoCard card;
+	for (BingoBoard board; input >> board; )
+	{
+		card.AddBoard(board);
+	}
+
+	EXPECT_EQ(card.PlayTillLast(numbers.AsVector()), 1924);
+}

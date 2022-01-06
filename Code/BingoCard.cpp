@@ -19,3 +19,17 @@ int BingoCard::Play(const std::vector<int>& numbers)
 	}
 	return INVALID_POINTS;
 }
+
+int BingoCard::PlayTillLast(const std::vector<int>& numbers)
+{
+	int result = INVALID_POINTS;
+	for (int num : numbers)
+	{
+		for (BingoBoard& board : m_boards)
+		{
+			if (board.Match(num))
+				result = num * board.SumOfUnmatched();
+		}
+	}
+	return result;
+}

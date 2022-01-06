@@ -19,7 +19,7 @@ public:
 	static constexpr size_t SIZE = 5;
 	static constexpr int MATCHED_VALUE = -1;
 
-	BingoBoard() : m_values{} { }
+	BingoBoard() : m_values{}, m_win{ false } { }
 	template<TwoDimensionArray T>
 	BingoBoard(T&& initialValues);
 
@@ -33,11 +33,12 @@ private:
 	friend std::istream& operator>>(std::istream& in, BingoBoard& board);
 
 	std::array<std::array<int, SIZE>, SIZE > m_values;
+	bool m_win;
 };
 
 template<TwoDimensionArray T>
 BingoBoard::BingoBoard(T&& initialValues)
-	: m_values{}
+	: BingoBoard{}
 {
 	auto rowIt = std::begin(initialValues);
 	const auto rowEndIt = std::end(initialValues);

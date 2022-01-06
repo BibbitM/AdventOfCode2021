@@ -59,7 +59,8 @@ int main()
 
 	{
 		BingoNumbers numbers;
-		BingoCard card;
+		BingoCard cardOne;
+		BingoCard cardTwo;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day4.txt");
@@ -67,10 +68,12 @@ int main()
 
 			for (BingoBoard board; ifile >> board; )
 			{
-				card.AddBoard(board);
+				cardOne.AddBoard(board);
+				cardTwo.AddBoard(board);
 			}
 		}
 
-		std::cout << "Day4: bingo score: " << card.Play(numbers.AsVector()) << std::endl;
+		std::cout << "Day4: bingo score: " << cardOne.Play(numbers.AsVector()) << std::endl;
+		std::cout << "Day4: last winner bingo score: " << cardTwo.PlayTillLast(numbers.AsVector()) << std::endl;
 	}
 }
