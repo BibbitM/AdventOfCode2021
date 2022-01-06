@@ -66,3 +66,16 @@ int Bingo::SumOfUnmatched() const
 	}
 	return sum;
 }
+
+std::istream& operator>>(std::istream& in, Bingo& board)
+{
+	for (size_t row = 0; row < Bingo::SIZE; ++row)
+	{
+		for (size_t col = 0; col < Bingo::SIZE; ++col)
+		{
+			in >> board.m_values[row][col];
+		}
+	}
+
+	return in;
+}

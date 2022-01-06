@@ -1,4 +1,8 @@
+#include "../Code/Bingo.h"
+#include "../Code/BingoCard.h"
+#include "../Code/BingoNumbers.h"
 #include "../Code/IntVector2.h"
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -51,5 +55,22 @@ int main()
 
 		std::cout << "Day3: power consumption: " << GetPowerConsumption(numbers, 12) << std::endl;
 		std::cout << "Day3: life support rating: " << GetLifeSupportRating(numbers, 12) << std::endl;
+	}
+
+	{
+		BingoNumbers numbers;
+		BingoCard card;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day4.txt");
+			ifile >> numbers;
+
+			for (Bingo board; ifile >> board; )
+			{
+				card.AddBoard(board);
+			}
+		}
+
+		std::cout << "Day4: bingo score: " << card.Play(numbers.AsVector()) << std::endl;
 	}
 }

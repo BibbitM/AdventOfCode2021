@@ -2,6 +2,7 @@
 
 #include <array>
 #include <initializer_list>
+#include <istream>
 
 template<class T>
 concept TwoDimensionArray = requires(T t)
@@ -22,11 +23,15 @@ public:
 	template<TwoDimensionArray T>
 	Bingo(T&& initialValues);
 
+	bool operator==(const Bingo&) const = default;
+
 	bool Check(int value) const;
 	bool Match(int value);
 	int SumOfUnmatched() const;
 
 private:
+	friend std::istream& operator>>(std::istream& in, Bingo& board);
+
 	std::array<std::array<int, SIZE>, SIZE > m_values;
 };
 
@@ -46,3 +51,5 @@ Bingo::Bingo(T&& initialValues)
 		}
 	}
 }
+
+std::istream& operator>>(std::istream& in, Bingo& board);

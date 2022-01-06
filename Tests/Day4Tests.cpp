@@ -2,20 +2,22 @@
 
 #include "../Code/Bingo.h"
 #include "../Code/BingoCard.h"
+#include "../Code/BingoNumbers.h"
 
 #include <array>
+#include <sstream>
 #include <vector>
 
 namespace
 {
-	const int c_boardValues[5][5] = {
+	constexpr int c_boardValues[5][5] = {
 		{ 11, 12, 13, 14, 15 },
 		{ 21, 22, 23, 24, 25 },
 		{ 31, 32, 33, 34, 35 },
 		{ 41, 45, 43, 44, 45 },
 		{ 51, 52, 53, 54, 55 }
 	};
-	const int c_boardPlus100Values[5][5] = {
+	constexpr int c_boardPlus100Values[5][5] = {
 		{ 111, 112, 113, 114, 115 },
 		{ 121, 122, 123, 124, 125 },
 		{ 131, 132, 133, 134, 135 },
@@ -24,6 +26,36 @@ namespace
 	};
 
 	const std::array<std::vector<short int>, 2> c_arrayOfArraysOfShorts = { std::vector<short int>{ 11, 12 }, std::vector<short int>{ 21, 22 } };
+
+	constexpr char c_exampleInputString[] = R"--(7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+
+22 13 17 11  0
+ 8  2 23  4 24
+21  9 14 16  7
+ 6 10  3 18  5
+ 1 12 20 15 19
+
+ 3 15  0  2 22
+ 9 18 13 17  5
+19  8  7 25 23
+20 11 10 24  4
+14 21 16 12  6
+
+14 21 17 24  4
+10 16 15  9 19
+18  8 23 26 20
+22 11 13  6  5
+ 2  0 12  3  7)--";
+
+	constexpr int c_exampleInputNumbers[] = { 7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1 };
+
+	constexpr int c_exampleInputFirstBoardValues[5][5] = {
+		{ 22, 13, 17, 11,  0 },
+		{  8,  2, 23,  4, 24 },
+		{ 21,  9, 14, 16,  7 },
+		{  6, 10,  3, 18,  5 },
+		{  1, 12, 20, 15, 19 }
+	};
 }
 
 TEST(Day4, CreateEmptyBingoBoard)
@@ -159,4 +191,35 @@ TEST(Day4, PlayOnBingoCardTwoBoarsWithVectorOfNumbersAndWin)
 	std::vector<int> numbers{ 1, 22, 124, 23, 24, 122, 123, 125, 25, 121 };
 
 	EXPECT_EQ(bingoCard.Play(numbers), 328273);
+}
+
+TEST(Day4, LoadExampleNumbersAndBoard)
+{
+	std::istringstream input{ c_exampleInputString };
+
+	BingoNumbers numbers;
+	input >> numbers;
+
+	EXPECT_EQ(numbers.AsVector(), std::vector(std::begin(c_exampleInputNumbers), std::end(c_exampleInputNumbers)));
+
+	Bingo board;
+	input >> board;
+
+	EXPECT_EQ(board, Bingo(c_exampleInputFirstBoardValues));
+}
+
+TEST(Day4, RunBingoOnExampleInput)
+{
+	std::istringstream input{ c_exampleInputString };
+
+	BingoNumbers numbers;
+	input >> numbers;
+
+	BingoCard card;
+	for (Bingo board; input >> board; )
+	{
+		card.AddBoard(board);
+	}
+
+	EXPECT_EQ(card.Play(numbers.AsVector()), 4512);
 }
