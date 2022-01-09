@@ -36,3 +36,14 @@ inline std::istream& operator>>(std::istream& in, IntVector2& vec)
 	in >> vec.y;
 	return in;
 }
+
+template<>
+struct std::hash<IntVector2>
+{
+	std::size_t operator()(const IntVector2& vec) const noexcept
+	{
+		std::size_t hx = std::hash<int>{}(vec.x);
+		std::size_t hy = std::hash<int>{}(vec.y);
+		return hx ^ (hy << 1);
+	}
+};

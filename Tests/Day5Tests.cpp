@@ -4,6 +4,7 @@
 #include "../Code/Utils.h"
 
 extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
+extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
 
 namespace
 {
@@ -78,4 +79,15 @@ TEST(Day5, LoadExampleLinesStream)
 	std::vector<IntLine2> lines = LoadLinesStream(input);
 
 	EXPECT_EQ(lines, std::vector<IntLine2>(std::begin(c_exampleLines), std::end(c_exampleLines)));
+}
+
+TEST(Day5, CountDangerousPointsFromEmptyLines)
+{
+	EXPECT_EQ(CountDangerousPoints(std::vector<IntLine2>()), 0);
+}
+
+TEST(Day5, CountDangerousPointsFromExampleInput)
+{
+	std::vector<IntLine2> lines(std::begin(c_exampleLines), std::end(c_exampleLines));
+	EXPECT_EQ(CountDangerousPoints(lines), 5);
 }

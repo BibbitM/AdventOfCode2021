@@ -21,6 +21,7 @@ extern int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
 extern int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits);
 
 extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
+extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
 
 
 int main()
@@ -89,6 +90,6 @@ int main()
 			lines = LoadLinesStream(ifile);
 		}
 
-		std::cout << "Day5: number of line: " << lines.size() << std::endl;
+		std::cout << "Day5: dangerous points: " << CountDangerousPoints(lines) << std::endl;
 	}
 }
