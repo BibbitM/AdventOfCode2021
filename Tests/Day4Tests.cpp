@@ -3,6 +3,7 @@
 #include "../Code/BingoBoard.h"
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
+#include "../Code/Utils.h"
 
 #include <array>
 #include <sstream>
@@ -154,8 +155,7 @@ TEST(Day4, CreateEmptyBingoCard)
 {
 	BingoCard emptyBingoCard;
 
-	(void)emptyBingoCard; //< To silence warning C4101: 'emptyBingoCard': unreferenced local variable.
-	// TODO: implement as UNUSED (see https://stackoverflow.com/questions/7090998/portable-unused-parameter-macro-used-on-function-signature-for-c-and-c)
+	UNUSED(emptyBingoCard);
 }
 
 TEST(Day4, PlayOnBingoCardWithVectorOfNumbersNoWiner)

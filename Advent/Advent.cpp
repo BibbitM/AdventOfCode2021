@@ -1,6 +1,7 @@
 #include "../Code/BingoBoard.h"
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
+#include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
 
 #include <iostream>
@@ -18,6 +19,9 @@ extern int64_t GetSubmarineMultipliedPositionWithAim(const std::vector<IntVector
 extern std::vector<int> LoadBinaryStream(std::istream& in);
 extern int64_t GetPowerConsumption(const std::vector<int>& numbers, int bits);
 extern int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits);
+
+extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
+
 
 int main()
 {
@@ -75,5 +79,16 @@ int main()
 
 		std::cout << "Day4: bingo score: " << cardOne.Play(numbers.AsVector()) << std::endl;
 		std::cout << "Day4: last winner bingo score: " << cardTwo.PlayTillLast(numbers.AsVector()) << std::endl;
+	}
+
+	{
+		std::vector<IntLine2> lines;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day5.txt");
+			lines = LoadLinesStream(ifile);
+		}
+
+		std::cout << "Day5: number of line: " << lines.size() << std::endl;
 	}
 }

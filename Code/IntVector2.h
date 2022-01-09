@@ -1,5 +1,7 @@
 #pragma once
 
+#include <istream>
+
 struct IntVector2
 {
 	int x;
@@ -26,3 +28,11 @@ struct IntVector2
 		return *this;
 	}
 };
+
+inline std::istream& operator>>(std::istream& in, IntVector2& vec)
+{
+	in >> vec.x;
+	in.ignore(1, ',');
+	in >> vec.y;
+	return in;
+}
