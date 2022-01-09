@@ -22,6 +22,7 @@ extern int64_t GetLifeSupportRating(const std::vector<int>& numbers, int bits);
 
 extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
 extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
+extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 
 
 int main()
@@ -91,5 +92,6 @@ int main()
 		}
 
 		std::cout << "Day5: dangerous points: " << CountDangerousPoints(lines) << std::endl;
+		std::cout << "Day5: dangerous points with diagonal: " << CountDangerousPointsWithDiagonal(lines) << std::endl;
 	}
 }

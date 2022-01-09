@@ -5,6 +5,7 @@
 
 extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
 extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
+extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 
 namespace
 {
@@ -90,4 +91,10 @@ TEST(Day5, CountDangerousPointsFromExampleInput)
 {
 	std::vector<IntLine2> lines(std::begin(c_exampleLines), std::end(c_exampleLines));
 	EXPECT_EQ(CountDangerousPoints(lines), 5);
+}
+
+TEST(Day5, CountDangerousPointsWithDiagonalFromExampleInput)
+{
+	std::vector<IntLine2> lines(std::begin(c_exampleLines), std::end(c_exampleLines));
+	EXPECT_EQ(CountDangerousPointsWithDiagonal(lines), 12);
 }
