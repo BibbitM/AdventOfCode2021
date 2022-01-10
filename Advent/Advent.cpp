@@ -3,6 +3,7 @@
 #include "../Code/BingoNumbers.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
+#include "../Code/Lanternfish.h"
 
 #include <iostream>
 #include <fstream>
@@ -93,5 +94,18 @@ int main()
 
 		std::cout << "Day5: dangerous points: " << CountDangerousPoints(lines) << std::endl;
 		std::cout << "Day5: dangerous points with diagonal: " << CountDangerousPointsWithDiagonal(lines) << std::endl;
+	}
+
+	{
+		LanternfishPopulation population;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day6.txt");
+			ifile >> population;
+		}
+
+		population.Grow(80);
+
+		std::cout << "Day6: population after 80 days: " << population.CountAll() << std::endl;
 	}
 }

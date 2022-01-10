@@ -165,6 +165,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="IntLine2.h" />
     <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="Lanternfish.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClCompile Include="Day2.cpp" />
     <ClCompile Include="Day3.cpp" />
     <ClCompile Include="Day5.cpp" />
+    <ClCompile Include="Lanternfish.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
