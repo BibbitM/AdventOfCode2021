@@ -11,14 +11,14 @@ public:
 	LanternfishPopulation() = default;
 	LanternfishPopulation(const int (&counts)[8]);
 
-	void SetPopulation(int time, int count);
-	int CountAll() const;
-	int Count(int timer) const;
+	void SetPopulation(int time, int64_t count);
+	int64_t CountAll() const;
+	int64_t Count(int timer) const;
 
 	void Grow(int steps = 1);
 
 private:
-	std::array<int, TIMERS_COUNT> m_pouplation{};
+	std::array<int64_t, TIMERS_COUNT> m_pouplation{};
 };
 
 std::istream& operator>>(std::istream& in, LanternfishPopulation& population);

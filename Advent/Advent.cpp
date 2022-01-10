@@ -105,7 +105,8 @@ int main()
 		}
 
 		population.Grow(80);
-
 		std::cout << "Day6: population after 80 days: " << population.CountAll() << std::endl;
+		population.Grow(256 - 80);
+		std::cout << "Day6: population after 256 days: " << population.CountAll() << std::endl;
 	}
 }

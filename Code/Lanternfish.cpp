@@ -3,17 +3,17 @@
 
 #include <numeric>
 
-void LanternfishPopulation::SetPopulation(int time, int count)
+void LanternfishPopulation::SetPopulation(int time, int64_t count)
 {
 	m_pouplation[time] = count;
 }
 
-int LanternfishPopulation::CountAll() const
+int64_t LanternfishPopulation::CountAll() const
 {
-	return std::accumulate(m_pouplation.begin(), m_pouplation.end(), 0);
+	return std::accumulate(m_pouplation.begin(), m_pouplation.end(), 0ULL);
 }
 
-int LanternfishPopulation::Count(int timer) const
+int64_t LanternfishPopulation::Count(int timer) const
 {
 	return m_pouplation[timer];
 }
@@ -22,7 +22,7 @@ void LanternfishPopulation::Grow(int steps)
 {
 	for (int s = 0; s < steps; ++s)
 	{
-		int population0 = m_pouplation[0];
+		int64_t population0 = m_pouplation[0];
 		for (std::size_t i = 1; i < TIMERS_COUNT; ++i)
 		{
 			m_pouplation[i - 1] = m_pouplation[i];

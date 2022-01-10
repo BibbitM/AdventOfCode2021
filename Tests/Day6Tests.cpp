@@ -158,3 +158,12 @@ TEST(Day6, GrowExamplePopulationFor80Days)
 	population.Grow(80);
 	EXPECT_EQ(population.CountAll(), 5934);
 }
+
+TEST(Day6, GrowExamplePopulationFor256Days)
+{
+	LanternfishPopulation population;
+	std::istringstream input(c_exampleInput);
+	input >> population;
+	population.Grow(256);
+	EXPECT_EQ(population.CountAll(), 26984457539);
+}
