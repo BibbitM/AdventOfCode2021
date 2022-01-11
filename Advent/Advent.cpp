@@ -25,6 +25,8 @@ extern std::vector<IntLine2> LoadLinesStream(std::istream& in);
 extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
 extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 
+extern int GetAlignFuelCost(const std::vector<int>& crabs);
+
 
 int main()
 {
@@ -108,5 +110,16 @@ int main()
 		std::cout << "Day6: population after 80 days: " << population.CountAll() << std::endl;
 		population.Grow(256 - 80);
 		std::cout << "Day6: population after 256 days: " << population.CountAll() << std::endl;
+	}
+
+	{
+		std::vector<int> crabs;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day7.txt");
+			crabs = LoadIntStream(ifile);
+		}
+
+		std::cout << "Day7: fuel cost: " << GetAlignFuelCost(crabs) << std::endl;
 	}
 }

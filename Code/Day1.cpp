@@ -8,10 +8,11 @@
 std::vector<int> LoadIntStream(std::istream& in)
 {
 	std::vector<int> intVector;
-	std::string line;
-	while (std::getline(in, line))
+	int number{};
+	while (in >> number)
 	{
-		intVector.push_back(std::stoi(line));
+		intVector.push_back(number);
+		in.ignore();
 	}
 	return intVector;
 }

@@ -57,20 +57,6 @@ TEST(Day1, LoadExampleDataFromStream)
 	EXPECT_EQ(valueVector, std::vector<int>({ 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 }));
 }
 
-TEST(Day1, LoadEmptyLineThrows)
-{
-	std::stringstream valueStream{ "  " };
-
-	EXPECT_THROW(LoadIntStream(valueStream), std::invalid_argument);
-}
-
-TEST(Day1, LoadNotANumberThrows)
-{
-	std::stringstream valueStream{ "1\ntext\2" };
-
-	EXPECT_THROW(LoadIntStream(valueStream), std::invalid_argument);
-}
-
 TEST(Day1, EmptyMeasurementsReturnsZero)
 {
 	std::vector<int> emptyMeasurement;
