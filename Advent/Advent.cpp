@@ -26,6 +26,7 @@ extern int CountDangerousPoints(const std::vector<IntLine2>& lines);
 extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 
 extern int GetAlignFuelCost(const std::vector<int>& crabs);
+extern int GetAlignRealFuelCost(const std::vector<int>& crabs);
 
 
 int main()
@@ -121,5 +122,6 @@ int main()
 		}
 
 		std::cout << "Day7: fuel cost: " << GetAlignFuelCost(crabs) << std::endl;
+		std::cout << "Day7: real fuel cost: " << GetAlignRealFuelCost(crabs) << std::endl;
 	}
 }

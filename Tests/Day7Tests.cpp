@@ -5,6 +5,7 @@
 
 extern std::vector<int> LoadIntStream(std::istream& in);
 extern int GetAlignFuelCost(const std::vector<int>& crabs);
+extern int GetAlignRealFuelCost(const std::vector<int>& crabs);
 
 namespace
 {
@@ -53,4 +54,9 @@ TEST(Day7, GetAlignFuelCostForFirstToLast)
 TEST(Day7, GetAlignFuelCostForExampleInput)
 {
 	EXPECT_EQ(GetAlignFuelCost(c_exampleNumbers), 37);
+}
+
+TEST(Day7, GetAlignRealFuelCostForExampleInput)
+{
+	EXPECT_EQ(GetAlignRealFuelCost(c_exampleNumbers), 168);
 }
