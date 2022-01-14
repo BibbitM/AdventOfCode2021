@@ -28,6 +28,9 @@ extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 extern int GetAlignFuelCost(const std::vector<int>& crabs);
 extern int GetAlignRealFuelCost(const std::vector<int>& crabs);
 
+extern std::istream& GetBitsAfterSeparator(std::istream& input, std::vector<uint32_t>& bits);
+extern int CountNumbersWith2347Bits(const std::vector<uint32_t>& numbers);
+
 
 int main()
 {
@@ -123,5 +126,20 @@ int main()
 
 		std::cout << "Day7: fuel cost: " << GetAlignFuelCost(crabs) << std::endl;
 		std::cout << "Day7: real fuel cost: " << GetAlignRealFuelCost(crabs) << std::endl;
+	}
+
+	{
+		int count = 0;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day8.txt");
+			std::vector<uint32_t> numbers;
+			while (GetBitsAfterSeparator(ifile, numbers))
+			{
+				count += CountNumbersWith2347Bits(numbers);
+			}
+		}
+
+		std::cout << "Day7: 1478 digits count: " << count << std::endl;
 	}
 }

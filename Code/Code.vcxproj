@@ -178,6 +178,7 @@
     <ClCompile Include="Day3.cpp" />
     <ClCompile Include="Day5.cpp" />
     <ClCompile Include="Day7.cpp" />
+    <ClCompile Include="Day8.cpp" />
     <ClCompile Include="Lanternfish.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
