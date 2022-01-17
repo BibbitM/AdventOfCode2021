@@ -163,6 +163,7 @@
     <ClInclude Include="BingoCard.h" />
     <ClInclude Include="BingoNumbers.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Heightmap.h" />
     <ClInclude Include="IntLine2.h" />
     <ClInclude Include="IntVector2.h" />
     <ClInclude Include="Lanternfish.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Day5.cpp" />
     <ClCompile Include="Day7.cpp" />
     <ClCompile Include="Day8.cpp" />
+    <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Lanternfish.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
