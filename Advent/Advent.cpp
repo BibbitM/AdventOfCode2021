@@ -28,8 +28,10 @@ extern int CountDangerousPointsWithDiagonal(const std::vector<IntLine2>& lines);
 extern int GetAlignFuelCost(const std::vector<int>& crabs);
 extern int GetAlignRealFuelCost(const std::vector<int>& crabs);
 
-extern std::istream& GetBitsAfterSeparator(std::istream& input, std::vector<uint32_t>& bits);
+extern std::istream& GetBitsCodeAndMessage(std::istream& input, std::vector<uint32_t>& code, std::vector<uint32_t>& message);
 extern int CountNumbersWith2347Bits(const std::vector<uint32_t>& numbers);
+extern std::array<uint32_t, 10> CreateDecoderFromTestSignal(const std::vector<uint32_t>& code);
+extern uint32_t DecodeMessage(const std::array<uint32_t, 10>& decoder, const std::vector<uint32_t>& message);
 
 
 int main()
@@ -130,16 +132,20 @@ int main()
 
 	{
 		int count = 0;
+		uint32_t output = 0u;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day8.txt");
-			std::vector<uint32_t> numbers;
-			while (GetBitsAfterSeparator(ifile, numbers))
+			std::vector<uint32_t> code;
+			std::vector<uint32_t> message;
+			while (GetBitsCodeAndMessage(ifile, code, message))
 			{
-				count += CountNumbersWith2347Bits(numbers);
+				count += CountNumbersWith2347Bits(message);
+				output += DecodeMessage(CreateDecoderFromTestSignal(code), message);
 			}
 		}
 
 		std::cout << "Day7: 1478 digits count: " << count << std::endl;
+		std::cout << "Day7: decoded output: " << output << std::endl;
 	}
 }
