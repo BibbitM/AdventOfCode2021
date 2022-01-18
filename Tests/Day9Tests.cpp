@@ -2,6 +2,7 @@
 
 #include "../Code/Heightmap.h"
 
+#include <algorithm>
 #include <numeric>
 #include <sstream>
 
@@ -101,4 +102,86 @@ TEST(Day9, CalculateSumOfRiskLevelExample)
 	input >> heightmap;
 
 	EXPECT_EQ(heightmap.CalculateSumOfRiskLevel(), 15);
+}
+
+TEST(Day9, FindLowPointsCoordsEmpty)
+{
+	Heightmap heightmap;
+	EXPECT_TRUE(heightmap.FindLowPointsCoords().empty());
+}
+
+TEST(Day9, FindLowPointsCoordsSimple)
+{
+	std::istringstream input(c_simpleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	EXPECT_EQ(heightmap.FindLowPointsCoords(), std::vector<Heightmap::Coord>({ { 0, 0 } }));
+}
+
+TEST(Day9, FindLowPointsCoordsExample)
+{
+	std::istringstream input(c_exampleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	auto lowPointsCoords = heightmap.FindLowPointsCoords();
+	EXPECT_EQ(lowPointsCoords.size(), 4);
+	EXPECT_TRUE(std::find(lowPointsCoords.begin(), lowPointsCoords.end(), Heightmap::Coord(0, 1)) != lowPointsCoords.end());
+	EXPECT_TRUE(std::find(lowPointsCoords.begin(), lowPointsCoords.end(), Heightmap::Coord(0, 9)) != lowPointsCoords.end());
+	EXPECT_TRUE(std::find(lowPointsCoords.begin(), lowPointsCoords.end(), Heightmap::Coord(2, 2)) != lowPointsCoords.end());
+	EXPECT_TRUE(std::find(lowPointsCoords.begin(), lowPointsCoords.end(), Heightmap::Coord(4, 6)) != lowPointsCoords.end());
+}
+
+TEST(Day9, FindBasinsEmpty)
+{
+	Heightmap heightmap;
+	EXPECT_TRUE(heightmap.FindBasins().empty());
+}
+
+TEST(Day9, FindBasinsSimple)
+{
+	std::istringstream input(c_simpleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	EXPECT_EQ(heightmap.FindBasins(), std::vector<int>({ 6 }));
+}
+
+TEST(Day9, FindBasinsExample)
+{
+	std::istringstream input(c_exampleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	std::vector<int> basins = heightmap.FindBasins();
+	EXPECT_EQ(basins.size(), 4);
+	// Contains basins size.
+	EXPECT_TRUE(std::find(basins.begin(), basins.end(), 3) != basins.end());
+	EXPECT_TRUE(std::find(basins.begin(), basins.end(), 9) != basins.end());
+	EXPECT_TRUE(std::find(basins.begin(), basins.end(), 14) != basins.end());
+	// Basins size are sorted.
+	EXPECT_EQ(basins[0], 14);
+	EXPECT_EQ(basins[1], 9);
+	EXPECT_EQ(basins[2], 9);
+	EXPECT_EQ(basins[3], 3);
+}
+
+TEST(Day9, CalculateTop3BasinsMultiplyExample)
+{
+	std::istringstream input(c_exampleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	std::vector<int> basins = heightmap.FindBasins();
+	int top3BasinsMultiply = 1;
+	for (size_t i = 0; i < std::min(basins.size(), 3ull); ++i)
+		top3BasinsMultiply *= basins[i];
+
+	EXPECT_EQ(top3BasinsMultiply, 1134);
 }

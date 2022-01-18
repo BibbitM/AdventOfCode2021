@@ -159,5 +159,12 @@ int main()
 		}
 
 		std::cout << "Day9: sum of risk level: " << heightmap.CalculateSumOfRiskLevel() << std::endl;
+
+		std::vector<int> basins = heightmap.FindBasins();
+		int top3BasinsMultiply = 1;
+		for (size_t i = 0; i < std::min(basins.size(), 3ull); ++i)
+			top3BasinsMultiply *= basins[i];
+
+		std::cout << "Day9: top 3 basins multiply: " << top3BasinsMultiply << std::endl;
 	}
 }
