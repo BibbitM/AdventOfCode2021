@@ -11,7 +11,8 @@ public:
 	size_t GetColumns() const { return !m_heightmap.empty() ? m_heightmap[0].size() : 0; }
 	const std::vector<char>& operator[](size_t x) const { return m_heightmap[x]; }
 
-	std::vector<char> GetLowPoints() const;
+	std::vector<char> FindLowPoints() const;
+	int CalculateSumOfRiskLevel() const;
 
 private:
 	std::vector<std::vector<char>> m_heightmap;

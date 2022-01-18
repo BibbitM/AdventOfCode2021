@@ -3,6 +3,7 @@
 #include "../Code/BingoNumbers.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
+#include "../Code/Heightmap.h"
 #include "../Code/Lanternfish.h"
 
 #include <iostream>
@@ -147,5 +148,16 @@ int main()
 
 		std::cout << "Day7: 1478 digits count: " << count << std::endl;
 		std::cout << "Day7: decoded output: " << output << std::endl;
+	}
+
+	{
+		Heightmap heightmap;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day9.txt");
+			ifile >> heightmap;
+		}
+
+		std::cout << "Day9: sum of risk level: " << heightmap.CalculateSumOfRiskLevel() << std::endl;
 	}
 }

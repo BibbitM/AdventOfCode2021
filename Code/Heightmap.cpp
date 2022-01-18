@@ -3,6 +3,7 @@
 #include "Heightmap.h"
 
 #include <cassert>
+#include <numeric>
 
 std::istream& operator>>(std::istream& input, Heightmap& heightmap)
 {
@@ -20,7 +21,7 @@ std::istream& operator>>(std::istream& input, Heightmap& heightmap)
 	return input;
 }
 
-std::vector<char> Heightmap::GetLowPoints() const
+std::vector<char> Heightmap::FindLowPoints() const
 {
 	std::vector<char> lowPoints{};
 
@@ -46,4 +47,10 @@ std::vector<char> Heightmap::GetLowPoints() const
 	}
 
 	return lowPoints;
+}
+
+int Heightmap::CalculateSumOfRiskLevel() const
+{
+	auto lowPoints = FindLowPoints();
+	return std::accumulate(lowPoints.begin(), lowPoints.end(), static_cast<int>(lowPoints.size()));
 }

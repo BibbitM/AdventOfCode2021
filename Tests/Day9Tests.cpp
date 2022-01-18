@@ -46,27 +46,59 @@ TEST(Day9, LoadExampleInput)
 	EXPECT_EQ(heightmap[4][9], 8);
 }
 
-TEST(Day9, GetLowPointsSimple)
+TEST(Day9, FindLowPointsEmpty)
+{
+	Heightmap heightmap;
+	EXPECT_TRUE(heightmap.FindLowPoints().empty());
+}
+
+TEST(Day9, FindLowPointsSimple)
 {
 	std::istringstream input(c_simpleInput);
 	Heightmap heightmap;
 
 	input >> heightmap;
 
-	EXPECT_EQ(heightmap.GetLowPoints(), std::vector<char>({ 1 }));
+	EXPECT_EQ(heightmap.FindLowPoints(), std::vector<char>({ 1 }));
 }
 
-TEST(Day9, GetLowPointsExample)
+TEST(Day9, FindLowPointsExample)
 {
 	std::istringstream input(c_exampleInput);
 	Heightmap heightmap;
 
 	input >> heightmap;
 
-	std::vector<char> lowPoints = heightmap.GetLowPoints();
+	std::vector<char> lowPoints = heightmap.FindLowPoints();
 
 	auto countOfCertaniValues = [](char val) { return [val](int acc, char v) -> int { return v == val ? acc + 1 : acc; }; };
 	EXPECT_EQ(std::accumulate(lowPoints.begin(), lowPoints.end(), 0, countOfCertaniValues(1)), 1);
 	EXPECT_EQ(std::accumulate(lowPoints.begin(), lowPoints.end(), 0, countOfCertaniValues(0)), 1);
 	EXPECT_EQ(std::accumulate(lowPoints.begin(), lowPoints.end(), 0, countOfCertaniValues(5)), 2);
+}
+
+TEST(Day9, CalculateSumOfRiskLevelEmpty)
+{
+	Heightmap heightmap;
+	EXPECT_EQ(heightmap.CalculateSumOfRiskLevel(), 0);
+}
+
+TEST(Day9, CalculateSumOfRiskLevelSimple)
+{
+	std::istringstream input(c_simpleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	EXPECT_EQ(heightmap.CalculateSumOfRiskLevel(), 2);
+}
+
+TEST(Day9, CalculateSumOfRiskLevelExample)
+{
+	std::istringstream input(c_exampleInput);
+	Heightmap heightmap;
+
+	input >> heightmap;
+
+	EXPECT_EQ(heightmap.CalculateSumOfRiskLevel(), 15);
 }
