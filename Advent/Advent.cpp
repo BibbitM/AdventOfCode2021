@@ -5,7 +5,9 @@
 #include "../Code/IntVector2.h"
 #include "../Code/Heightmap.h"
 #include "../Code/Lanternfish.h"
+#include "../Code/NavigationSyntax.h"
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -166,5 +168,33 @@ int main()
 			top3BasinsMultiply *= basins[i];
 
 		std::cout << "Day9: top 3 basins multiply: " << top3BasinsMultiply << std::endl;
+	}
+
+	{
+		int totalErrorScore = 0;
+		int64_t middleCompletionScore = 0;
+		std::vector<int64_t> completionScores;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day10.txt");
+
+			std::string line;
+			while (std::getline(ifile, line))
+			{
+				totalErrorScore += NavigationSyntax::GetErrorScore(NavigationSyntax::FindChunkError(line));
+				std::string completionLine = NavigationSyntax::DetermineLineCompletion(line);
+				if (!completionLine.empty())
+					completionScores.push_back(NavigationSyntax::GetCompletionScore(completionLine));
+			}
+		}
+
+		if (!completionScores.empty())
+		{
+			std::sort(completionScores.begin(), completionScores.end());
+			middleCompletionScore = completionScores[completionScores.size() / 2];
+		}
+
+		std::cout << "Day10: total syntax error score: " << totalErrorScore << std::endl;
+		std::cout << "Day10: middle completion score: " << middleCompletionScore << std::endl;
 	}
 }
