@@ -168,6 +168,7 @@
     <ClInclude Include="IntVector2.h" />
     <ClInclude Include="Lanternfish.h" />
     <ClInclude Include="NavigationSyntax.h" />
+    <ClInclude Include="OctopusGrid.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -184,6 +185,7 @@
     <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Lanternfish.cpp" />
     <ClCompile Include="NavigationSyntax.cpp" />
+    <ClCompile Include="OctopusGrid.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

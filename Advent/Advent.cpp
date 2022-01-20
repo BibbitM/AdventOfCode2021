@@ -6,6 +6,7 @@
 #include "../Code/Heightmap.h"
 #include "../Code/Lanternfish.h"
 #include "../Code/NavigationSyntax.h"
+#include "../Code/OctopusGrid.h"
 
 #include <algorithm>
 #include <iostream>
@@ -196,5 +197,18 @@ int main()
 
 		std::cout << "Day10: total syntax error score: " << totalErrorScore << std::endl;
 		std::cout << "Day10: middle completion score: " << middleCompletionScore << std::endl;
+	}
+
+	{
+		OctopusGrid grid;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day11.txt");
+			ifile >> grid;
+		}
+
+		grid.Step(100);
+
+		std::cout << "Day11: total flashes after 100 steps: " << grid.GetFlashes() << std::endl;
 	}
 }
