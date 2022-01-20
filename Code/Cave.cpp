@@ -19,8 +19,8 @@ void CavesMap::AddConnection(std::string_view first, std::string_view second)
 	if (firstCave == secondCave)
 		return;
 
-	firstCave->neightors.push_back(secondCave);
-	secondCave->neightors.push_back(firstCave);
+	firstCave->neighbors.push_back(secondCave);
+	secondCave->neighbors.push_back(firstCave);
 }
 
 int CavesMap::FindDistinctPathsCount() const
@@ -45,7 +45,7 @@ int CavesMap::FindDistinctPathsCount() const
 			continue;
 		}
 
-		for (const Cave* n : path.last->neightors)
+		for (const Cave* n : path.last->neighbors)
 		{
 			// Skip blocked paths.
 			if (std::find(path.blocked.begin(), path.blocked.end(), n) != path.blocked.end())

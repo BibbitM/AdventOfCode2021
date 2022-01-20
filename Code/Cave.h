@@ -17,11 +17,11 @@ private:
 	{
 	public:
 		Cave(std::string_view name, bool isStart, bool isEnd, bool isSmall)
-			: name(name), neightors(), isStart(isStart), isEnd(isEnd), isSmall(isSmall)
+			: name(name), neighbors(), isStart(isStart), isEnd(isEnd), isSmall(isSmall)
 		{}
 
 		std::string name;
-		std::vector<Cave*> neightors;
+		std::vector<Cave*> neighbors;
 		bool isStart = false;
 		bool isEnd = false;
 		bool isSmall = false;
