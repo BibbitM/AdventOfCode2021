@@ -162,6 +162,7 @@
     <ClInclude Include="BingoBoard.h" />
     <ClInclude Include="BingoCard.h" />
     <ClInclude Include="BingoNumbers.h" />
+    <ClInclude Include="Cave.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="IntLine2.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="BingoBoard.cpp" />
     <ClCompile Include="BingoCard.cpp" />
     <ClCompile Include="BingoNumbers.cpp" />
+    <ClCompile Include="Cave.cpp" />
     <ClCompile Include="Day1.cpp" />
     <ClCompile Include="Day2.cpp" />
     <ClCompile Include="Day3.cpp" />

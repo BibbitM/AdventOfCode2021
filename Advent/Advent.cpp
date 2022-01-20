@@ -1,6 +1,7 @@
 #include "../Code/BingoBoard.h"
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
+#include "../Code/Cave.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
 #include "../Code/Heightmap.h"
@@ -215,5 +216,16 @@ int main()
 			grid.Step();
 		}
 		std::cout << "Day11: all flashed in step: " << grid.GetSteps() << std::endl;
+	}
+
+	{
+		CavesMap map;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day12.txt");
+			ifile >> map;
+		}
+
+		std::cout << "Day12: unique paths: " << map.FindDistinctPathsCount() << std::endl;
 	}
 }
