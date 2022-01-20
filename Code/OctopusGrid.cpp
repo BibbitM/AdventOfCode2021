@@ -5,6 +5,8 @@ void OctopusGrid::Step(int steps)
 {
 	for (int _ = 0; _ < steps; ++_)
 	{
+		++m_steps;
+		int prevFlashes = m_flashes;
 		for (int y = 0; y < c_gridSize; ++y)
 		{
 			for (int x = 0; x < c_gridSize; ++x)
@@ -12,6 +14,7 @@ void OctopusGrid::Step(int steps)
 				IncreaseEnergy({ x, y });
 			}
 		}
+		m_allFlashed = m_flashes - prevFlashes == c_gridSize * c_gridSize;
 
 		for (int& e : m_energy)
 		{

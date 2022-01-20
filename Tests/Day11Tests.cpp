@@ -153,3 +153,39 @@ TEST(Day11, OctopusGridExampleStep)
 	grid.Step(100);
 	EXPECT_EQ(grid.GetFlashes(), 1656);
 }
+
+TEST(Day11, OctopusGridFlashesAllTogether)
+{
+	OctopusGrid grid;
+	for (int y = 0; y < OctopusGrid::c_gridSize; ++y)
+		for (int x = 0; x < OctopusGrid::c_gridSize; ++x)
+			grid.Set({ x, y }, 8);
+
+	grid.Step();
+	EXPECT_FALSE(grid.AllFlashed());
+	grid.Step();
+	EXPECT_TRUE(grid.AllFlashed());
+}
+
+TEST(Day11, OctopusGridCountsSteps)
+{
+	OctopusGrid grid;
+	EXPECT_EQ(grid.GetSteps(), 0);
+	grid.Step();
+	EXPECT_EQ(grid.GetSteps(), 1);
+	grid.Step(10);
+	EXPECT_EQ(grid.GetSteps(), 11);
+}
+
+TEST(Day11, OctopusGridExampleAllFlashed)
+{
+	OctopusGrid grid;
+	std::istringstream input{ c_exampleInput };
+	input >> grid;
+
+	while (!grid.AllFlashed())
+	{
+		grid.Step();
+	}
+	EXPECT_EQ(grid.GetSteps(), 195);
+}

@@ -19,7 +19,9 @@ public:
 	}
 
 	void Step(int steps = 1);
+	int GetSteps() const { return m_steps; }
 	int GetFlashes() const { return m_flashes; }
+	bool AllFlashed() const { return m_allFlashed; }
 
 private:
 	void IncreaseEnergy(const IntVector2& pos);
@@ -30,7 +32,9 @@ private:
 		return static_cast<size_t>(pos.x + pos.y * c_gridSize);
 	}
 	std::array<int, c_gridSize* c_gridSize> m_energy{};
+	int m_steps{};
 	int m_flashes{};
+	bool m_allFlashed{};
 };
 
 std::istream& operator>>(std::istream& in, OctopusGrid& grid);

@@ -208,7 +208,12 @@ int main()
 		}
 
 		grid.Step(100);
-
 		std::cout << "Day11: total flashes after 100 steps: " << grid.GetFlashes() << std::endl;
+
+		while (!grid.AllFlashed())
+		{
+			grid.Step();
+		}
+		std::cout << "Day11: all flashed in step: " << grid.GetSteps() << std::endl;
 	}
 }
