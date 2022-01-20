@@ -31,19 +31,18 @@ private:
 	{
 	public:
 		explicit Path(const Cave* startCave)
-			: path({ startCave })
+			: last(startCave)
 		{
-			if (startCave->isSmall)
-				blocked.push_back(startCave);
+			if (last->isSmall)
+				blocked.push_back(last);
 		}
 		Path(const Path& prevPath, const Cave* neighbor)
-			: Path(prevPath)
+			: last(neighbor), blocked(prevPath.blocked)
 		{
-			path.push_back(neighbor);
-			if (neighbor->isSmall)
-				blocked.push_back(neighbor);
+			if (last->isSmall)
+				blocked.push_back(last);
 		}
-		std::vector<const Cave*> path;
+		const Cave* last;
 		std::vector<const Cave*> blocked;
 	};
 

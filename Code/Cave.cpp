@@ -39,13 +39,13 @@ int CavesMap::FindDistinctPathsCount() const
 		Path path = std::move(pathsToCheck.back());
 		pathsToCheck.pop_back();
 
-		if (path.path.back()->isEnd)
+		if (path.last->isEnd)
 		{
 			pathsToEnd.push_back(std::move(path));
 			continue;
 		}
 
-		for (const Cave* n : path.path.back()->neightors)
+		for (const Cave* n : path.last->neightors)
 		{
 			// Skip blocked paths.
 			if (std::find(path.blocked.begin(), path.blocked.end(), n) != path.blocked.end())
