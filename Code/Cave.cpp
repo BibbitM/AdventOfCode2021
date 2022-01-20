@@ -23,7 +23,7 @@ void CavesMap::AddConnection(std::string_view first, std::string_view second)
 	secondCave->neighbors.push_back(firstCave);
 }
 
-int CavesMap::FindDistinctPathsCount() const
+int CavesMap::FindDistinctPathsCount(bool allowSingleSmallCaveDoubleVisit) const
 {
 	const Cave* startCave = FindCave(c_startName);
 	if (!startCave)
@@ -47,8 +47,12 @@ int CavesMap::FindDistinctPathsCount() const
 
 		for (const Cave* n : path.last->neighbors)
 		{
+			// Skip start
+			if (n->isStart)
+				continue;
+
 			// Skip blocked paths.
-			if (std::find(path.blocked.begin(), path.blocked.end(), n) != path.blocked.end())
+			if (path.IsBlocked(n, allowSingleSmallCaveDoubleVisit))
 				continue;
 
 			// Create new path through neighbor n.

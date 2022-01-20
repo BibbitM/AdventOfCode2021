@@ -10,7 +10,7 @@ class CavesMap
 {
 public:
 	void AddConnection(std::string_view first, std::string_view second);
-	int FindDistinctPathsCount() const;
+	int FindDistinctPathsCount(bool allowSingleSmallCaveDoubleVisit = false) const;
 
 private:
 	class Cave
@@ -33,17 +33,40 @@ private:
 		explicit Path(const Cave* startCave)
 			: last(startCave)
 		{
-			if (last->isSmall)
-				blocked.push_back(last);
+			AddLastToBlocked();
 		}
 		Path(const Path& prevPath, const Cave* neighbor)
-			: last(neighbor), blocked(prevPath.blocked)
+			: Path(prevPath)
+		{
+			last = neighbor;
+			AddLastToBlocked();
+		}
+		void AddLastToBlocked()
 		{
 			if (last->isSmall)
-				blocked.push_back(last);
+			{
+				auto it = std::find(blocked.begin(), blocked.end(), last);
+				if (it != blocked.end())
+					doubleVisit = true;
+				else
+					blocked.push_back(last);
+			}
 		}
-		const Cave* last;
+		bool IsBlocked(const Cave* cave, bool allowSingleSmallCaveDoubleVisit) const
+		{
+			auto it = std::find(blocked.begin(), blocked.end(), cave);
+			if (it == blocked.end())
+				return false;
+
+			if (!allowSingleSmallCaveDoubleVisit)
+				return true;
+			else
+				return doubleVisit;
+		}
+
+		const Cave* last = nullptr;
 		std::vector<const Cave*> blocked;
+		bool doubleVisit = false;
 	};
 
 	Cave* FindOrCreateCave(std::string_view name);

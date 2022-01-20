@@ -227,5 +227,6 @@ int main()
 		}
 
 		std::cout << "Day12: unique paths: " << map.FindDistinctPathsCount() << std::endl;
+		std::cout << "Day12: unique paths with double visit: " << map.FindDistinctPathsCount(true) << std::endl;
 	}
 }

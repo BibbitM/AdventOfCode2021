@@ -101,3 +101,30 @@ TEST(Day12, Example3FindDistinctPathsCount)
 	input >> map;
 	EXPECT_EQ(map.FindDistinctPathsCount(), 226);
 }
+
+TEST(Day12, Example1FindDistinctPathsCountWith2SmallVisits)
+{
+	CavesMap map;
+	std::istringstream input(c_example1Input);
+
+	input >> map;
+	EXPECT_EQ(map.FindDistinctPathsCount(true), 36);
+}
+
+TEST(Day12, Example2FindDistinctPathsCountWith2SmallVisits)
+{
+	CavesMap map;
+	std::istringstream input(c_example2Input);
+
+	input >> map;
+	EXPECT_EQ(map.FindDistinctPathsCount(true), 103);
+}
+
+TEST(Day12, Example3FindDistinctPathsCountWith2SmallVisits)
+{
+	CavesMap map;
+	std::istringstream input(c_example3Input);
+
+	input >> map;
+	EXPECT_EQ(map.FindDistinctPathsCount(true), 3509);
+}
