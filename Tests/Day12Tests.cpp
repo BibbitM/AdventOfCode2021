@@ -4,6 +4,45 @@
 
 #include <sstream>
 
+namespace
+{
+	constexpr const char c_example1Input[] = R"--(start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end)--";
+	constexpr const char c_example2Input[] = R"--(dc-end
+HN-start
+start-kj
+dc-start
+dc-HN
+LN-dc
+HN-end
+kj-sa
+kj-HN
+kj-dc)--";
+	constexpr const char c_example3Input[] = R"--(fs-end
+he-DX
+fs-he
+start-DX
+pj-DX
+end-zg
+zg-sl
+zg-pj
+pj-he
+RW-he
+fs-DX
+pj-RW
+zg-RW
+start-pj
+he-WI
+zg-he
+pj-fs
+start-RW)--";
+}
+
 TEST(Day12, EmptyCaveGivesZeroPath)
 {
 	CavesMap map;
@@ -39,13 +78,7 @@ TEST(Day12, CreateCaveWithDeadEndAndTwoPats)
 TEST(Day12, Example1FindDistinctPathsCount)
 {
 	CavesMap map;
-	std::istringstream input(R"--(start-A
-start-b
-A-c
-A-b
-b-d
-A-end
-b-end)--");
+	std::istringstream input(c_example1Input);
 
 	input >> map;
 	EXPECT_EQ(map.FindDistinctPathsCount(), 10);
@@ -54,16 +87,7 @@ b-end)--");
 TEST(Day12, Example2FindDistinctPathsCount)
 {
 	CavesMap map;
-	std::istringstream input(R"--(dc-end
-HN-start
-start-kj
-dc-start
-dc-HN
-LN-dc
-HN-end
-kj-sa
-kj-HN
-kj-dc)--");
+	std::istringstream input(c_example2Input);
 
 	input >> map;
 	EXPECT_EQ(map.FindDistinctPathsCount(), 19);
@@ -72,24 +96,7 @@ kj-dc)--");
 TEST(Day12, Example3FindDistinctPathsCount)
 {
 	CavesMap map;
-	std::istringstream input(R"--(fs-end
-he-DX
-fs-he
-start-DX
-pj-DX
-end-zg
-zg-sl
-zg-pj
-pj-he
-RW-he
-fs-DX
-pj-RW
-zg-RW
-start-pj
-he-WI
-zg-he
-pj-fs
-start-RW)--");
+	std::istringstream input(c_example3Input);
 
 	input >> map;
 	EXPECT_EQ(map.FindDistinctPathsCount(), 226);
