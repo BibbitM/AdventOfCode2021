@@ -87,3 +87,25 @@ TEST(Day13, PaperAndFoldsLoadFromExampleStream)
 	paper.FoldAlong(folds[1]);
 	EXPECT_EQ(paper.CountDots(), 16);
 }
+
+TEST(Day13, PaperEmptyPrint)
+{
+	DotsPaper paper;
+
+	std::ostringstream output;
+	output << paper;
+	EXPECT_EQ(output.str(), ".\n");
+}
+
+TEST(Day13, PaperSimplePrint)
+{
+	DotsPaper paper;
+	paper.AddDot(0, 0);
+	paper.AddDot(1, 1);
+	paper.AddDot(0, 2);
+	paper.AddDot(1, 2);
+
+	std::ostringstream output;
+	output << paper;
+	EXPECT_EQ(output.str(), "#.\n.#\n##\n");
+}

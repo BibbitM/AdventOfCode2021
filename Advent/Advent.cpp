@@ -246,5 +246,10 @@ int main()
 		assert(!folds.empty());
 		paper.FoldAlong(folds.front());
 		std::cout << "Day13: dots after first fold: " << paper.CountDots() << std::endl;
+
+		for (size_t i = 1u; i < folds.size(); ++i)
+			paper.FoldAlong(folds[i]);
+		std::cout << "Day13: paper after folds:\n";
+		std::cout << paper;
 	}
 }

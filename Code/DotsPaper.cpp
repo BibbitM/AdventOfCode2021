@@ -88,3 +88,26 @@ std::istream& operator>>(std::istream& in, std::vector<Fold>& folds)
 
 	return in;
 }
+
+std::ostream& operator<<(std::ostream& out, DotsPaper& paper)
+{
+	int maxX = 0;
+	int maxY = 0;
+	for (const auto& dot : paper.m_dots)
+	{
+		maxX = std::max(dot.x, maxX);
+		maxY = std::max(dot.y, maxY);
+	}
+
+	std::vector<std::string> lines;
+	lines.resize(maxY + 1, std::string(maxX + 1, '.'));
+	for (const auto& dot : paper.m_dots)
+	{
+		lines[dot.y][dot.x] = '#';
+	}
+
+	for (const auto& line : lines)
+		out << line << std::endl;
+
+	return out;
+}
