@@ -2,6 +2,7 @@
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
 #include "../Code/Cave.h"
+#include "../Code/DotsPaper.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
 #include "../Code/Heightmap.h"
@@ -10,6 +11,7 @@
 #include "../Code/OctopusGrid.h"
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -228,5 +230,21 @@ int main()
 
 		std::cout << "Day12: unique paths: " << map.FindDistinctPathsCount() << std::endl;
 		std::cout << "Day12: unique paths with double visit: " << map.FindDistinctPathsCount(true) << std::endl;
+	}
+
+
+	{
+		DotsPaper paper;
+		std::vector<Fold> folds;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day13.txt");
+			ifile >> paper;
+			ifile >> folds;
+		}
+
+		assert(!folds.empty());
+		paper.FoldAlong(folds.front());
+		std::cout << "Day13: dots after first fold: " << paper.CountDots() << std::endl;
 	}
 }
