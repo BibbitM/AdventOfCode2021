@@ -256,7 +256,7 @@ int main()
 
 	{
 		Polimer polimer;
-		std::vector<std::pair<std::string, char>> instructions;
+		std::vector<std::pair<PolimerPair, char>> instructions;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day14.txt");
@@ -267,5 +267,8 @@ int main()
 		for (int i = 0; i < 10; ++i)
 			polimer.Grow(instructions);
 		std::cout << "Day14: quantity max-min after 10 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
+		for (int i = 0; i < 30; ++i)
+			polimer.Grow(instructions);
+		std::cout << "Day14: quantity max-min after 40 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
 	}
 }
