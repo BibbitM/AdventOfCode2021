@@ -9,6 +9,7 @@
 #include "../Code/Lanternfish.h"
 #include "../Code/NavigationSyntax.h"
 #include "../Code/OctopusGrid.h"
+#include "../Code/Polymerization.h"
 
 #include <algorithm>
 #include <cassert>
@@ -251,5 +252,20 @@ int main()
 			paper.FoldAlong(folds[i]);
 		std::cout << "Day13: paper after folds:\n";
 		std::cout << paper;
+	}
+
+	{
+		Polimer polimer;
+		std::vector<std::pair<std::string, char>> instructions;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day14.txt");
+			ifile >> polimer;
+			ifile >> instructions;
+		}
+
+		for (int i = 0; i < 10; ++i)
+			polimer.Grow(instructions);
+		std::cout << "Day14: quantity max-min after 10 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
 	}
 }
