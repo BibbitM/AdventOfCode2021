@@ -16,6 +16,12 @@ namespace
 3125421639
 1293138521
 2311944581)--";
+
+	constexpr const char c_enlarged8Input[] = R"--(89123
+91234
+12345
+23456
+34567)--";
 }
 
 TEST(Day15, CreateEmptyCavern)
@@ -85,4 +91,32 @@ TEST(Day15, CalculateRiskExample)
 	input >> cavern;
 
 	EXPECT_EQ(cavern.CalculateRisk(), 40);
+}
+
+TEST(Day15, EnlargeMapSimple)
+{
+	Cavern cavern;
+	{
+		std::istringstream input("8");
+		input >> cavern;
+	}
+	Cavern enlargedCavern;
+	{
+		std::istringstream input(c_enlarged8Input);
+		input >> enlargedCavern;
+	}
+
+	cavern.Enlarge5x5();
+	EXPECT_EQ(cavern, enlargedCavern);
+}
+
+TEST(Day15, CalculateRiskEnlargedExample)
+{
+	Cavern cavern;
+	std::istringstream input(c_exampleInput);
+
+	input >> cavern;
+
+	cavern.Enlarge5x5();
+	EXPECT_EQ(cavern.CalculateRisk(), 315);
 }

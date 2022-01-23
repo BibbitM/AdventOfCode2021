@@ -80,6 +80,45 @@ int Cavern::CalculateRisk() const
 	return Get(m_sizeX - 1, m_sizeY - 1);
 }
 
+void Cavern::Enlarge5x5()
+{
+	std::vector<int> enlargedeCells;
+	enlargedeCells.resize(m_sizeX * 5 * m_sizeY * 5);
+
+	// Copy original values.
+	for (int x = 0; x < m_sizeX; ++x)
+	{
+		for (int y = 0; y < m_sizeY; ++y)
+		{
+			enlargedeCells[GetEnlarded5x5CellIndex(x, y)] = m_cells[GetCellIndex(x, y)];
+		}
+	}
+
+	// Copy right.
+	for (int x = m_sizeX; x < m_sizeX * 5; ++x)
+	{
+		for (int y = 0; y < m_sizeY; ++y)
+		{
+			const int prevValue = enlargedeCells[GetEnlarded5x5CellIndex(x - m_sizeX, y)];
+			enlargedeCells[GetEnlarded5x5CellIndex(x, y)] = prevValue >= 9 ? 1 : prevValue + 1;
+		}
+	}
+
+	// Copy down.
+	for (int x = 0; x < m_sizeX * 5; ++x)
+	{
+		for (int y = m_sizeY; y < m_sizeY * 5; ++y)
+		{
+			const int prevValue = enlargedeCells[GetEnlarded5x5CellIndex(x, y - m_sizeY)];
+			enlargedeCells[GetEnlarded5x5CellIndex(x, y)] = prevValue >= 9 ? 1 : prevValue + 1;
+		}
+	}
+
+	std::swap(m_cells, enlargedeCells);
+	m_sizeX *= 5;
+	m_sizeY *= 5;
+}
+
 void Cavern::Resize(int x, int y)
 {
 	assert(x > 0);
