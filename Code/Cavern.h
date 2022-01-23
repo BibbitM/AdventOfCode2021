@@ -11,8 +11,12 @@ public:
 	int GetSizeY() const { return m_sizeY; }
 	int Get(int x, int y) const { return m_cells[GetCellIndex(x, y)]; }
 
+	int CalculateRisk() const;
+
 private:
-	size_t GetCellIndex(int x, int y) const
+	int CalculateHeuristicScore(size_t idx) const;
+	std::vector<size_t> GetNeigborIndices(size_t idx) const;
+	inline size_t GetCellIndex(int x, int y) const
 	{
 		assert(x >= 0 && x < m_sizeX);
 		assert(y >= 0 && y < m_sizeY);

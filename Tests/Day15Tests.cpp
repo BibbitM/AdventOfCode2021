@@ -56,3 +56,33 @@ TEST(Day15, LoadCavernFromExample)
 	EXPECT_EQ(cavern.Get(0, 9), 2);
 	EXPECT_EQ(cavern.Get(9, 9), 1);
 }
+
+TEST(Day15, CalculateRiskIgnoresStartIncudesEnd)
+{
+	Cavern cavern;
+	std::istringstream input("15\n");
+
+	input >> cavern;
+
+	EXPECT_EQ(cavern.CalculateRisk(), 5);
+}
+
+TEST(Day15, CalculateRiskSimple)
+{
+	Cavern cavern;
+	std::istringstream input("19\n12");
+
+	input >> cavern;
+
+	EXPECT_EQ(cavern.CalculateRisk(), 3);
+}
+
+TEST(Day15, CalculateRiskExample)
+{
+	Cavern cavern;
+	std::istringstream input(c_exampleInput);
+
+	input >> cavern;
+
+	EXPECT_EQ(cavern.CalculateRisk(), 40);
+}
