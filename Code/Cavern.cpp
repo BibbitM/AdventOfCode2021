@@ -3,18 +3,21 @@
 #include "Cavern.h"
 
 #include <algorithm>
+#include <limits>
 #include <string>
 
 inline int Cavern::CalculateHeuristicScore(size_t idx) const
 {
 	const int x = static_cast<int>(idx % static_cast<size_t>(m_sizeX));
 	const int y = static_cast<int>(idx / static_cast<size_t>(m_sizeX));
-	return (m_sizeX - 1 - x) + (m_sizeY - 1 - y);
+	const int distX = m_sizeX - 1 - x;
+	const int distY = m_sizeY - 1 - y;
+	return distX + distY;
 }
 
-inline std::vector<size_t> Cavern::GetNeigborIndices(size_t idx) const
+inline void Cavern::GetNeigborIndices(size_t idx, std::vector<size_t>& neighborIndices) const
 {
-	std::vector<size_t> neighborIndices;
+	neighborIndices.clear();
 	neighborIndices.reserve(4);
 
 	const int x = static_cast<int>(idx % static_cast<size_t>(m_sizeX));
@@ -28,8 +31,6 @@ inline std::vector<size_t> Cavern::GetNeigborIndices(size_t idx) const
 		neighborIndices.push_back(GetCellIndex(x + 1, y));
 	if (y + 1 < m_sizeY)
 		neighborIndices.push_back(GetCellIndex(x, y + 1));
-
-	return neighborIndices;
 }
 
 int Cavern::CalculateRisk() const
@@ -43,22 +44,36 @@ int Cavern::CalculateRisk() const
 	std::vector<bool> closedCells(totalCells, false);
 	std::vector<size_t> openCells({ startIdx });
 	std::vector<int> globalScore(totalCells, 0);
+	std::vector<int> heuristicScore(totalCells, 0);
+	for (size_t idx = 0; idx < totalCells; ++idx)
+		heuristicScore[idx] = CalculateHeuristicScore(idx);
+	std::vector<size_t> neighborIndices;
+	neighborIndices.reserve(4);
 
 	while (!openCells.empty())
 	{
-		std::sort(openCells.begin(), openCells.end(), [this, &globalScore = std::as_const(globalScore)](size_t left, size_t right)
+		size_t bestOpenIdx = 0;
+		int bestOpenScore = std::numeric_limits<int>::max();
+		for (size_t openIdx = 0; openIdx < openCells.size(); ++openIdx)
 		{
-			return globalScore[left] + CalculateHeuristicScore(left) > globalScore[right] + CalculateHeuristicScore(right);
-		});
+			const int openScore = globalScore[openCells[openIdx]] + heuristicScore[openCells[openIdx]];
+			if (openScore < bestOpenScore)
+			{
+				bestOpenScore = openScore;
+				bestOpenIdx = openIdx;
+			}
+		}
 
-		const size_t currentIdx = openCells.back();
+		const size_t currentIdx = openCells[bestOpenIdx];
+		openCells[bestOpenIdx] = openCells.back();
 		openCells.pop_back();
 		closedCells[currentIdx] = true;
 
 		if (currentIdx == endIdx)
 			return globalScore[currentIdx];
 
-		for (size_t neigborIdx : GetNeigborIndices(currentIdx))
+		GetNeigborIndices(currentIdx, neighborIndices);
+		for (size_t neigborIdx : neighborIndices)
 		{
 			if (closedCells[neigborIdx])
 				continue;

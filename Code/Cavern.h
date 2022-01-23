@@ -19,7 +19,7 @@ public:
 
 private:
 	int CalculateHeuristicScore(size_t idx) const;
-	std::vector<size_t> GetNeigborIndices(size_t idx) const;
+	void GetNeigborIndices(size_t idx, std::vector<size_t>& outNeigborIndices) const;
 	inline size_t GetCellIndex(int x, int y) const
 	{
 		assert(x >= 0 && x < m_sizeX);
