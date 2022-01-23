@@ -282,5 +282,8 @@ int main()
 		}
 
 		std::cout << "Day15: cavern total risk: " << cavern.CalculateRisk() << std::endl;
+
+		cavern.Enlarge5x5();
+		std::cout << "Day15: enlarded 5x5 cavern total risk: " << cavern.CalculateRisk() << std::endl;
 	}
 }
