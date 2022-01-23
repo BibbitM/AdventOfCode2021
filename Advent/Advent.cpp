@@ -2,6 +2,7 @@
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
 #include "../Code/Cave.h"
+#include "../Code/Cavern.h"
 #include "../Code/DotsPaper.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
@@ -270,5 +271,16 @@ int main()
 		for (int i = 0; i < 30; ++i)
 			polimer.Grow(instructions);
 		std::cout << "Day14: quantity max-min after 40 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
+	}
+
+	{
+		Cavern cavern;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day15.txt");
+			ifile >> cavern;
+		}
+
+		std::cout << "Day15: cavern total risk: " << cavern.CalculateRisk() << std::endl;
 	}
 }
