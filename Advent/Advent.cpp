@@ -42,9 +42,15 @@ extern int CountNumbersWith2347Bits(const std::vector<uint32_t>& numbers);
 extern std::array<uint32_t, 10> CreateDecoderFromTestSignal(const std::vector<uint32_t>& code);
 extern uint32_t DecodeMessage(const std::array<uint32_t, 10>& decoder, const std::vector<uint32_t>& message);
 
+constexpr const char c_outFileName[] = "..\\README.md";
 
 int main()
 {
+	std::ofstream fout(c_outFileName);
+	auto coutbuf = std::cout.rdbuf(fout.rdbuf());
+
+	std::cout << "# AdventOfCode2021 results\n\n";
+
 	{
 		std::vector<int> measurements;
 
@@ -251,8 +257,7 @@ int main()
 
 		for (size_t i = 1u; i < folds.size(); ++i)
 			paper.FoldAlong(folds[i]);
-		std::cout << "Day13: paper after folds:\n";
-		std::cout << paper;
+		std::cout << "Day13: paper after folds:\n```\n" << paper << "```" << std::endl;
 	}
 
 	{
@@ -286,4 +291,10 @@ int main()
 		cavern.Enlarge5x5();
 		std::cout << "Day15: enlarged 5x5 cavern total risk: " << cavern.CalculateRisk() << std::endl;
 	}
+
+	std::cout.rdbuf(coutbuf);
+	fout.close();
+
+	std::ifstream fin(c_outFileName);
+	std::cout << fin.rdbuf();
 }
