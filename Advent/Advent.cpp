@@ -44,6 +44,12 @@ extern uint32_t DecodeMessage(const std::array<uint32_t, 10>& decoder, const std
 
 constexpr const char c_outFileName[] = "..\\README.md";
 
+std::ostream& md_endl(std::ostream& out)
+{
+	out << "  " << std::endl;
+	return out;
+}
+
 int main()
 {
 	std::ofstream fout(c_outFileName);
@@ -59,8 +65,8 @@ int main()
 			measurements = LoadIntStream(ifile);
 		}
 
-		std::cout << "Day1: increased measurements: " << GetIncreasedMeasurements(measurements) << std::endl;
-		std::cout << "Day1: increased three measurements: " << GetIncreasedThreeMeasurements(measurements) << std::endl;
+		std::cout << "Day1: increased measurements: " << GetIncreasedMeasurements(measurements) << md_endl;
+		std::cout << "Day1: increased three measurements: " << GetIncreasedThreeMeasurements(measurements) << md_endl;
 	}
 
 	{
@@ -71,8 +77,8 @@ int main()
 			commands = LoadSubmarineCommandsStream(ifile);
 		}
 
-		std::cout << "Day2: multiplied position: " << GetSubmarineMultipliedPosition(commands) << std::endl;
-		std::cout << "Day2: multiplied position with aim: " << GetSubmarineMultipliedPositionWithAim(commands) << std::endl;
+		std::cout << "Day2: multiplied position: " << GetSubmarineMultipliedPosition(commands) << md_endl;
+		std::cout << "Day2: multiplied position with aim: " << GetSubmarineMultipliedPositionWithAim(commands) << md_endl;
 	}
 
 	{
@@ -83,8 +89,8 @@ int main()
 			numbers = LoadBinaryStream(ifile);
 		}
 
-		std::cout << "Day3: power consumption: " << GetPowerConsumption(numbers, 12) << std::endl;
-		std::cout << "Day3: life support rating: " << GetLifeSupportRating(numbers, 12) << std::endl;
+		std::cout << "Day3: power consumption: " << GetPowerConsumption(numbers, 12) << md_endl;
+		std::cout << "Day3: life support rating: " << GetLifeSupportRating(numbers, 12) << md_endl;
 	}
 
 	{
@@ -103,8 +109,8 @@ int main()
 			}
 		}
 
-		std::cout << "Day4: bingo score: " << cardOne.Play(numbers.AsVector()) << std::endl;
-		std::cout << "Day4: last winner bingo score: " << cardTwo.PlayTillLast(numbers.AsVector()) << std::endl;
+		std::cout << "Day4: bingo score: " << cardOne.Play(numbers.AsVector()) << md_endl;
+		std::cout << "Day4: last winner bingo score: " << cardTwo.PlayTillLast(numbers.AsVector()) << md_endl;
 	}
 
 	{
@@ -115,8 +121,8 @@ int main()
 			lines = LoadLinesStream(ifile);
 		}
 
-		std::cout << "Day5: dangerous points: " << CountDangerousPoints(lines) << std::endl;
-		std::cout << "Day5: dangerous points with diagonal: " << CountDangerousPointsWithDiagonal(lines) << std::endl;
+		std::cout << "Day5: dangerous points: " << CountDangerousPoints(lines) << md_endl;
+		std::cout << "Day5: dangerous points with diagonal: " << CountDangerousPointsWithDiagonal(lines) << md_endl;
 	}
 
 	{
@@ -128,9 +134,9 @@ int main()
 		}
 
 		population.Grow(80);
-		std::cout << "Day6: population after 80 days: " << population.CountAll() << std::endl;
+		std::cout << "Day6: population after 80 days: " << population.CountAll() << md_endl;
 		population.Grow(256 - 80);
-		std::cout << "Day6: population after 256 days: " << population.CountAll() << std::endl;
+		std::cout << "Day6: population after 256 days: " << population.CountAll() << md_endl;
 	}
 
 	{
@@ -141,8 +147,8 @@ int main()
 			crabs = LoadIntStream(ifile);
 		}
 
-		std::cout << "Day7: fuel cost: " << GetAlignFuelCost(crabs) << std::endl;
-		std::cout << "Day7: real fuel cost: " << GetAlignRealFuelCost(crabs) << std::endl;
+		std::cout << "Day7: fuel cost: " << GetAlignFuelCost(crabs) << md_endl;
+		std::cout << "Day7: real fuel cost: " << GetAlignRealFuelCost(crabs) << md_endl;
 	}
 
 	{
@@ -160,8 +166,8 @@ int main()
 			}
 		}
 
-		std::cout << "Day7: 1478 digits count: " << count << std::endl;
-		std::cout << "Day7: decoded output: " << output << std::endl;
+		std::cout << "Day7: 1478 digits count: " << count << md_endl;
+		std::cout << "Day7: decoded output: " << output << md_endl;
 	}
 
 	{
@@ -172,14 +178,14 @@ int main()
 			ifile >> heightmap;
 		}
 
-		std::cout << "Day9: sum of risk level: " << heightmap.CalculateSumOfRiskLevel() << std::endl;
+		std::cout << "Day9: sum of risk level: " << heightmap.CalculateSumOfRiskLevel() << md_endl;
 
 		std::vector<int> basins = heightmap.FindBasins();
 		int top3BasinsMultiply = 1;
 		for (size_t i = 0; i < std::min(basins.size(), 3ull); ++i)
 			top3BasinsMultiply *= basins[i];
 
-		std::cout << "Day9: top 3 basins multiply: " << top3BasinsMultiply << std::endl;
+		std::cout << "Day9: top 3 basins multiply: " << top3BasinsMultiply << md_endl;
 	}
 
 	{
@@ -206,8 +212,8 @@ int main()
 			middleCompletionScore = completionScores[completionScores.size() / 2];
 		}
 
-		std::cout << "Day10: total syntax error score: " << totalErrorScore << std::endl;
-		std::cout << "Day10: middle completion score: " << middleCompletionScore << std::endl;
+		std::cout << "Day10: total syntax error score: " << totalErrorScore << md_endl;
+		std::cout << "Day10: middle completion score: " << middleCompletionScore << md_endl;
 	}
 
 	{
@@ -219,13 +225,13 @@ int main()
 		}
 
 		grid.Step(100);
-		std::cout << "Day11: total flashes after 100 steps: " << grid.GetFlashes() << std::endl;
+		std::cout << "Day11: total flashes after 100 steps: " << grid.GetFlashes() << md_endl;
 
 		while (!grid.AllFlashed())
 		{
 			grid.Step();
 		}
-		std::cout << "Day11: all flashed in step: " << grid.GetSteps() << std::endl;
+		std::cout << "Day11: all flashed in step: " << grid.GetSteps() << md_endl;
 	}
 
 	{
@@ -236,8 +242,8 @@ int main()
 			ifile >> map;
 		}
 
-		std::cout << "Day12: unique paths: " << map.FindDistinctPathsCount() << std::endl;
-		std::cout << "Day12: unique paths with double visit: " << map.FindDistinctPathsCount(true) << std::endl;
+		std::cout << "Day12: unique paths: " << map.FindDistinctPathsCount() << md_endl;
+		std::cout << "Day12: unique paths with double visit: " << map.FindDistinctPathsCount(true) << md_endl;
 	}
 
 
@@ -253,11 +259,12 @@ int main()
 
 		assert(!folds.empty());
 		paper.FoldAlong(folds.front());
-		std::cout << "Day13: dots after first fold: " << paper.CountDots() << std::endl;
+		std::cout << "Day13: dots after first fold: " << paper.CountDots() << md_endl;
 
 		for (size_t i = 1u; i < folds.size(); ++i)
 			paper.FoldAlong(folds[i]);
-		std::cout << "Day13: paper after folds:\n```\n" << paper << "```" << std::endl;
+		std::cout << "Day13: paper after folds:" << md_endl;
+		std::cout << "```\n" << paper << "```" << md_endl;
 	}
 
 	{
@@ -272,10 +279,10 @@ int main()
 
 		for (int i = 0; i < 10; ++i)
 			polimer.Grow(instructions);
-		std::cout << "Day14: quantity max-min after 10 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
+		std::cout << "Day14: quantity max-min after 10 steps: " << polimer.CalculteMostSubLessQuantity() << md_endl;
 		for (int i = 0; i < 30; ++i)
 			polimer.Grow(instructions);
-		std::cout << "Day14: quantity max-min after 40 steps: " << polimer.CalculteMostSubLessQuantity() << std::endl;
+		std::cout << "Day14: quantity max-min after 40 steps: " << polimer.CalculteMostSubLessQuantity() << md_endl;
 	}
 
 	{
@@ -286,10 +293,10 @@ int main()
 			ifile >> cavern;
 		}
 
-		std::cout << "Day15: cavern total risk: " << cavern.CalculateRisk() << std::endl;
+		std::cout << "Day15: cavern total risk: " << cavern.CalculateRisk() << md_endl;
 
 		cavern.Enlarge5x5();
-		std::cout << "Day15: enlarged 5x5 cavern total risk: " << cavern.CalculateRisk() << std::endl;
+		std::cout << "Day15: enlarged 5x5 cavern total risk: " << cavern.CalculateRisk() << md_endl;
 	}
 
 	std::cout.rdbuf(coutbuf);
