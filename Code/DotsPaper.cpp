@@ -107,7 +107,7 @@ std::ostream& operator<<(std::ostream& out, DotsPaper& paper)
 	}
 
 	for (const auto& line : lines)
-		out << line << std::endl;
+		out << line << '\n';
 
 	return out;
 }
