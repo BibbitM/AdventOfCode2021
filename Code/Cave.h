@@ -17,11 +17,11 @@ private:
 	{
 	public:
 		Cave(std::string_view name, bool isStart, bool isEnd, bool isSmall)
-			: name(name), neighbors(), isStart(isStart), isEnd(isEnd), isSmall(isSmall)
+			: name(name), neighborIdxes(), isStart(isStart), isEnd(isEnd), isSmall(isSmall)
 		{}
 
 		std::string name;
-		std::vector<Cave*> neighbors;
+		std::vector<size_t> neighborIdxes;
 		bool isStart = false;
 		bool isEnd = false;
 		bool isSmall = false;
@@ -30,32 +30,33 @@ private:
 	class Path
 	{
 	public:
-		explicit Path(const Cave* startCave)
-			: last(startCave)
+		explicit Path(const CavesMap& owner, size_t startCaveIdx)
+			: lastIdx(startCaveIdx)
 		{
-			AddLastToBlocked();
+			AddLastToBlocked(owner);
 		}
-		Path(const Path& prevPath, const Cave* neighbor)
+		Path(const CavesMap& owner, const Path& prevPath, size_t neighborIdx)
 			: Path(prevPath)
 		{
-			last = neighbor;
-			AddLastToBlocked();
+			lastIdx = neighborIdx;
+			AddLastToBlocked(owner);
 		}
-		void AddLastToBlocked()
+		void AddLastToBlocked(const CavesMap& owner)
 		{
+			const Cave* last = owner.m_caves[lastIdx].get();
 			if (last->isSmall)
 			{
-				auto it = std::find(blocked.begin(), blocked.end(), last);
-				if (it != blocked.end())
-					doubleVisit = true;
+				const size_t lastMask = 1ull << lastIdx;
+				if ((blocked & lastMask) == 0)
+					blocked |= lastMask;
 				else
-					blocked.push_back(last);
+					doubleVisit = true;
 			}
 		}
-		bool IsBlocked(const Cave* cave, bool allowSingleSmallCaveDoubleVisit) const
+		bool IsBlocked(size_t caveIdx, bool allowSingleSmallCaveDoubleVisit) const
 		{
-			auto it = std::find(blocked.begin(), blocked.end(), cave);
-			if (it == blocked.end())
+			const size_t caveMask = 1ull << caveIdx;
+			if ((blocked & caveMask) == 0)
 				return false;
 
 			if (!allowSingleSmallCaveDoubleVisit)
@@ -64,13 +65,14 @@ private:
 				return doubleVisit;
 		}
 
-		const Cave* last = nullptr;
-		std::vector<const Cave*> blocked;
+		size_t lastIdx = 0;
+		uint64_t blocked = 0;
 		bool doubleVisit = false;
 	};
 
 	Cave* FindOrCreateCave(std::string_view name);
 	Cave* FindCave(std::string_view name) const;
+	size_t GetCaveIdx(const Cave* cave) const;
 
 	std::vector<std::unique_ptr<Cave>> m_caves;
 };

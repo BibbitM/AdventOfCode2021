@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Cave.h"
 
+#include <cassert>
 #include <cctype>
 
 namespace
@@ -19,8 +20,8 @@ void CavesMap::AddConnection(std::string_view first, std::string_view second)
 	if (firstCave == secondCave)
 		return;
 
-	firstCave->neighbors.push_back(secondCave);
-	secondCave->neighbors.push_back(firstCave);
+	firstCave->neighborIdxes.push_back(GetCaveIdx(secondCave));
+	secondCave->neighborIdxes.push_back(GetCaveIdx(firstCave));
 }
 
 int CavesMap::FindDistinctPathsCount(bool allowSingleSmallCaveDoubleVisit) const
@@ -32,31 +33,33 @@ int CavesMap::FindDistinctPathsCount(bool allowSingleSmallCaveDoubleVisit) const
 	std::vector<Path> pathsToCheck;
 	std::vector<Path> pathsToEnd;
 
-	pathsToCheck.emplace_back(startCave);
+	pathsToCheck.emplace_back(*this, GetCaveIdx(startCave));
 
 	while (!pathsToCheck.empty())
 	{
 		Path path = std::move(pathsToCheck.back());
 		pathsToCheck.pop_back();
 
-		if (path.last->isEnd)
+		if (m_caves[path.lastIdx]->isEnd)
 		{
 			pathsToEnd.push_back(std::move(path));
 			continue;
 		}
 
-		for (const Cave* n : path.last->neighbors)
+		for (size_t nIdx : m_caves[path.lastIdx]->neighborIdxes)
 		{
+			const Cave* n = m_caves[nIdx].get();
+
 			// Skip start
 			if (n->isStart)
 				continue;
 
 			// Skip blocked paths.
-			if (path.IsBlocked(n, allowSingleSmallCaveDoubleVisit))
+			if (path.IsBlocked(nIdx, allowSingleSmallCaveDoubleVisit))
 				continue;
 
 			// Create new path through neighbor n.
-			pathsToCheck.emplace_back(path, n);
+			pathsToCheck.emplace_back(*this, path, nIdx);
 		}
 	}
 
@@ -72,6 +75,7 @@ CavesMap::Cave* CavesMap::FindOrCreateCave(std::string_view name)
 		return cave;
 
 	m_caves.push_back(std::make_unique<Cave>(name, name == c_startName, name == c_endName, std::islower(name[0])));
+	assert(m_caves.size() <= sizeof(Path::blocked) * 8);
 	return m_caves.back().get();
 }
 
@@ -82,6 +86,16 @@ CavesMap::Cave* CavesMap::FindCave(std::string_view name) const
 		return itFound->get();
 
 	return nullptr;
+}
+
+size_t CavesMap::GetCaveIdx(const Cave* cave) const
+{
+	for (size_t idx = 0; idx < m_caves.size(); ++idx)
+	{
+		if (m_caves[idx].get() == cave)
+			return idx;
+	}
+	return std::numeric_limits<size_t>::max();
 }
 
 std::istream& operator>>(std::istream& in, CavesMap& map)
