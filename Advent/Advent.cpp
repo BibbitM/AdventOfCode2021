@@ -18,6 +18,8 @@
 #include <fstream>
 #include <vector>
 
+#define WRITE_OUTPUT_TO_README_FILE 1
+
 extern std::vector<int> LoadIntStream(std::istream& in);
 extern int GetIncreasedMeasurements(const std::vector<int>& measurements);
 extern int GetIncreasedThreeMeasurements(const std::vector<int>& measurements);
@@ -44,16 +46,22 @@ extern uint32_t DecodeMessage(const std::array<uint32_t, 10>& decoder, const std
 
 constexpr const char c_outFileName[] = "..\\README.md";
 
-std::ostream& md_endl(std::ostream& out)
+#if WRITE_OUTPUT_TO_README_FILE
+inline std::ostream& md_endl(std::ostream& out)
 {
 	out << "  " << std::endl;
 	return out;
 }
+#else
+#define md_endl std::endl
+#endif
 
 int main()
 {
+#if WRITE_OUTPUT_TO_README_FILE
 	std::ofstream fout(c_outFileName);
 	auto coutbuf = std::cout.rdbuf(fout.rdbuf());
+#endif
 
 	std::cout << "# AdventOfCode2021 results\n\n";
 
@@ -299,9 +307,11 @@ int main()
 		std::cout << "Day15: enlarged 5x5 cavern total risk: " << cavern.CalculateRisk() << md_endl;
 	}
 
+#if WRITE_OUTPUT_TO_README_FILE
 	std::cout.rdbuf(coutbuf);
 	fout.close();
 
 	std::ifstream fin(c_outFileName);
 	std::cout << fin.rdbuf();
+#endif
 }
