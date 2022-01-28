@@ -174,6 +174,7 @@
     <ClInclude Include="OctopusGrid.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Polymerization.h" />
+    <ClInclude Include="Transmission.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Polymerization.cpp" />
+    <ClCompile Include="Transmission.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
