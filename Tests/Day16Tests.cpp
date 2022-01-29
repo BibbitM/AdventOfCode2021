@@ -52,3 +52,44 @@ TEST(Day16, LoadExamleSimpleMessage)
 	EXPECT_EQ(transmission.ReadBits(5), 0b00101u);
 	EXPECT_EQ(transmission.ReadBits(3), 0b000u);
 }
+
+TEST(Day16, ReadPacket4Version)
+{
+	Transmission transmission;
+	std::istringstream input("D2FE28");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketVersion(transmission), 6u);
+	EXPECT_EQ(transmission.GetPosition(), 21); //< Make sure we read packed to the end.
+}
+
+TEST(Day16, ReadMultiPacketVersion)
+{
+	{
+		Transmission transmission;
+		std::istringstream input("8A004A801A8002F478");
+
+		input >> transmission;
+
+		EXPECT_EQ(ReadPacketVersion(transmission), 16u);
+	}
+
+	{
+		Transmission transmission;
+		std::istringstream input("C0015000016115A2E0802F182340");
+
+		input >> transmission;
+
+		EXPECT_EQ(ReadPacketVersion(transmission), 23u);
+	}
+
+	{
+		Transmission transmission;
+		std::istringstream input("A0016C880162017C3686B18A3D4780");
+
+		input >> transmission;
+
+		EXPECT_EQ(ReadPacketVersion(transmission), 31u);
+	}
+}
