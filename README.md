@@ -38,3 +38,4 @@ Day14: quantity max-min after 10 steps: 3247
 Day14: quantity max-min after 40 steps: 4110568157153  
 Day15: cavern total risk: 508  
 Day15: enlarged 5x5 cavern total risk: 2872  
+Day16: sum of version numbers: 986  

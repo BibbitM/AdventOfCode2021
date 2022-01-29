@@ -11,6 +11,7 @@
 #include "../Code/NavigationSyntax.h"
 #include "../Code/OctopusGrid.h"
 #include "../Code/Polymerization.h"
+#include "../Code/Transmission.h"
 
 #include <algorithm>
 #include <cassert>
@@ -305,6 +306,17 @@ int main()
 
 		cavern.Enlarge5x5();
 		std::cout << "Day15: enlarged 5x5 cavern total risk: " << cavern.CalculateRisk() << md_endl;
+	}
+
+	{
+		Transmission transmission;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day16.txt");
+			ifile >> transmission;
+		}
+
+		std::cout << "Day16: sum of version numbers: " << ReadPacketVersion(transmission) << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
