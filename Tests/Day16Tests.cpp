@@ -183,3 +183,17 @@ TEST(Day16, ReadValueEqual)
 
 	EXPECT_EQ(ReadPacketValue(transmission), 1u);
 }
+
+TEST(Day16, ResetTransmission)
+{
+	Transmission tranmission;
+	std::istringstream input("04005AC33890");
+
+	input >> tranmission;
+
+	EXPECT_EQ(tranmission.GetPosition(), 0u);
+	ReadPacketValue(tranmission);
+	EXPECT_NE(tranmission.GetPosition(), 0u);
+	tranmission.Reset();
+	EXPECT_EQ(tranmission.GetPosition(), 0u);
+}

@@ -317,6 +317,8 @@ int main()
 		}
 
 		std::cout << "Day16: sum of version numbers: " << ReadPacketVersion(transmission) << md_endl;
+		transmission.Reset();
+		std::cout << "Day16: value of evaluated expression: " << ReadPacketValue(transmission) << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
