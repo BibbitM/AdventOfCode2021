@@ -93,3 +93,93 @@ TEST(Day16, ReadMultiPacketVersion)
 		EXPECT_EQ(ReadPacketVersion(transmission), 31u);
 	}
 }
+
+TEST(Day16, ReadValueSimple)
+{
+	Transmission transmission;
+	std::istringstream input("D2FE28");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 2021u);
+}
+
+TEST(Day16, ReadValueSum)
+{
+	Transmission transmission;
+	std::istringstream input("C200B40A82");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 3u);
+}
+
+TEST(Day16, ReadValueProduct)
+{
+	Transmission transmission;
+	std::istringstream input("04005AC33890");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 54u);
+}
+
+TEST(Day16, ReadValueMinimum)
+{
+	Transmission transmission;
+	std::istringstream input("880086C3E88112");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 7u);
+}
+
+TEST(Day16, ReadValueMaximum)
+{
+	Transmission transmission;
+	std::istringstream input("CE00C43D881120");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 9u);
+}
+
+TEST(Day16, ReadValueLess)
+{
+	Transmission transmission;
+	std::istringstream input("D8005AC2A8F0");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 1u);
+}
+
+TEST(Day16, ReadValueGreater)
+{
+	Transmission transmission;
+	std::istringstream input("F600BC2D8F");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 0u);
+}
+
+TEST(Day16, ReadValueNotEqual)
+{
+	Transmission transmission;
+	std::istringstream input("9C005AC2F8F0");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 0u);
+}
+
+TEST(Day16, ReadValueEqual)
+{
+	Transmission transmission;
+	std::istringstream input("9C0141080250320F1802104A08");
+
+	input >> transmission;
+
+	EXPECT_EQ(ReadPacketValue(transmission), 1u);
+}

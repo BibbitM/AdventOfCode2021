@@ -18,5 +18,6 @@ private:
 };
 
 unsigned int ReadPacketVersion(Transmission& transmision);
+unsigned int ReadPacketValue(Transmission& transmision);
 
 std::istream& operator>>(std::istream& in, Transmission& transmission);
