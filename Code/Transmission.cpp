@@ -62,13 +62,13 @@ unsigned int ReadPacketVersion(Transmission& transmision)
 	return ver;
 }
 
-unsigned int ReadPacketValue(Transmission& transmision)
+unsigned long long int ReadPacketValue(Transmission& transmision)
 {
 	transmision.ReadBits(3); //< Skip version.
 	const unsigned int type = transmision.ReadBits(3);
 	if (type == c_literalValueType)
 	{
-		unsigned int value{};
+		unsigned long long int value{};
 		bool hasNext = true;
 		while (hasNext)
 		{
@@ -80,7 +80,7 @@ unsigned int ReadPacketValue(Transmission& transmision)
 	}
 	else
 	{
-		std::vector<unsigned int> values;
+		std::vector<unsigned long long int> values;
 		if (transmision.ReadBits(1) == 0)
 		{
 			const unsigned int subPacketLength = transmision.ReadBits(15);
@@ -99,27 +99,27 @@ unsigned int ReadPacketValue(Transmission& transmision)
 			}
 		}
 
-		unsigned int result{};
+		unsigned long long int result{};
 		switch (type)
 		{
 		case c_operatorSumType:
 			result = 0;
-			for (unsigned int val : values)
+			for (unsigned long long int val : values)
 				result += val;
 			break;
 		case c_operatorProductType:
 			result = 1;
-			for (unsigned int val : values)
+			for (unsigned long long int val : values)
 				result *= val;
 			break;
 		case c_operatorMinimumType:
 			result = std::numeric_limits<unsigned int>::max();
-			for (unsigned int val : values)
+			for (unsigned long long int val : values)
 				result = std::min(val, result);
 			break;
 		case c_operatorMaximumType:
 			result = std::numeric_limits<unsigned int>::min();
-			for (unsigned int val : values)
+			for (unsigned long long int val : values)
 				result = std::max(val, result);
 			break;
 		case c_operatorGreaterType:

@@ -9,6 +9,7 @@ public:
 	size_t GetLength() const { return m_bits.size(); }
 	size_t GetPosition() const { return m_position; }
 	unsigned int ReadBits(size_t bitsCount);
+	void Reset() { m_position = 0; }
 
 private:
 	std::vector<bool> m_bits;
@@ -18,6 +19,6 @@ private:
 };
 
 unsigned int ReadPacketVersion(Transmission& transmision);
-unsigned int ReadPacketValue(Transmission& transmision);
+unsigned long long int ReadPacketValue(Transmission& transmision);
 
 std::istream& operator>>(std::istream& in, Transmission& transmission);
