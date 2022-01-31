@@ -7,16 +7,6 @@
 
 namespace
 {
-	constexpr unsigned int c_literalValueType = 4u;
-
-	constexpr unsigned int c_operatorSumType = 0u;
-	constexpr unsigned int c_operatorProductType = 1u;
-	constexpr unsigned int c_operatorMinimumType = 2u;
-	constexpr unsigned int c_operatorMaximumType = 3u;
-	constexpr unsigned int c_operatorGreaterType = 5u;
-	constexpr unsigned int c_operatorLessType = 6u;
-	constexpr unsigned int c_operatorEqualType = 7u;
-
 	enum class PacketType : unsigned int
 	{
 		LiteralValue = 4u,
