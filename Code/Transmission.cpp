@@ -16,6 +16,18 @@ namespace
 	constexpr unsigned int c_operatorGreaterType = 5u;
 	constexpr unsigned int c_operatorLessType = 6u;
 	constexpr unsigned int c_operatorEqualType = 7u;
+
+	enum class PacketType : unsigned int
+	{
+		LiteralValue = 4u,
+		OperatorSum = 0u,
+		OperatorProduct = 1u,
+		OperatorMinimum = 2u,
+		OperatorMaximum = 3u,
+		OperatorGreater = 5u,
+		OperatorLess = 6u,
+		OperatorEqual = 7u,
+	};
 }
 
 unsigned int Transmission::ReadBits(size_t bitsCount)
@@ -32,8 +44,8 @@ unsigned int Transmission::ReadBits(size_t bitsCount)
 unsigned int ReadPacketVersion(Transmission& transmision)
 {
 	unsigned int ver = transmision.ReadBits(3);
-	unsigned int type = transmision.ReadBits(3);
-	if (type == c_literalValueType)
+	PacketType type = static_cast<PacketType>(transmision.ReadBits(3));
+	if (type == PacketType::LiteralValue)
 	{
 		bool hasNext = true;
 		while (hasNext)
@@ -65,8 +77,8 @@ unsigned int ReadPacketVersion(Transmission& transmision)
 unsigned long long int ReadPacketValue(Transmission& transmision)
 {
 	transmision.ReadBits(3); //< Skip version.
-	const unsigned int type = transmision.ReadBits(3);
-	if (type == c_literalValueType)
+	PacketType type = static_cast<PacketType>(transmision.ReadBits(3));
+	if (type == PacketType::LiteralValue)
 	{
 		unsigned long long int value{};
 		bool hasNext = true;
@@ -102,35 +114,35 @@ unsigned long long int ReadPacketValue(Transmission& transmision)
 		unsigned long long int result{};
 		switch (type)
 		{
-		case c_operatorSumType:
+		case PacketType::OperatorSum:
 			result = 0;
 			for (unsigned long long int val : values)
 				result += val;
 			break;
-		case c_operatorProductType:
+		case PacketType::OperatorProduct:
 			result = 1;
 			for (unsigned long long int val : values)
 				result *= val;
 			break;
-		case c_operatorMinimumType:
+		case PacketType::OperatorMinimum:
 			result = std::numeric_limits<unsigned int>::max();
 			for (unsigned long long int val : values)
 				result = std::min(val, result);
 			break;
-		case c_operatorMaximumType:
+		case PacketType::OperatorMaximum:
 			result = std::numeric_limits<unsigned int>::min();
 			for (unsigned long long int val : values)
 				result = std::max(val, result);
 			break;
-		case c_operatorGreaterType:
+		case PacketType::OperatorGreater:
 			assert(values.size() == 2);
 			result = values[0] > values[1];
 			break;
-		case c_operatorLessType:
+		case PacketType::OperatorLess:
 			assert(values.size() == 2);
 			result = values[0] < values[1];
 			break;
-		case c_operatorEqualType:
+		case PacketType::OperatorEqual:
 			assert(values.size() == 2);
 			result = values[0] == values[1];
 			break;
