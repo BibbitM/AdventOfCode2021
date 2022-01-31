@@ -105,6 +105,7 @@ unsigned long long int ReadPacketValue(Transmission& transmision)
 		else
 		{
 			const unsigned int supPacketsCount = transmision.ReadBits(11);
+			values.reserve(supPacketsCount);
 			for (unsigned int i = 0; i < supPacketsCount; ++i)
 			{
 				values.push_back(ReadPacketValue(transmision));
