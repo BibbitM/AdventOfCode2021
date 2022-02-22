@@ -2,6 +2,8 @@
 
 #include "IntVector2.h"
 
+#include <iostream>
+
 namespace TrickShot
 {
 	class TargetArea
@@ -21,3 +23,5 @@ namespace TrickShot
 		IntVector2 m_max{};
 	};
 }
+
+std::istream& operator>>(std::istream& in, TrickShot::TargetArea& area);
