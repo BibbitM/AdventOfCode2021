@@ -3,6 +3,7 @@
 #include "IntVector2.h"
 
 #include <iostream>
+#include <vector>
 
 namespace TrickShot
 {
@@ -22,6 +23,16 @@ namespace TrickShot
 		IntVector2 m_min{};
 		IntVector2 m_max{};
 	};
+
+	std::vector<int> GetXForces(const TargetArea& area);
+	std::vector<int> GetYForces(const TargetArea& area);
+
+	bool SimuleteShot(const IntVector2& shot, const TargetArea& area);
+
+	std::vector<IntVector2> FindAllShots(const TargetArea& area);
+	IntVector2 FindHighestShot(const TargetArea& area);
+
+	int GetHighestPosition(int shotY);
 }
 
 std::istream& operator>>(std::istream& in, TrickShot::TargetArea& area);

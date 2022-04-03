@@ -40,3 +40,4 @@ Day15: cavern total risk: 508
 Day15: enlarged 5x5 cavern total risk: 2872  
 Day16: sum of version numbers: 986  
 Day16: value of evaluated expression: 18234816469452  
+Day17: maximum y position : 5778  

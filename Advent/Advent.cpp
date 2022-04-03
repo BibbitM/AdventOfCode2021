@@ -12,6 +12,7 @@
 #include "../Code/OctopusGrid.h"
 #include "../Code/Polymerization.h"
 #include "../Code/Transmission.h"
+#include "../Code/TrickShot.h"
 
 #include <algorithm>
 #include <cassert>
@@ -319,6 +320,18 @@ int main()
 		std::cout << "Day16: sum of version numbers: " << ReadPacketVersion(transmission) << md_endl;
 		transmission.Reset();
 		std::cout << "Day16: value of evaluated expression: " << ReadPacketValue(transmission) << md_endl;
+	}
+
+	{
+		TrickShot::TargetArea area;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day17.txt");
+			ifile >> area;
+		}
+
+
+		std::cout << "Day17: maximum y position : " << TrickShot::GetHighestPosition(TrickShot::FindHighestShot(area).y) << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
