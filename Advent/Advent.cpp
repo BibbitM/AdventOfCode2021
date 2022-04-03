@@ -330,8 +330,10 @@ int main()
 			ifile >> area;
 		}
 
-
-		std::cout << "Day17: maximum y position : " << TrickShot::GetHighestPosition(TrickShot::FindHighestShot(area).y) << md_endl;
+		std::vector<IntVector2> allShots = TrickShot::FindAllShots(area);
+		int highestShot = !allShots.empty() ? allShots.back().y : 0;
+		std::cout << "Day17: maximum y position: " << TrickShot::GetHighestPosition(highestShot) << md_endl;
+		std::cout << "Day17: count of distinct initial velocity: " << allShots.size() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
