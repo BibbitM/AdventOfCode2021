@@ -31,3 +31,9 @@ TEST(Day18, CreateSimpleNumberFromString)
 	EXPECT_EQ(Snailfish::Number("[0,0]"), Snailfish::Number(0, 0));
 	EXPECT_EQ(Snailfish::Number("[4,2]"), Snailfish::Number(4, 2));
 }
+
+TEST(Day18, AddSimpleNumbersMagnitude)
+{
+	EXPECT_EQ((Snailfish::Number("[0,0]") + Snailfish::Number("[0,0]")).Magnitude(), 0);
+	EXPECT_EQ((Snailfish::Number("[1,0]") + Snailfish::Number("[0,2]")).Magnitude(), 17);
+}

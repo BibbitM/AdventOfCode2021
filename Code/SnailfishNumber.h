@@ -14,6 +14,8 @@ namespace Snailfish
 
 		bool operator==(const Number& other) const = default;
 
+		friend Number operator+(const Number& left, const Number& right);
+
 	private:
 		int m_left{};
 		int m_right{};
