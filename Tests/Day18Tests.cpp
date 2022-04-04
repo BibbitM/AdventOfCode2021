@@ -16,3 +16,18 @@ TEST(Day18, SimpleNumberMagnitude)
 	EXPECT_EQ(Snailfish::Number(9, 1).Magnitude(), 29);
 	EXPECT_EQ(Snailfish::Number(1, 9).Magnitude(), 21);
 }
+
+TEST(Day18, CompareNumbers)
+{
+	EXPECT_EQ(Snailfish::Number(0, 0), Snailfish::Number());
+	EXPECT_EQ(Snailfish::Number(1, 2), Snailfish::Number(1, 2));
+
+	EXPECT_NE(Snailfish::Number(9, 9), Snailfish::Number());
+	EXPECT_NE(Snailfish::Number(5, 3), Snailfish::Number(2, 1));
+}
+
+TEST(Day18, CreateSimpleNumberFromString)
+{
+	EXPECT_EQ(Snailfish::Number("[0,0]"), Snailfish::Number(0, 0));
+	EXPECT_EQ(Snailfish::Number("[4,2]"), Snailfish::Number(4, 2));
+}
