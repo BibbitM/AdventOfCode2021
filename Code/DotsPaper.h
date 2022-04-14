@@ -2,7 +2,7 @@
 
 #include "IntVector2.h"
 
-#include <istream>
+#include <iostream>
 #include <vector>
 
 struct Fold;
