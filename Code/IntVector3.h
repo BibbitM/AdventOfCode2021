@@ -26,4 +26,3 @@ inline std::istream& operator>>(std::istream& in, IntVector3& vec)
 	in >> vec.z;
 	return in;
 }
-

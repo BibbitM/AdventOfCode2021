@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../Code/IntVector3.h"
+#include "../Code/Scanner.h"
 
 #include <sstream>
 
@@ -56,4 +57,67 @@ TEST(Day19, IntVector3LoadFromInput)
 		input >> vec;
 		EXPECT_EQ(vec, IntVector3(459, -707, 401));
 	}
+}
+
+TEST(Day19, ScannerEmpty)
+{
+	Scanner scanner{};
+
+	EXPECT_EQ(scanner.BeaconsCount(), 0);
+}
+
+TEST(Day19, ScannerCreateFromVector)
+{
+	Scanner scanner({ { 1, 2, 3 }, { 4, 5, 6 } });
+	EXPECT_EQ(scanner.BeaconsCount(), 2);
+	EXPECT_EQ(Scanner({ { 0, 0, 1 }, { 1, 0, 0 }, { 1, 0, 0 } }).BeaconsCount(), 3);
+}
+
+TEST(Day19, ScannerLoadFromInput)
+{
+	{
+		Scanner scanner;
+		std::istringstream input{ R"--(--- scanner 0 ---
+1,1,1
+)--"
+		};
+		input >> scanner;
+		EXPECT_EQ(scanner.BeaconsCount(), 1);
+	}
+
+	{
+		Scanner scanner;
+		std::istringstream input{ R"--(--- scanner 0 ---
+-1,-1,1
+-2,-2,2
+-3,-3,3
+-2,-3,1
+5,6,-4
+8,0,7
+)--"
+		};
+		input >> scanner;
+		EXPECT_EQ(scanner.BeaconsCount(), 6);
+	}
+}
+
+TEST(Day19, ScannerLoadFromInputOnlyOne)
+{
+	Scanner scanner;
+	std::istringstream input{ R"--(--- scanner 1 ---
+686,422,578
+605,423,415
+515,917,-361
+
+--- scanner 0 ---
+-1,-1,1
+-2,-2,2
+-3,-3,3
+-2,-3,1
+5,6,-4
+8,0,7
+)--"
+	};
+	input >> scanner;
+	EXPECT_EQ(scanner.BeaconsCount(), 3);
 }
