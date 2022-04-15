@@ -169,6 +169,7 @@
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="IntLine2.h" />
     <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="IntVector3.h" />
     <ClInclude Include="Lanternfish.h" />
     <ClInclude Include="NavigationSyntax.h" />
     <ClInclude Include="OctopusGrid.h" />
