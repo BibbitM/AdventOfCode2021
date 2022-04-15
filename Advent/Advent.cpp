@@ -338,7 +338,6 @@ int main()
 	}
 
 	{
-		Snailfish::Number sum;
 		std::vector<std::string> lines;
 
 		{
@@ -348,12 +347,39 @@ int main()
 				lines.push_back(std::move(line));
 		}
 
+		Snailfish::Number sum;
 		if (!lines.empty())
 			sum = Snailfish::Number(lines.front());
 		for (size_t i = 1; i < lines.size(); ++i)
 			sum = sum + Snailfish::Number(lines[i]);
 
-		std::cout << "Day18: magnitude of the final sum: " << sum.Magnitude() << md_endl;
+		int largestMagnitude = 0;
+		for (size_t x = 0; x < lines.size(); ++x)
+		{
+			for (size_t y = 0; y < lines.size(); ++y)
+			{
+				if (x == y)
+					continue;
+
+				Snailfish::Number xNum(lines[x]);
+				Snailfish::Number yNum(lines[y]);
+
+				{
+					const int magnitude = (xNum + yNum).Magnitude();
+					if (magnitude > largestMagnitude)
+						largestMagnitude = magnitude;
+				}
+
+				{
+					const int magnitude = (yNum + xNum).Magnitude();
+					if (magnitude > largestMagnitude)
+						largestMagnitude = magnitude;
+				}
+			}
+		}
+
+		std::cout << "Day18: the magnitude of the final sum: " << sum.Magnitude() << md_endl;
+		std::cout << "Day18: the largest magnitude of any sum: " << largestMagnitude << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE

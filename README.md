@@ -42,4 +42,5 @@ Day16: sum of version numbers: 986
 Day16: value of evaluated expression: 18234816469452  
 Day17: maximum y position: 5778  
 Day17: count of distinct initial velocity: 2576  
-Day18: magnitude of the final sum: 3987  
+Day18: the magnitude of the final sum: 3987  
+Day18: the largest magnitude of any sum: 4500  
