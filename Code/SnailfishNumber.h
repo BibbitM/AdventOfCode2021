@@ -15,6 +15,8 @@ namespace Snailfish
 		Number() {}
 		Number(int left, int right) : m_left(left), m_right(right) {}
 		Number(std::string_view number);
+		Number(const Number& other);
+		Number& operator=(Number&& other) = default;
 
 		int Magnitude() const;
 
@@ -27,8 +29,6 @@ namespace Snailfish
 	private:
 		Number(const char*& begin, const char* end);
 		Number(int left, std::unique_ptr<Number> leftPtr, int right, std::unique_ptr<Number> rightPtr);
-		Number(const Number& other);
-		Number& operator=(Number&& other) = default;
 
 		void Reduce();
 		std::unique_ptr<Number> ReduceNumber(int level);

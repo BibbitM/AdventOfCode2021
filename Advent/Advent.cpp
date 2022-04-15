@@ -11,6 +11,7 @@
 #include "../Code/NavigationSyntax.h"
 #include "../Code/OctopusGrid.h"
 #include "../Code/Polymerization.h"
+#include "../Code/SnailfishNumber.h"
 #include "../Code/Transmission.h"
 #include "../Code/TrickShot.h"
 
@@ -334,6 +335,21 @@ int main()
 		int highestShot = !allShots.empty() ? allShots.back().y : 0;
 		std::cout << "Day17: maximum y position: " << TrickShot::GetHighestPosition(highestShot) << md_endl;
 		std::cout << "Day17: count of distinct initial velocity: " << allShots.size() << md_endl;
+	}
+
+	{
+		Snailfish::Number number;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day18.txt");
+			std::string line;
+			if (std::getline(ifile, line))
+				number = Snailfish::Number(line);
+			while (std::getline(ifile, line))
+				number = number + Snailfish::Number(line);
+		}
+
+		std::cout << "Day18: magnitude of the final sum: " << number.Magnitude() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
