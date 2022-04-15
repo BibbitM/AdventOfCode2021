@@ -338,18 +338,22 @@ int main()
 	}
 
 	{
-		Snailfish::Number number;
+		Snailfish::Number sum;
+		std::vector<std::string> lines;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day18.txt");
 			std::string line;
-			if (std::getline(ifile, line))
-				number = Snailfish::Number(line);
 			while (std::getline(ifile, line))
-				number = number + Snailfish::Number(line);
+				lines.push_back(std::move(line));
 		}
 
-		std::cout << "Day18: magnitude of the final sum: " << number.Magnitude() << md_endl;
+		if (!lines.empty())
+			sum = Snailfish::Number(lines.front());
+		for (size_t i = 1; i < lines.size(); ++i)
+			sum = sum + Snailfish::Number(lines[i]);
+
+		std::cout << "Day18: magnitude of the final sum: " << sum.Magnitude() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
