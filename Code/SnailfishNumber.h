@@ -43,3 +43,8 @@ namespace Snailfish
 		std::unique_ptr<Number> m_rightPtr;
 	};
 }
+
+inline Snailfish::Number operator "" _SN(const char* str, size_t len)
+{
+	return Snailfish::Number({ str, len });
+}

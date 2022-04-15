@@ -40,6 +40,12 @@ TEST(Day18, ConvertNumberToString)
 	EXPECT_EQ(Snailfish::Number("[[1,2],[3,4]]").ToString(), "[[1,2],[3,4]]");
 }
 
+TEST(Day18, CreateNumberFromStringLiteral)
+{
+	EXPECT_EQ("[1,2]"_SN, Snailfish::Number(1, 2));
+	EXPECT_EQ("[[1,2],[3,[[4,5],6]]]"_SN, Snailfish::Number("[[1,2],[3,[[4,5],6]]]"));
+}
+
 TEST(Day18, AddSimpleNumbersMagnitude)
 {
 	EXPECT_EQ((Snailfish::Number("[0,0]") + Snailfish::Number("[0,0]")).Magnitude(), 0);
