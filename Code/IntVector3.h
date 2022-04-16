@@ -11,6 +11,16 @@ struct IntVector3
 	bool operator==(const IntVector3& other) const = default;
 };
 
+inline IntVector3 operator+(const IntVector3& a, const IntVector3& b)
+{
+	return { a.x + b.x, a.y + b.y, a.z + b.z };
+}
+
+inline IntVector3 operator-(const IntVector3& a, const IntVector3& b)
+{
+	return { a.x - b.x, a.y - b.y, a.z - b.z };
+}
+
 inline int Distance2(const IntVector3& a, const IntVector3& b)
 {
 	auto sqr = [](int val) { return val * val; };

@@ -5,8 +5,15 @@
 #include <sstream>
 #include <string>
 
+bool Scanner::ContainsBeacon(const IntVector3& beacon) const
+{
+	return std::find(m_beacons.begin(), m_beacons.end(), beacon) != m_beacons.end();
+}
+
 bool Scanner::Merge(const Scanner& other, size_t count)
 {
+	if (count < 1)
+		return false;
 	if (count > m_beacons.size() || count > other.m_beacons.size())
 		return false;
 
@@ -15,7 +22,24 @@ bool Scanner::Merge(const Scanner& other, size_t count)
 	myIndices.reserve(count);
 	otherIndices.reserve(count);
 
-	return FindOverlappingBeacons(other, count, myIndices, otherIndices);
+	if (!FindOverlappingBeacons(other, count, myIndices, otherIndices))
+		return false;
+
+	MergeBeacons(other, myIndices, otherIndices);
+
+	return true;
+}
+
+void Scanner::MergeBeacons(const Scanner& other, const std::vector<size_t>& myIndices, const std::vector<size_t>& otherIndices)
+{
+	const IntVector3 offset = m_beacons[myIndices[0]] - other.m_beacons[otherIndices[0]];
+
+	for (const IntVector3& otherBeacon : other.m_beacons)
+	{
+		IntVector3 otherBeaconInMySpace = otherBeacon + offset;
+		if (!ContainsBeacon(otherBeaconInMySpace))
+			m_beacons.push_back(otherBeaconInMySpace);
+	}
 }
 
 bool Scanner::FindOverlappingBeacons(const Scanner& other, size_t count, std::vector<size_t>& myIndices, std::vector<size_t>& otherIndices) const

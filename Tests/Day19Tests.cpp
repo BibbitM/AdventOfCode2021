@@ -42,6 +42,16 @@ TEST(Day19, IntVector3Distance)
 	EXPECT_EQ(Distance2(IntVector3{ -10, 100, 0 }, IntVector3{ 0, 0, -1000 }), 1010100);
 }
 
+TEST(Day19, IntVector3Add)
+{
+	EXPECT_EQ(IntVector3(0, 1, 2) + IntVector3(10, 20, 30), IntVector3(10, 21, 32));
+}
+
+TEST(Day19, IntVector3Sub)
+{
+	EXPECT_EQ(IntVector3(0, 1, 2) - IntVector3(10, -20, 30), IntVector3(-10, 21, -28));
+}
+
 TEST(Day19, IntVector3LoadFromInput)
 {
 	{
@@ -144,4 +154,18 @@ TEST(Day19, MergeTwoScannersTheDifferentOrigin)
 	Scanner scanner1({ { 101, 101, 101 }, { 101, 100, 100 }, { 100, 100, 101 } });
 
 	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+}
+
+TEST(Day19, MergeTwoScannersAddsExtraBeacon)
+{
+	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 }, { 20, 30, 20 } });
+	Scanner scanner1({ { 101, 101, 101 }, { 104, 104, 104 }, { 101, 100, 100 }, { 120, 130, 120 }, { 100, 100, 101 } });
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 4);
+	EXPECT_FALSE(scanner0.ContainsBeacon({ 4, 4, 4 }));
+
+	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 5);
+	EXPECT_TRUE(scanner0.ContainsBeacon({ 4, 4, 4 }));
 }
