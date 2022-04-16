@@ -2,6 +2,7 @@
 #include "Scanner.h"
 
 #include <algorithm>
+#include <array>
 #include <sstream>
 #include <string>
 
@@ -32,11 +33,86 @@ bool Scanner::Merge(const Scanner& other, size_t count)
 
 void Scanner::MergeBeacons(const Scanner& other, const std::vector<size_t>& myIndices, const std::vector<size_t>& otherIndices)
 {
-	const IntVector3 offset = m_beacons[myIndices[0]] - other.m_beacons[otherIndices[0]];
+	std::array<size_t, 3> coords{};
+	std::array<int, 3> signs{};
+	std::array<size_t, 3> candidates{ 0, 1, 2 };
+
+	// Find coordinates.
+	size_t myC{};
+	for (myC = 0; myC < 2; ++myC)
+	{
+		size_t c = candidates[myC];
+		size_t idx{};
+		for (idx = 1; idx < myIndices.size(); ++idx)
+		{
+			if (m_beacons[myIndices[0]][0] - m_beacons[myIndices[idx]][0] !=
+				other.m_beacons[otherIndices[0]][c] - other.m_beacons[otherIndices[idx]][c])
+			{
+				break;
+			}
+		}
+		if (idx == myIndices.size())
+			break;
+	}
+	coords[0] = candidates[myC];
+	candidates[myC] = candidates.back();
+
+	{
+		size_t c = candidates[0];
+		size_t idx{};
+		for (idx = 1; idx < myIndices.size(); ++idx)
+		{
+			if (m_beacons[myIndices[0]][1] - m_beacons[myIndices[idx]][1] !=
+				other.m_beacons[otherIndices[0]][c] - other.m_beacons[otherIndices[idx]][c])
+			{
+				break;
+			}
+		}
+		if (idx == myIndices.size())
+		{
+			coords[1] = candidates[0];
+			coords[2] = candidates[1];
+		}
+		else
+		{
+			coords[1] = candidates[1];
+			coords[2] = candidates[0];
+		}
+	}
+
+	// Find sign.
+	for (myC = 0; myC < 3; ++myC)
+	{
+		const size_t otherC = coords[myC];
+
+		for (size_t idx = 1; idx < myIndices.size(); ++idx)
+		{
+			if (m_beacons[myIndices[0]][myC] - m_beacons[myIndices[idx]][myC] == 0)
+				continue;
+			
+			signs[myC] = (m_beacons[myIndices[0]][myC] - m_beacons[myIndices[idx]][myC] ==
+				other.m_beacons[otherIndices[0]][otherC] - other.m_beacons[otherIndices[idx]][otherC])
+				? 1 : -1;
+
+			break;
+		}
+	}
+
+	const IntVector3 offset = {
+		m_beacons[myIndices[0]][0] - other.m_beacons[otherIndices[0]][coords[0]] * signs[0],
+		m_beacons[myIndices[0]][1] - other.m_beacons[otherIndices[0]][coords[1]] * signs[1],
+		m_beacons[myIndices[0]][2] - other.m_beacons[otherIndices[0]][coords[2]] * signs[2]
+	};
 
 	for (const IntVector3& otherBeacon : other.m_beacons)
 	{
-		IntVector3 otherBeaconInMySpace = otherBeacon + offset;
+
+		IntVector3 otherBeaconInMyCoords{
+			otherBeacon[coords[0]] * signs[0],
+			otherBeacon[coords[1]] * signs[1],
+			otherBeacon[coords[2]] * signs[2]
+		};
+		IntVector3 otherBeaconInMySpace = otherBeaconInMyCoords + offset;
 		if (!ContainsBeacon(otherBeaconInMySpace))
 			m_beacons.push_back(otherBeaconInMySpace);
 	}

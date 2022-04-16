@@ -52,6 +52,14 @@ TEST(Day19, IntVector3Sub)
 	EXPECT_EQ(IntVector3(0, 1, 2) - IntVector3(10, -20, 30), IntVector3(-10, 21, -28));
 }
 
+TEST(Day19, IntVector3GetCoordinateByIndex)
+{
+	IntVector3 vec{ 1, -2, 30 };
+	EXPECT_EQ(vec[0], 1);
+	EXPECT_EQ(vec[1], -2);
+	EXPECT_EQ(vec[2], 30);
+}
+
 TEST(Day19, IntVector3LoadFromInput)
 {
 	{
@@ -146,6 +154,7 @@ TEST(Day19, MergeTwoScannersTheSameOrigin)
 	Scanner scanner1({ { 1, 1, 1 }, { 1, 0, 0 }, { 0, 0, 1 } });
 
 	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+	EXPECT_EQ(scanner0.BeaconsCount(), 3);
 }
 
 TEST(Day19, MergeTwoScannersTheDifferentOrigin)
@@ -154,6 +163,7 @@ TEST(Day19, MergeTwoScannersTheDifferentOrigin)
 	Scanner scanner1({ { 101, 101, 101 }, { 101, 100, 100 }, { 100, 100, 101 } });
 
 	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+	EXPECT_EQ(scanner0.BeaconsCount(), 3);
 }
 
 TEST(Day19, MergeTwoScannersAddsExtraBeacon)
@@ -168,4 +178,34 @@ TEST(Day19, MergeTwoScannersAddsExtraBeacon)
 
 	EXPECT_EQ(scanner0.BeaconsCount(), 5);
 	EXPECT_TRUE(scanner0.ContainsBeacon({ 4, 4, 4 }));
+}
+
+TEST(Day19, MergeTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
+{
+	Scanner scanner0({
+			{ 1,1,-1 },
+			{ 2,2,-2 },
+			{ 3,3,-3 },
+			{ 1,3,-2 },
+			{ -4,-6,5 },
+			{ 7, 0, 8 }
+		});
+	Scanner scanner1({
+			{ 1,1,1 },
+			{ 2,2,2 },
+			{ 3,3,3 },
+			{ 3,1,2 },
+			{ -6,-4,-5 },
+			{ 0,7,-8 },
+			{ 20, 10, -30 }
+		});
+
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 6);
+	EXPECT_FALSE(scanner0.ContainsBeacon({ 10, 20, 30 }));
+
+	EXPECT_TRUE(scanner0.Merge(scanner1, 6));
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 7);
+	EXPECT_TRUE(scanner0.ContainsBeacon({ 10, 20, 30 }));
 }

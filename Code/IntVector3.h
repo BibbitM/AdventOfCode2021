@@ -9,6 +9,7 @@ struct IntVector3
 	int z;
 
 	bool operator==(const IntVector3& other) const = default;
+	int operator[](size_t coord) const { return (&x)[coord]; }
 };
 
 inline IntVector3 operator+(const IntVector3& a, const IntVector3& b)
