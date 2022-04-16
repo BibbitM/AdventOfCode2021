@@ -121,3 +121,27 @@ TEST(Day19, ScannerLoadFromInputOnlyOne)
 	input >> scanner;
 	EXPECT_EQ(scanner.BeaconsCount(), 3);
 }
+
+TEST(Day19, MergeNotOverlappingReturnsFalse)
+{
+	Scanner scanner0({ { 1, 1, 1 }, { 100, 100, 100 } });
+	Scanner scanner1({ { 2, 2, 2 }, { 200, 200, 200 } });
+
+	EXPECT_FALSE(scanner0.Merge(scanner1, 2));
+}
+
+TEST(Day19, MergeTwoScannersTheSameOrigin)
+{
+	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
+	Scanner scanner1({ { 1, 1, 1 }, { 1, 0, 0 }, { 0, 0, 1 } });
+
+	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+}
+
+TEST(Day19, MergeTwoScannersTheDifferentOrigin)
+{
+	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
+	Scanner scanner1({ { 101, 101, 101 }, { 101, 100, 100 }, { 100, 100, 101 } });
+
+	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+}
