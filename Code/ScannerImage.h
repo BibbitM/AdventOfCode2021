@@ -22,7 +22,8 @@ public:
 	void Set(int x, int y, bool value) { assert(IsValid(x, y)); m_pixels[GetIndex(x, y)] = value; }
 	size_t GetEnhanced(int x, int y) const;
 	size_t CountLitPixels() const;
-	void SetOutPixels(bool value) { m_outPixel = value; }
+	bool GetOutPixel() const { return m_outPixel; }
+	void SetOutPixel(bool value) { m_outPixel = value; }
 
 	ScannerImage Enhance(const std::vector<bool>& enhacementAlgorithm) const;
 

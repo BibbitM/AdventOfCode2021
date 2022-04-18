@@ -252,11 +252,24 @@ TEST(Day20, ScannerImageExtendExampleImage)
 TEST(Day20, ScannerImageOutOfRangePixelsCanBe1)
 {
 	ScannerImage image(2, 2);
-	image.SetOutPixels(true);
+	image.SetOutPixel(true);
 
 	EXPECT_EQ(image.Get(-1, -1), true);
 	EXPECT_EQ(image.Get(100, 100), true);
 	EXPECT_EQ(image.GetEnhanced(-100, -100), 511);
+}
+
+TEST(Day20, ScannerImageOutOfRangePixelsChanges)
+{
+	ScannerImage image(1, 1);
+	std::vector<bool> enhacementAlgorithm(512, false);
+	enhacementAlgorithm[0] = true;
+
+	EXPECT_EQ(image.GetOutPixel(), false);
+	image = image.Enhance(enhacementAlgorithm);
+	EXPECT_EQ(image.GetOutPixel(), true);
+	image = image.Enhance(enhacementAlgorithm);
+	EXPECT_EQ(image.GetOutPixel(), false);
 }
 
 TEST(Day20, ScannerImageExtendExampleImage50Times)

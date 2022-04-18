@@ -27,7 +27,7 @@ ScannerImage ScannerImage::Enhance(const std::vector<bool>& enhacementAlgorithm)
 {
 	ScannerImage enhancedImage{ m_width + 4, m_height + 4 };
 
-	enhancedImage.SetOutPixels(enhacementAlgorithm[m_outPixel ? 511 : 0]);
+	enhancedImage.SetOutPixel(enhacementAlgorithm[m_outPixel ? 511 : 0]);
 
 	for (int x = 0; x < enhancedImage.m_width; ++x)
 	{
