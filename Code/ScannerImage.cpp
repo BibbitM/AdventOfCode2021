@@ -16,15 +16,18 @@ size_t ScannerImage::GetEnhanced(int centerX, int centerY) const
 
 size_t ScannerImage::CountLitPixels() const
 {
+	if (m_outPixel)
+		return std::numeric_limits<size_t>::max();
+
 	size_t count = 0;
 	return std::accumulate(m_pixels.begin(), m_pixels.end(), count);
 }
 
-ScannerImage ScannerImage::Enhance(const std::vector<bool>& enhacementAlgorithm)
+ScannerImage ScannerImage::Enhance(const std::vector<bool>& enhacementAlgorithm) const
 {
 	ScannerImage enhancedImage{ m_width + 4, m_height + 4 };
 
-	enhancedImage.SetOutPixels(enhacementAlgorithm[enhancedImage.m_outPixel ? 511 : 0]);
+	enhancedImage.SetOutPixels(enhacementAlgorithm[m_outPixel ? 511 : 0]);
 
 	for (int x = 0; x < enhancedImage.m_width; ++x)
 	{

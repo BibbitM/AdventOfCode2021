@@ -46,6 +46,35 @@ namespace
 		"......###....\n"
 		".............\n"
 		".............\n";
+
+	constexpr char c_zsofiaEnhancement[] =
+		"#.#.#..#####.#.#.#.###.##.....###.##.#..###.####..#####..#....#..#..##..##"
+		"#..######.###...####..#..#####..##..#.#####...##.#.#..#.##..#.#......#.###"
+		".######.###.####...#.##.##..#..#..#####.....#.#....###..#.##......#.....#."
+		".#..#..##..#...##.######.####.####.#.#...#.......#..#.#.#...####.##.#....."
+		".#..#...##.#.##..#...##.#.##..###.#......#.#.......#.#.#.####.###.##...#.."
+		"...####.#..#..#.##.#....##..#.####....##...##..#...#......#.#.......#....."
+		"..##..####..#...#.#.#...##..#.#..###..#####........#..####......#...";
+	constexpr char c_zsofiaImage[] =
+		"#..#.\n"
+		"#....\n"
+		"##..#\n"
+		"..#..\n"
+		"..###\n";
+	constexpr char c_zsofiaImageEnhancedTwice[] =
+		".............\n"
+		".............\n"
+		".............\n"
+		".......#.....\n"
+		"..###........\n"
+		"...#..###....\n"
+		"........#....\n"
+		"...#..###.#..\n"
+		"..#..#####...\n"
+		".....#....#..\n"
+		"....#.....#..\n"
+		".............\n"
+		".............\n";
 }
 
 TEST(Day20, VectorBoolAppendByEmptyString)
@@ -187,7 +216,7 @@ TEST(Day20, ScannerImageGetEnhancedPixel)
 	}
 }
 
-TEST(Day20, ScannerImageExtendEmptyImage)
+TEST(Day20, ScannerImageExtendExampleImage)
 {
 	ScannerImage image;
 	ScannerImage loadedEnhancedImage;
@@ -228,4 +257,46 @@ TEST(Day20, ScannerImageOutOfRangePixelsCanBe1)
 	EXPECT_EQ(image.Get(-1, -1), true);
 	EXPECT_EQ(image.Get(100, 100), true);
 	EXPECT_EQ(image.GetEnhanced(-100, -100), 511);
+}
+
+TEST(Day20, ScannerImageExtendExampleImage50Times)
+{
+	ScannerImage image;
+
+	{
+		std::istringstream input{ c_exampleImage };
+		input >> image;
+	}
+
+	std::vector<bool> enhacementAlgorithm;
+	AppendBoolVectorByString(enhacementAlgorithm, c_exampleEnhancement);
+
+	for (size_t i = 0; i < 50; ++i)
+		image = image.Enhance(enhacementAlgorithm);
+
+	EXPECT_EQ(image.CountLitPixels(), 3351);
+}
+
+TEST(Day20, ScannerImageZsofiaExampleImage)
+{
+	ScannerImage image;
+	ScannerImage loadedEnhancedImageTwice;
+
+	{
+		std::istringstream input{ c_zsofiaImage };
+		input >> image;
+	}
+	{
+		std::istringstream input{ c_zsofiaImageEnhancedTwice };
+		input >> loadedEnhancedImageTwice;
+	}
+
+	std::vector<bool> enhacementAlgorithm;
+	AppendBoolVectorByString(enhacementAlgorithm, c_zsofiaEnhancement);
+	EXPECT_EQ(enhacementAlgorithm.size(), 512);
+
+	ScannerImage enhancedImage = image.Enhance(enhacementAlgorithm);
+	ScannerImage enhancedImageTwice = enhancedImage.Enhance(enhacementAlgorithm);
+	EXPECT_EQ(enhancedImageTwice, loadedEnhancedImageTwice);
+	EXPECT_EQ(enhancedImageTwice.CountLitPixels(), 24);
 }

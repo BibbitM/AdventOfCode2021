@@ -24,7 +24,7 @@ public:
 	size_t CountLitPixels() const;
 	void SetOutPixels(bool value) { m_outPixel = value; }
 
-	ScannerImage Enhance(const std::vector<bool>& enhacementAlgorithm);
+	ScannerImage Enhance(const std::vector<bool>& enhacementAlgorithm) const;
 
 	friend std::istream& operator>>(std::istream& in, ScannerImage& image);
 
