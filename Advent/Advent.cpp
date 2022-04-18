@@ -11,6 +11,7 @@
 #include "../Code/NavigationSyntax.h"
 #include "../Code/OctopusGrid.h"
 #include "../Code/Polymerization.h"
+#include "../Code/Scanner.h"
 #include "../Code/SnailfishNumber.h"
 #include "../Code/Transmission.h"
 #include "../Code/TrickShot.h"
@@ -380,6 +381,38 @@ int main()
 
 		std::cout << "Day18: the magnitude of the final sum: " << sum.Magnitude() << md_endl;
 		std::cout << "Day18: the largest magnitude of any sum: " << largestMagnitude << md_endl;
+	}
+
+	{
+		std::vector<Scanner> scanners;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day19.txt");
+
+			while (ifile)
+			{
+				auto& scanner = scanners.emplace_back();
+				ifile >> scanner;
+			}
+		}
+
+		std::cout << "Day19: num scanners: " << scanners.size() << md_endl;
+
+		while (scanners.size() > 1)
+		{
+			std::sort(scanners.begin(), scanners.end(), [](const auto& a, const auto& b) { return a.BeaconsCount() < b.BeaconsCount(); });
+
+			for (size_t i = 1; i < scanners.size(); ++i)
+			{
+				if (scanners[0].Merge(scanners[i], 12))
+				{
+					scanners.erase(scanners.begin() + i);
+					break;
+				}
+			}
+		}
+
+		std::cout << "Day19: number of beacons: " << scanners[0].BeaconsCount() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE

@@ -44,3 +44,4 @@ Day17: maximum y position: 5778
 Day17: count of distinct initial velocity: 2576  
 Day18: the magnitude of the final sum: 3987  
 Day18: the largest magnitude of any sum: 4500  
+Day19: num scanners: 5  
