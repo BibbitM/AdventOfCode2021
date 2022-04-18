@@ -5,6 +5,15 @@
 #include <numeric>
 #include <string>
 
+size_t ScannerImage::GetEnhanced(int centerX, int centerY) const
+{
+	size_t enhanced = 0;
+	for (int y = centerY - 1; y <= centerY + 1; ++y)
+		for (int x = centerX - 1; x <= centerX + 1; ++x)
+			enhanced = (enhanced << 1) | static_cast<size_t>(Get(x, y));
+	return enhanced;
+}
+
 size_t ScannerImage::CountLitPixels() const
 {
 	size_t count = 0;

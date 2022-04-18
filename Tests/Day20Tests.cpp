@@ -6,6 +6,16 @@
 #include <string_view>
 #include <vector>
 
+namespace
+{
+	constexpr char c_exampleImage[] =
+		"#..#.\n"
+		"#....\n"
+		"##..#\n"
+		"..#..\n"
+		"..###\n";
+}
+
 TEST(Day20, VectorBoolAppendByEmptyString)
 {
 	std::vector<bool> vec;
@@ -68,13 +78,7 @@ TEST(Day20, ScannerImageLoadEmptyFromInput)
 TEST(Day20, ScannerImageLoadExampleFromInput)
 {
 	ScannerImage image;
-	std::istringstream input{
-		"#..#.\n"
-		"#....\n"
-		"##..#\n"
-		"..#..\n"
-		"..###\n"
-	};
+	std::istringstream input{ c_exampleImage };
 
 	input >> image;
 
@@ -118,4 +122,21 @@ TEST(Day20, ScannerImageSetPixelValue)
 	EXPECT_EQ(image.Get(0, 0), true);
 	image.Set(1, 1, false);
 	EXPECT_EQ(image.Get(1, 1), false);
+}
+
+TEST(Day20, ScannerImageGetEnhancedPixel)
+{
+	{
+		ScannerImage image;
+		EXPECT_EQ(image.GetEnhanced(0, 0), 0b0);
+	}
+
+	{
+		ScannerImage image;
+		std::istringstream input{ c_exampleImage };
+
+		input >> image;
+
+		EXPECT_EQ(image.GetEnhanced(2, 2), 0b000100010);
+	}
 }

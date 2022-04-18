@@ -19,6 +19,7 @@ public:
 	int GetHeight() const { return m_height; }
 	bool Get(int x, int y) const { return IsValid(x, y) ? m_pixels[GetIndex(x, y)] : false; }
 	void Set(int x, int y, bool value) { assert(IsValid(x, y)); m_pixels[GetIndex(x, y)] = value; }
+	size_t GetEnhanced(int x, int y) const;
 	size_t CountLitPixels() const;
 
 	friend std::istream& operator>>(std::istream& in, ScannerImage& image);
