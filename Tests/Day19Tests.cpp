@@ -282,3 +282,34 @@ TEST(Day19, OverlapMergeTheeScannersAddsExtraBeacon)
 	scanner0.Merge(scanner2);
 	EXPECT_EQ(scanner0.BeaconsCount(), 2);
 }
+
+TEST(Day19, OverlapMergeTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
+{
+	Scanner scanner0({
+			{ 1,1,-1 },
+			{ 2,2,-2 },
+			{ 3,3,-3 },
+			{ 1,3,-2 },
+			{ -4,-6,5 },
+			{ 7, 0, 8 }
+		});
+	Scanner scanner1({
+			{ 1,1,1 },
+			{ 2,2,2 },
+			{ 3,3,3 },
+			{ 3,1,2 },
+			{ -6,-4,-5 },
+			{ 0,7,-8 },
+			{ 20, 10, -30 }
+		});
+
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 6);
+	EXPECT_FALSE(scanner0.ContainsBeacon({ 10, 20, 30 }));
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 6));
+	scanner0.Merge(scanner1);
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 7);
+	EXPECT_TRUE(scanner0.ContainsBeacon({ 10, 20, 30 }));
+}
