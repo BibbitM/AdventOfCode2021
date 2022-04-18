@@ -45,3 +45,4 @@ Day17: count of distinct initial velocity: 2576
 Day18: the magnitude of the final sum: 3987  
 Day18: the largest magnitude of any sum: 4500  
 Day19: number of beacons: 440  
+Day19: the largest Manhattan distance: 13382  

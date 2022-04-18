@@ -437,9 +437,22 @@ int main()
 		{
 			allignedScanners[0].Merge(allignedScanners[i]);
 		}
-		allignedScanners.erase(allignedScanners.begin() + 1, allignedScanners.end());
 
 		std::cout << "Day19: number of beacons: " << allignedScanners[0].BeaconsCount() << md_endl;
+
+		int maxDistance = 0;
+
+		for (size_t i = 0; i + 1 < allignedScanners.size(); ++i)
+		{
+			for (size_t j = i + 1; j < allignedScanners.size(); ++j)
+			{
+				const int distance = ManhattanDistance(allignedScanners[i].GetOffset(), allignedScanners[j].GetOffset());
+				if (distance > maxDistance)
+					maxDistance = distance;
+			}
+		}
+
+		std::cout << "Day19: the largest Manhattan distance: " << maxDistance << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
