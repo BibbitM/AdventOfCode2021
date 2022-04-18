@@ -404,7 +404,7 @@ int main()
 
 			for (size_t i = 1; i < scanners.size(); ++i)
 			{
-				if (scanners[0].Merge(scanners[i], 12))
+				if (scanners[0].MergeOld(scanners[i], 12))
 				{
 					scanners.erase(scanners.begin() + i);
 					break;

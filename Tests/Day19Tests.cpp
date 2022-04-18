@@ -140,33 +140,33 @@ TEST(Day19, ScannerLoadFromInputOnlyOne)
 	EXPECT_EQ(scanner.BeaconsCount(), 3);
 }
 
-TEST(Day19, MergeNotOverlappingReturnsFalse)
+TEST(Day19, MergeOldNotOverlappingReturnsFalse)
 {
 	Scanner scanner0({ { 1, 1, 1 }, { 100, 100, 100 } });
 	Scanner scanner1({ { 2, 2, 2 }, { 200, 200, 200 } });
 
-	EXPECT_FALSE(scanner0.Merge(scanner1, 2));
+	EXPECT_FALSE(scanner0.MergeOld(scanner1, 2));
 }
 
-TEST(Day19, MergeTwoScannersTheSameOrigin)
+TEST(Day19, MergeOldTwoScannersTheSameOrigin)
 {
 	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
 	Scanner scanner1({ { 1, 1, 1 }, { 1, 0, 0 }, { 0, 0, 1 } });
 
-	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+	EXPECT_TRUE(scanner0.MergeOld(scanner1, 3));
 	EXPECT_EQ(scanner0.BeaconsCount(), 3);
 }
 
-TEST(Day19, MergeTwoScannersTheDifferentOrigin)
+TEST(Day19, MergeOldTwoScannersTheDifferentOrigin)
 {
 	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
 	Scanner scanner1({ { 101, 101, 101 }, { 101, 100, 100 }, { 100, 100, 101 } });
 
-	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+	EXPECT_TRUE(scanner0.MergeOld(scanner1, 3));
 	EXPECT_EQ(scanner0.BeaconsCount(), 3);
 }
 
-TEST(Day19, MergeTwoScannersAddsExtraBeacon)
+TEST(Day19, MergeOldTwoScannersAddsExtraBeacon)
 {
 	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 }, { 20, 30, 20 } });
 	Scanner scanner1({ { 101, 101, 101 }, { 104, 104, 104 }, { 101, 100, 100 }, { 120, 130, 120 }, { 100, 100, 101 } });
@@ -174,13 +174,13 @@ TEST(Day19, MergeTwoScannersAddsExtraBeacon)
 	EXPECT_EQ(scanner0.BeaconsCount(), 4);
 	EXPECT_FALSE(scanner0.ContainsBeacon({ 4, 4, 4 }));
 
-	EXPECT_TRUE(scanner0.Merge(scanner1, 3));
+	EXPECT_TRUE(scanner0.MergeOld(scanner1, 3));
 
 	EXPECT_EQ(scanner0.BeaconsCount(), 5);
 	EXPECT_TRUE(scanner0.ContainsBeacon({ 4, 4, 4 }));
 }
 
-TEST(Day19, MergeTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
+TEST(Day19, MergeOldTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
 {
 	Scanner scanner0({
 			{ 1,1,-1 },
@@ -204,7 +204,7 @@ TEST(Day19, MergeTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
 	EXPECT_EQ(scanner0.BeaconsCount(), 6);
 	EXPECT_FALSE(scanner0.ContainsBeacon({ 10, 20, 30 }));
 
-	EXPECT_TRUE(scanner0.Merge(scanner1, 6));
+	EXPECT_TRUE(scanner0.MergeOld(scanner1, 6));
 
 	EXPECT_EQ(scanner0.BeaconsCount(), 7);
 	EXPECT_TRUE(scanner0.ContainsBeacon({ 10, 20, 30 }));

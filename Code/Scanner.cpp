@@ -11,7 +11,7 @@ bool Scanner::ContainsBeacon(const IntVector3& beacon) const
 	return std::find(m_beacons.begin(), m_beacons.end(), beacon) != m_beacons.end();
 }
 
-bool Scanner::Merge(const Scanner& other, size_t count)
+bool Scanner::MergeOld(const Scanner& other, size_t count)
 {
 	if (count < 1)
 		return false;

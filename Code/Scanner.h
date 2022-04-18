@@ -17,7 +17,7 @@ public:
 	size_t BeaconsCount() const { return m_beacons.size(); }
 	bool ContainsBeacon(const IntVector3& beacon) const;
 
-	bool Merge(const Scanner& other, size_t count);
+	bool MergeOld(const Scanner& other, size_t count);
 
 	friend std::istream& operator>>(std::istream& in, Scanner& scanner);
 
