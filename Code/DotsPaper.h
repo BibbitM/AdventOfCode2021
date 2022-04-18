@@ -19,7 +19,7 @@ public:
 
 private:
 	std::vector<IntVector2> m_dots;
-	friend std::ostream& operator<<(std::ostream& out, DotsPaper& paper);
+	friend std::ostream& operator<<(std::ostream& out, const DotsPaper& paper);
 };
 
 struct Fold
@@ -31,5 +31,5 @@ struct Fold
 };
 
 std::istream& operator>>(std::istream& in, DotsPaper& paper);
-std::ostream& operator<<(std::ostream& out, DotsPaper& paper);
+std::ostream& operator<<(std::ostream& out, const DotsPaper& paper);
 std::istream& operator>>(std::istream& in, std::vector<Fold>& folds);

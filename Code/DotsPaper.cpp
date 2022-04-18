@@ -89,7 +89,7 @@ std::istream& operator>>(std::istream& in, std::vector<Fold>& folds)
 	return in;
 }
 
-std::ostream& operator<<(std::ostream& out, DotsPaper& paper)
+std::ostream& operator<<(std::ostream& out, const DotsPaper& paper)
 {
 	int maxX = 0;
 	int maxY = 0;
