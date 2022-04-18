@@ -40,6 +40,7 @@ TEST(Day20, ScannerImageEmpty)
 
 	EXPECT_EQ(image.GetWidth(), 0);
 	EXPECT_EQ(image.GetHeight(), 0);
+	EXPECT_EQ(image.CountLitPixels(), 0);
 }
 
 TEST(Day20, ScannerImageCreateGivenSize)
@@ -48,6 +49,7 @@ TEST(Day20, ScannerImageCreateGivenSize)
 
 	EXPECT_EQ(image.GetWidth(), 10);
 	EXPECT_EQ(image.GetHeight(), 4);
+	EXPECT_EQ(image.CountLitPixels(), 0);
 }
 
 TEST(Day20, ScannerImageLoadEmptyFromInput)
@@ -59,6 +61,7 @@ TEST(Day20, ScannerImageLoadEmptyFromInput)
 
 	EXPECT_EQ(image.GetWidth(), 4);
 	EXPECT_EQ(image.GetHeight(), 3);
+	EXPECT_EQ(image.CountLitPixels(), 0);
 	EXPECT_EQ(image.Get(0, 0), false);
 }
 
@@ -77,6 +80,7 @@ TEST(Day20, ScannerImageLoadExampleFromInput)
 
 	EXPECT_EQ(image.GetWidth(), 5);
 	EXPECT_EQ(image.GetHeight(), 5);
+	EXPECT_EQ(image.CountLitPixels(), 10);
 	EXPECT_EQ(image.Get(0, 0), true);
 	EXPECT_EQ(image.Get(1, 0), false);
 	EXPECT_EQ(image.Get(0, 1), true);
@@ -86,7 +90,7 @@ TEST(Day20, ScannerImageLoadExampleFromInput)
 	EXPECT_EQ(image.Get(4, 4), true);
 }
 
-TEST(Day20, ScanerImageGetOutsideRangeReturnsFalse)
+TEST(Day20, ScannerImageGetOutsideRangeReturnsFalse)
 {
 	ScannerImage image;
 	std::istringstream input("#");
@@ -95,6 +99,7 @@ TEST(Day20, ScanerImageGetOutsideRangeReturnsFalse)
 
 	EXPECT_EQ(image.GetWidth(), 1);
 	EXPECT_EQ(image.GetHeight(), 1);
+	EXPECT_EQ(image.CountLitPixels(), 1);
 	EXPECT_EQ(image.Get(0, 0), true);
 
 	EXPECT_EQ(image.Get(-1, -1), false);

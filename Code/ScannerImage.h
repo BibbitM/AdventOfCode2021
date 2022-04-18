@@ -17,6 +17,7 @@ public:
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
 	bool Get(int x, int y) const { return IsValid(x, y) ? m_pixels[GetIndex(x, y)] : false; }
+	size_t CountLitPixels() const;
 
 	friend std::istream& operator>>(std::istream& in, ScannerImage& image);
 

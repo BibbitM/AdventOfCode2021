@@ -2,7 +2,14 @@
 #include "ScannerImage.h"
 
 #include <cassert>
+#include <numeric>
 #include <string>
+
+size_t ScannerImage::CountLitPixels() const
+{
+	size_t count = 0;
+	return std::accumulate(m_pixels.begin(), m_pixels.end(), count);
+}
 
 std::istream& operator>>(std::istream& in, ScannerImage& image)
 {
