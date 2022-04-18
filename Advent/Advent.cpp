@@ -12,6 +12,7 @@
 #include "../Code/OctopusGrid.h"
 #include "../Code/Polymerization.h"
 #include "../Code/Scanner.h"
+#include "../Code/ScannerImage.h"
 #include "../Code/SnailfishNumber.h"
 #include "../Code/Transmission.h"
 #include "../Code/TrickShot.h"
@@ -453,6 +454,28 @@ int main()
 		}
 
 		std::cout << "Day19: the largest Manhattan distance: " << maxDistance << md_endl;
+	}
+
+	{
+		ScannerImage image;
+		std::vector<bool> enhacementAlgorithm;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day20.txt");
+
+			std::string enhancementLine;
+			if (std::getline(ifile, enhancementLine))
+				AppendBoolVectorByString(enhacementAlgorithm, enhancementLine);
+
+			ifile.ignore(); //< Skip line
+
+			ifile >> image;
+		}
+
+		ScannerImage enhancedImage = image.Enhance(enhacementAlgorithm);
+		ScannerImage enhancedImageTwice = enhancedImage.Enhance(enhacementAlgorithm);
+		std::cout << "Day20: lit pixels in the resulting image: " << enhancedImageTwice.CountLitPixels() << md_endl;
+		std::cout << "```\n" << enhancedImageTwice << "```" << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
