@@ -219,3 +219,13 @@ TEST(Day20, ScannerImageExtendEmptyImage)
 	EXPECT_EQ(enhancedImageTwice, loadedEnhancedImageTwice);
 	EXPECT_EQ(enhancedImageTwice.CountLitPixels(), 35);
 }
+
+TEST(Day20, ScannerImageOutOfRangePixelsCanBe1)
+{
+	ScannerImage image(2, 2);
+	image.SetOutPixels(true);
+
+	EXPECT_EQ(image.Get(-1, -1), true);
+	EXPECT_EQ(image.Get(100, 100), true);
+	EXPECT_EQ(image.GetEnhanced(-100, -100), 511);
+}

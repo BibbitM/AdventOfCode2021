@@ -18,10 +18,11 @@ public:
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
-	bool Get(int x, int y) const { return IsValid(x, y) ? m_pixels[GetIndex(x, y)] : false; }
+	bool Get(int x, int y) const { return IsValid(x, y) ? m_pixels[GetIndex(x, y)] : m_outPixel; }
 	void Set(int x, int y, bool value) { assert(IsValid(x, y)); m_pixels[GetIndex(x, y)] = value; }
 	size_t GetEnhanced(int x, int y) const;
 	size_t CountLitPixels() const;
+	void SetOutPixels(bool value) { m_outPixel = value; }
 
 	ScannerImage Enhance(const std::vector<bool>& enhacementAlgorithm);
 
@@ -38,8 +39,9 @@ private:
 	}
 
 	std::vector<bool> m_pixels;
-	int m_width{};
-	int m_height{};
+	int m_width{ 0 };
+	int m_height{ 0 };
+	bool m_outPixel{ false };
 };
 
 std::istream& operator>>(std::istream& in, ScannerImage& image);
