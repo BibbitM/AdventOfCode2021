@@ -14,6 +14,7 @@ public:
 	{
 		m_pixels.resize(m_width * m_height);
 	}
+	bool operator==(const ScannerImage& other) const = default;
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
@@ -21,6 +22,8 @@ public:
 	void Set(int x, int y, bool value) { assert(IsValid(x, y)); m_pixels[GetIndex(x, y)] = value; }
 	size_t GetEnhanced(int x, int y) const;
 	size_t CountLitPixels() const;
+
+	ScannerImage Enhance(const std::vector<bool>& enhacementAlgorithm);
 
 	friend std::istream& operator>>(std::istream& in, ScannerImage& image);
 

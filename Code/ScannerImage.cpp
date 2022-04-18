@@ -20,6 +20,22 @@ size_t ScannerImage::CountLitPixels() const
 	return std::accumulate(m_pixels.begin(), m_pixels.end(), count);
 }
 
+ScannerImage ScannerImage::Enhance(const std::vector<bool>& enhacementAlgorithm)
+{
+	ScannerImage enhancedImage{ m_width + 4, m_height + 4 };
+
+	for (int x = 0; x < enhancedImage.m_width; ++x)
+	{
+		for (int y = 0; y < enhancedImage.m_height; ++y)
+		{
+			bool enhancedPixel = enhacementAlgorithm[GetEnhanced(x - 2, y - 2)];
+			enhancedImage.Set(x, y, enhancedPixel);
+		}
+	}
+
+	return enhancedImage;
+}
+
 std::istream& operator>>(std::istream& in, ScannerImage& image)
 {
 	std::string line;

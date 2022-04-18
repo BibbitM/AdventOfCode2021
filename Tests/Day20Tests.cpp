@@ -8,12 +8,44 @@
 
 namespace
 {
+	constexpr char c_exampleEnhancement[] =
+		"..#.#..#####.#.#.#.###.##.....###.##.#..###.####..#####..#....#..#..##..##"
+		"#..######.###...####..#..#####..##..#.#####...##.#.#..#.##..#.#......#.###"
+		".######.###.####...#.##.##..#..#..#####.....#.#....###..#.##......#.....#."
+		".#..#..##..#...##.######.####.####.#.#...#.......#..#.#.#...####.##.#....."
+		".#..#...##.#.##..#...##.#.##..###.#......#.#.......#.#.#.####.###.##...#.."
+		"...####.#..#..#.##.#....##..#.####....##...##..#...#......#.#.......#....."
+		"..##..####..#...#.#.#...##..#.#..###..#####........#..####......#..#";
 	constexpr char c_exampleImage[] =
 		"#..#.\n"
 		"#....\n"
 		"##..#\n"
 		"..#..\n"
 		"..###\n";
+	constexpr char c_exampleImageEnhanced[] =
+		".........\n"
+		"..##.##..\n"
+		".#..#.#..\n"
+		".##.#..#.\n"
+		".####..#.\n"
+		"..#..##..\n"
+		"...##..#.\n"
+		"....#.#..\n"
+		".........\n";
+	constexpr char c_exampleImageEnhancedTwice[] =
+		".............\n"
+		".............\n"
+		".........#...\n"
+		"...#..#.#....\n"
+		"..#.#...###..\n"
+		"..#...##.#...\n"
+		"..#.....#.#..\n"
+		"...#.#####...\n"
+		"....#.#####..\n"
+		".....##.##...\n"
+		"......###....\n"
+		".............\n"
+		".............\n";
 }
 
 TEST(Day20, VectorBoolAppendByEmptyString)
@@ -139,4 +171,37 @@ TEST(Day20, ScannerImageGetEnhancedPixel)
 
 		EXPECT_EQ(image.GetEnhanced(2, 2), 0b000100010);
 	}
+}
+
+TEST(Day20, ScannerImageExtendEmptyImage)
+{
+	ScannerImage image;
+	ScannerImage loadedEnhancedImage;
+	ScannerImage loadedEnhancedImageTwice;
+
+	{
+		std::istringstream input{ c_exampleImage };
+		input >> image;
+	}
+	{
+		std::istringstream input{ c_exampleImageEnhanced };
+		input >> loadedEnhancedImage;
+	}
+	{
+		std::istringstream input{ c_exampleImageEnhancedTwice };
+		input >> loadedEnhancedImageTwice;
+	}
+
+	std::vector<bool> enhacementAlgorithm;
+	AppendBoolVectorByString(enhacementAlgorithm, c_exampleEnhancement);
+	EXPECT_EQ(enhacementAlgorithm.size(), 512);
+
+	ScannerImage enhancedImage = image.Enhance(enhacementAlgorithm);
+	EXPECT_EQ(enhancedImage.GetWidth(), image.GetWidth() + 4);
+	EXPECT_EQ(enhancedImage.GetHeight(), image.GetHeight() + 4);
+	EXPECT_EQ(enhancedImage, loadedEnhancedImage);
+
+	ScannerImage enhancedImageTwice = enhancedImage.Enhance(enhacementAlgorithm);
+	EXPECT_EQ(enhancedImageTwice, loadedEnhancedImageTwice);
+	EXPECT_EQ(enhancedImageTwice.CountLitPixels(), 35);
 }
