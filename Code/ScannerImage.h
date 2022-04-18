@@ -1,6 +1,7 @@
 #pragma once
 
 #include <istream>
+#include <cassert>
 #include <string_view>
 #include <vector>
 
@@ -17,6 +18,7 @@ public:
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
 	bool Get(int x, int y) const { return IsValid(x, y) ? m_pixels[GetIndex(x, y)] : false; }
+	void Set(int x, int y, bool value) { assert(IsValid(x, y)); m_pixels[GetIndex(x, y)] = value; }
 	size_t CountLitPixels() const;
 
 	friend std::istream& operator>>(std::istream& in, ScannerImage& image);

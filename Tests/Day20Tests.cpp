@@ -109,3 +109,13 @@ TEST(Day20, ScannerImageGetOutsideRangeReturnsFalse)
 	EXPECT_EQ(image.Get(0, -3), false);
 	EXPECT_EQ(image.Get(0, 5), false);
 }
+
+TEST(Day20, ScannerImageSetPixelValue)
+{
+	ScannerImage image(2, 2);
+
+	image.Set(0, 0, true);
+	EXPECT_EQ(image.Get(0, 0), true);
+	image.Set(1, 1, false);
+	EXPECT_EQ(image.Get(1, 1), false);
+}
