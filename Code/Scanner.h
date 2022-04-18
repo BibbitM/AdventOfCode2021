@@ -12,12 +12,18 @@ public:
 	Scanner(std::vector<IntVector3> beacons)
 		: m_beacons(std::move(beacons))
 	{
+		SortBeacons();
 	}
 
 	size_t BeaconsCount() const { return m_beacons.size(); }
 	bool ContainsBeacon(const IntVector3& beacon) const;
 
+	IntVector3 GetOffset() const { return m_offset; }
+
 	bool MergeOld(const Scanner& other, size_t count);
+
+	void Merge(const Scanner& other);
+	bool OverlapWith(const Scanner& orgin, size_t count);
 
 	friend std::istream& operator>>(std::istream& in, Scanner& scanner);
 
@@ -28,5 +34,10 @@ private:
 	bool FindMatchingOverlappingBeacons(const Scanner& other, size_t count, const std::vector<size_t>& myIndices, std::vector<size_t>& otherIndices) const;
 	bool CompareOverlappingBeacons(const Scanner& other, size_t count, const std::vector<size_t>& myIndices, const std::vector<size_t>& otherIndices) const;
 
+	bool FindOverlappingPairsWithOffset(const Scanner& orgin, size_t count, const IntVector3& offset) const;
+
+	void SortBeacons();
+
 	std::vector<IntVector3> m_beacons;
+	IntVector3 m_offset{};
 };

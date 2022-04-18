@@ -209,3 +209,76 @@ TEST(Day19, MergeOldTwoScannersAddsExtraBeaconDifferentOrientationAndSign)
 	EXPECT_EQ(scanner0.BeaconsCount(), 7);
 	EXPECT_TRUE(scanner0.ContainsBeacon({ 10, 20, 30 }));
 }
+
+TEST(Day19, OverlapNotOverlappingReturnsFalse)
+{
+	const Scanner scanner0({ { 1, 1, 1 }, { 100, 100, 100 } });
+	Scanner scanner1({ { 2, 2, 2 }, { 200, 200, 200 } });
+
+	EXPECT_FALSE(scanner1.OverlapWith(scanner0, 2));
+}
+
+TEST(Day19, OverlapTwoScannersTheSameOrigin)
+{
+	const Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
+	Scanner scanner1({ { 1, 1, 1 }, { 1, 0, 0 }, { 0, 0, 1 } });
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 3));
+	EXPECT_EQ(scanner1.GetOffset(), IntVector3(0, 0, 0));
+}
+
+TEST(Day19, OverlapTwoScannersTheDifferentOrigin)
+{
+	const Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 } });
+	Scanner scanner1({ { 101, 101, 101 }, { 101, 100, 100 }, { 100, 100, 101 } });
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 3));
+	EXPECT_EQ(scanner1.GetOffset(), IntVector3(-100, -100, -100));
+}
+
+TEST(Day19, OverlapThreeScannersAddsOffset)
+{
+	const Scanner scanner0({ { 1, 1, 1 } });
+	Scanner scanner1({ { 101, 101, 101 } });
+	Scanner scanner2({ { 51, 51, 51 } });
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 1));
+	EXPECT_TRUE(scanner2.OverlapWith(scanner1, 1));
+	EXPECT_EQ(scanner2.GetOffset(), IntVector3(-50, -50, -50));
+}
+
+TEST(Day19, OverlapMergeTwoScannersAddsExtraBeacon)
+{
+	Scanner scanner0({ { 1, 1, 1 }, { 0, 0, 1 }, { 1, 0, 0 }, { 20, 30, 20 } });
+	Scanner scanner1({ { 101, 101, 101 }, { 104, 104, 104 }, { 101, 100, 100 }, { 120, 130, 120 }, { 100, 100, 101 } });
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 4);
+	EXPECT_FALSE(scanner0.ContainsBeacon({ 4, 4, 4 }));
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 3));
+	scanner0.Merge(scanner1);
+
+	EXPECT_EQ(scanner0.BeaconsCount(), 5);
+	EXPECT_TRUE(scanner0.ContainsBeacon({ 4, 4, 4 }));
+}
+
+TEST(Day19, OverlapMergeTheeScannersAddsExtraBeacon)
+{
+	Scanner scanner0({ { 1, 1, 1 } });
+	Scanner scanner1({ { 101, 101, 101 } });
+	Scanner scanner2({ { 51, 51, 51 }, { 52, 52, 52 } });
+
+	EXPECT_TRUE(scanner1.OverlapWith(scanner0, 1));
+	EXPECT_TRUE(scanner2.OverlapWith(scanner1, 1));
+
+	scanner1.Merge(scanner2);
+	EXPECT_EQ(scanner1.BeaconsCount(), 2);
+	EXPECT_TRUE(scanner1.ContainsBeacon({ 102, 102, 102 }));
+
+	scanner0.Merge(scanner1);
+	EXPECT_EQ(scanner0.BeaconsCount(), 2);
+	EXPECT_TRUE(scanner0.ContainsBeacon({ 2, 2, 2 }));
+
+	scanner0.Merge(scanner2);
+	EXPECT_EQ(scanner0.BeaconsCount(), 2);
+}
