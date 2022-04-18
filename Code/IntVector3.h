@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <istream>
 
 struct IntVector3
@@ -26,6 +27,11 @@ inline int Distance2(const IntVector3& a, const IntVector3& b)
 {
 	auto sqr = [](int val) { return val * val; };
 	return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
+}
+
+inline int ManhattanDistance(const IntVector3& a, const IntVector3& b)
+{
+	return std::abs(a.x - b.x) + std::abs(a.y - b.y) + std::abs(a.z - b.z);
 }
 
 inline std::istream& operator>>(std::istream& in, IntVector3& vec)

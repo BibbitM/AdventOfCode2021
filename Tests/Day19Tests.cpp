@@ -42,6 +42,15 @@ TEST(Day19, IntVector3Distance)
 	EXPECT_EQ(Distance2(IntVector3{ -10, 100, 0 }, IntVector3{ 0, 0, -1000 }), 1010100);
 }
 
+TEST(Day19, IntVector3ManhattanDistance)
+{
+	EXPECT_EQ(ManhattanDistance(IntVector3{}, IntVector3{}), 0);
+	EXPECT_EQ(ManhattanDistance(IntVector3{}, IntVector3{ 1, 1, 1 }), 3);
+	EXPECT_EQ(ManhattanDistance(IntVector3{}, IntVector3{ 1, 2, 3 }), 6);
+	EXPECT_EQ(ManhattanDistance(IntVector3{ 1, 2, 3 }, IntVector3{}), 6);
+	EXPECT_EQ(ManhattanDistance(IntVector3{ -10, 100, 0 }, IntVector3{ 0, 0, -1000 }), 1110);
+}
+
 TEST(Day19, IntVector3Add)
 {
 	EXPECT_EQ(IntVector3(0, 1, 2) + IntVector3(10, 20, 30), IntVector3(10, 21, 32));
