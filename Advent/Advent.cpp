@@ -474,8 +474,11 @@ int main()
 
 		ScannerImage enhancedImage = image.Enhance(enhacementAlgorithm);
 		ScannerImage enhancedImageTwice = enhancedImage.Enhance(enhacementAlgorithm);
-		std::cout << "Day20: lit pixels in the resulting image: " << enhancedImageTwice.CountLitPixels() << md_endl;
-		std::cout << "```\n" << enhancedImageTwice << "```" << md_endl;
+		std::cout << "Day20: lit pixels in the resulting image (x2): " << enhancedImageTwice.CountLitPixels() << md_endl;
+
+		for (size_t i = 0; i < 50; ++i)
+			image = image.Enhance(enhacementAlgorithm);
+		std::cout << "Day20: lit pixels in the resulting image (x50): " << image.CountLitPixels() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
