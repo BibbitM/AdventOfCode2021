@@ -28,8 +28,6 @@ public:
 
 	IntVector3 GetOffset() const { return m_offset; }
 
-	bool MergeOld(const Scanner& other, size_t count);
-
 	void Merge(const Scanner& other);
 	bool OverlapWith(const Scanner& orgin, size_t count);
 
@@ -37,12 +35,6 @@ public:
 
 private:
 	bool OverlapWithTransformed(const Scanner& orgin, size_t count);
-	void MergeBeacons(const Scanner& other, const std::vector<size_t>& myIndices, const std::vector<size_t>& otherIndices);
-
-	bool FindOverlappingBeacons(const Scanner& other, size_t count, std::vector<size_t>& myIndices, std::vector<size_t>& otherIndices) const;
-	bool FindMatchingOverlappingBeacons(const Scanner& other, size_t count, const std::vector<size_t>& myIndices, std::vector<size_t>& otherIndices) const;
-	bool CompareOverlappingBeacons(const Scanner& other, size_t count, const std::vector<size_t>& myIndices, const std::vector<size_t>& otherIndices) const;
-
 	bool FindOverlappingPairsWithOffset(const Scanner& orgin, size_t count, const IntVector3& offset) const;
 
 	void SortBeacons();
