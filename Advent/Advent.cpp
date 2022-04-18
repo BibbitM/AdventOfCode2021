@@ -384,35 +384,62 @@ int main()
 	}
 
 	{
-		std::vector<Scanner> scanners;
+		std::vector<Scanner> unalignedScanners;
+		constexpr size_t c_numOverlappingBeacons = 12;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day19.txt");
 
 			while (ifile)
 			{
-				auto& scanner = scanners.emplace_back();
+				auto& scanner = unalignedScanners.emplace_back();
 				ifile >> scanner;
 			}
 		}
 
-		std::cout << "Day19: num scanners: " << scanners.size() << md_endl;
+		assert(!unalignedScanners.empty());
 
-		while (scanners.size() > 1)
+		std::vector<Scanner> allignedScanners;
+		std::vector<Scanner> candidateScanners;
+		allignedScanners.reserve(unalignedScanners.size());
+		candidateScanners.reserve(unalignedScanners.size());
+
+		candidateScanners.push_back(std::move(unalignedScanners.back()));
+		unalignedScanners.pop_back();
+
+		while (!candidateScanners.empty() && !unalignedScanners.empty())
 		{
-			std::sort(scanners.begin(), scanners.end(), [](const auto& a, const auto& b) { return a.BeaconsCount() < b.BeaconsCount(); });
+			Scanner candidate(std::move(candidateScanners.back()));
+			candidateScanners.pop_back();
 
-			for (size_t i = 1; i < scanners.size(); ++i)
+			for (auto it = unalignedScanners.begin(); it != unalignedScanners.end(); /*in loop*/)
 			{
-				if (scanners[0].MergeOld(scanners[i], 12))
+				if (it->OverlapWith(candidate, c_numOverlappingBeacons))
 				{
-					scanners.erase(scanners.begin() + i);
-					break;
+					candidateScanners.push_back(std::move(*it));
+					it = unalignedScanners.erase(it);
 				}
+				else
+					++it;
 			}
-		}
 
-		std::cout << "Day19: number of beacons: " << scanners[0].BeaconsCount() << md_endl;
+			allignedScanners.push_back(std::move(candidate));
+		}
+		assert(unalignedScanners.empty());
+
+		allignedScanners.insert(
+			allignedScanners.end(),
+			std::make_move_iterator(candidateScanners.begin()),
+			std::make_move_iterator(candidateScanners.end()));
+		candidateScanners.clear();
+
+		for (size_t i = 1; i < allignedScanners.size(); ++i)
+		{
+			allignedScanners[0].Merge(allignedScanners[i]);
+		}
+		allignedScanners.erase(allignedScanners.begin() + 1, allignedScanners.end());
+
+		std::cout << "Day19: number of beacons: " << allignedScanners[0].BeaconsCount() << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
