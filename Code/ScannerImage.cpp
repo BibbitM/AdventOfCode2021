@@ -53,6 +53,24 @@ std::istream& operator>>(std::istream& in, ScannerImage& image)
 	return in;
 }
 
+std::ostream& operator<<(std::ostream& out, const ScannerImage& image)
+{
+	std::string line;
+	line.resize(image.GetWidth());
+
+	for (int y = 0; y < image.GetHeight(); ++y)
+	{
+		for (int x = 0; x < image.GetWidth(); ++x)
+		{
+			line[x] = image.Get(x, y) ? '#' : '.';
+		}
+		out << line << '\n';
+	}
+
+	return out;
+
+}
+
 void AppendBoolVectorByString(std::vector<bool>& vec, std::string_view str)
 {
 	vec.reserve(vec.size() + str.length());

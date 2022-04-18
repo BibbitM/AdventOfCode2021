@@ -1,6 +1,6 @@
 #pragma once
 
-#include <istream>
+#include <iostream>
 #include <cassert>
 #include <string_view>
 #include <vector>
@@ -43,5 +43,6 @@ private:
 };
 
 std::istream& operator>>(std::istream& in, ScannerImage& image);
+std::ostream& operator<<(std::ostream& out, const ScannerImage& image);
 
 void AppendBoolVectorByString(std::vector<bool>& vec, std::string_view str);

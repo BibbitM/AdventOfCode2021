@@ -126,6 +126,20 @@ TEST(Day20, ScannerImageLoadExampleFromInput)
 	EXPECT_EQ(image.Get(4, 4), true);
 }
 
+TEST(Day20, ScannerImagePrint)
+{
+	ScannerImage image(2, 3);
+	image.Set(0, 0, true);
+	image.Set(1, 1, true);
+	image.Set(0, 2, true);
+	image.Set(1, 2, true);
+
+	std::ostringstream output;
+	output << image;
+	EXPECT_EQ(output.str(), "#.\n.#\n##\n");
+}
+
+
 TEST(Day20, ScannerImageGetOutsideRangeReturnsFalse)
 {
 	ScannerImage image;
