@@ -28,6 +28,15 @@ namespace Dirac
 	class Player
 	{
 	public:
+		Player() = default;
+		Player(int space) : m_space(space) { }
+
+		int Space() const { return m_space; }
 		int Score() const { return 0; }
+
+		void Move(int distance) { m_space = (m_space + distance - 1) % 10 + 1; }
+
+	private:
+		int m_space{ 1 };
 	};
 }

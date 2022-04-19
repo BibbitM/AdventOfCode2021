@@ -46,5 +46,34 @@ TEST(Day21, DiracPlayerEmpty)
 {
 	Dirac::Player player;
 
+	EXPECT_EQ(player.Space(), 1);
 	EXPECT_EQ(player.Score(), 0);
+}
+
+TEST(Day21, DiracPlayerAtGivenSpace)
+{
+	Dirac::Player player(3);
+
+	EXPECT_EQ(player.Space(), 3);
+	EXPECT_EQ(player.Score(), 0);
+}
+
+TEST(Day21, DiracPlayerMovesInSpace)
+{
+	Dirac::Player player(1);
+	player.Move(3);
+	EXPECT_EQ(player.Space(), 1 + 3);
+	player.Move(5);
+	EXPECT_EQ(player.Space(), 9);
+}
+
+TEST(Day21, DiracPlayerMovesWrapArround10)
+{
+	Dirac::Player player(10);
+	player.Move(1);
+	EXPECT_EQ(player.Space(), 1);
+	player.Move(10);
+	EXPECT_EQ(player.Space(), 1);
+	player.Move(205);
+	EXPECT_EQ(player.Space(), 6);
 }
