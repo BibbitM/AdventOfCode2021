@@ -24,4 +24,10 @@ namespace Dirac
 		int m_numRolls{ 0 };
 		int m_nextRoll{ 1 };
 	};
+
+	class Player
+	{
+	public:
+		int Score() const { return 0; }
+	};
 }

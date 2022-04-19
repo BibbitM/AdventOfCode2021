@@ -41,3 +41,10 @@ TEST(Day21, DiracDiceRollWrapAround100)
 	dice.Roll(500);
 	EXPECT_EQ(dice.Roll(), 5);
 }
+
+TEST(Day21, DiracPlayerEmpty)
+{
+	Dirac::Player player;
+
+	EXPECT_EQ(player.Score(), 0);
+}
