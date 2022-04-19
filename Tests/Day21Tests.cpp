@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../Code/DiracDice.h"
+#include "../Code/Utils.h"
 
 TEST(Day21, DiracDiceEmpty)
 {
@@ -93,4 +94,10 @@ TEST(Day21, DiracPlayerAddScoreAfterMove)
 	player.Move(3);
 	EXPECT_EQ(player.Space(), 1);
 	EXPECT_EQ(player.Score(), 20 + 1);
+}
+
+TEST(Day21, DiracGameEmpty)
+{
+	Dirac::Game game;
+	UNUSED(game);
 }

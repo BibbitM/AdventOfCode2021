@@ -44,4 +44,9 @@ namespace Dirac
 		int m_space{ 1 };
 		int m_score{ 0 };
 	};
+
+	class Game
+	{
+
+	};
 }
