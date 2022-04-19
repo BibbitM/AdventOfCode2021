@@ -1,5 +1,7 @@
 #pragma once
 
+#include <istream>
+
 namespace Dirac
 {
 	class Dice
@@ -57,5 +59,9 @@ namespace Dirac
 
 	private:
 		Player m_players[2];
+
+		friend std::istream& operator>>(std::istream& in, Game& game);
 	};
+
+	std::istream& operator>>(std::istream& in, Dirac::Game& game);
 }

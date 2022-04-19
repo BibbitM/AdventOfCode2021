@@ -3,6 +3,8 @@
 #include "../Code/DiracDice.h"
 #include "../Code/Utils.h"
 
+#include <sstream>
+
 TEST(Day21, DiracDiceEmpty)
 {
 	Dirac::Dice dice;
@@ -106,4 +108,16 @@ TEST(Day21, DiracGamePlaysTill1000AndReturnsLoosingScore)
 {
 	Dirac::Game game(4, 8);
 	EXPECT_EQ(game.Play(), 739785);
+}
+
+TEST(Day21, DiracGameLoadFromInput)
+{
+	Dirac::Game game;
+	std::istringstream input(
+		"Player 1 starting position: 5\n"
+		"Player 2 starting position: 3\n");
+
+	input >> game;
+
+	EXPECT_EQ(game.Play(), Dirac::Game(5, 3).Play());
 }
