@@ -101,3 +101,9 @@ TEST(Day21, DiracGameEmpty)
 	Dirac::Game game;
 	UNUSED(game);
 }
+
+TEST(Day21, DiracGamePlaysTill1000AndReturnsLoosingScore)
+{
+	Dirac::Game game(4, 8);
+	EXPECT_EQ(game.Play(), 739785);
+}

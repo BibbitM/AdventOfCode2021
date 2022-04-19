@@ -47,6 +47,15 @@ namespace Dirac
 
 	class Game
 	{
+	public:
+		Game() = default;
+		Game(int player1Space, int player2Space)
+			: m_players{ Player(player1Space), Player(player2Space) }
+		{ }
 
+		int Play();
+
+	private:
+		Player m_players[2];
 	};
 }
