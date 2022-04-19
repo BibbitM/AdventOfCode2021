@@ -3,6 +3,7 @@
 #include "../Code/BingoNumbers.h"
 #include "../Code/Cave.h"
 #include "../Code/Cavern.h"
+#include "../Code/DiracDice.h"
 #include "../Code/DotsPaper.h"
 #include "../Code/IntLine2.h"
 #include "../Code/IntVector2.h"
@@ -479,6 +480,21 @@ int main()
 		for (size_t i = 0; i < 50; ++i)
 			image = image.Enhance(enhacementAlgorithm);
 		std::cout << "Day20: lit pixels in the resulting image (x50): " << image.CountLitPixels() << md_endl;
+	}
+
+
+	{
+		Dirac::Game game;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day21.txt");
+
+			ifile >> game;
+		}
+
+		int gameScore = game.Play();
+
+		std::cout << "Day21: the game score: " << gameScore << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE
