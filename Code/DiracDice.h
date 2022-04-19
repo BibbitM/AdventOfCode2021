@@ -14,6 +14,8 @@ namespace Dirac
 			{
 				++m_numRolls;
 				roll += m_nextRoll++;
+				if (m_nextRoll > 100)
+					m_nextRoll -= 100;
 			}
 			return roll;
 		}

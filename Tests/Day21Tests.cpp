@@ -28,3 +28,16 @@ TEST(Day21, DiracDiceRollNTimsReturnSumOfRolls)
 	EXPECT_EQ(dice.Roll(6), 5 + 6 + 7 + 8 + 9 + 10);
 	EXPECT_EQ(dice.NumRolls(), 10);
 }
+
+TEST(Day21, DiracDiceRollWrapAround100)
+{
+	Dirac::Dice dice;
+
+	dice.Roll(98);
+	EXPECT_EQ(dice.Roll(), 99);
+	EXPECT_EQ(dice.Roll(), 100);
+	EXPECT_EQ(dice.Roll(), 1);
+	EXPECT_EQ(dice.Roll(3), 2 + 3 + 4);
+	dice.Roll(500);
+	EXPECT_EQ(dice.Roll(), 5);
+}
