@@ -32,11 +32,16 @@ namespace Dirac
 		Player(int space) : m_space(space) { }
 
 		int Space() const { return m_space; }
-		int Score() const { return 0; }
+		int Score() const { return m_score; }
 
-		void Move(int distance) { m_space = (m_space + distance - 1) % 10 + 1; }
+		void Move(int distance)
+		{
+			m_space = (m_space + distance - 1) % 10 + 1;
+			m_score += m_space;
+		}
 
 	private:
 		int m_space{ 1 };
+		int m_score{ 0 };
 	};
 }

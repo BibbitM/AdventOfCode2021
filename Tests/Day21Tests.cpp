@@ -77,3 +77,20 @@ TEST(Day21, DiracPlayerMovesWrapArround10)
 	player.Move(205);
 	EXPECT_EQ(player.Space(), 6);
 }
+
+TEST(Day21, DiracPlayerAddScoreAfterMove)
+{
+	Dirac::Player player(5);
+	player.Move(1);
+	EXPECT_EQ(player.Space(), 6);
+	EXPECT_EQ(player.Score(), 0 + 6);
+	player.Move(10);
+	EXPECT_EQ(player.Space(), 6);
+	EXPECT_EQ(player.Score(), 6 + 6);
+	player.Move(2);
+	EXPECT_EQ(player.Space(), 8);
+	EXPECT_EQ(player.Score(), 12 + 8);
+	player.Move(3);
+	EXPECT_EQ(player.Space(), 1);
+	EXPECT_EQ(player.Score(), 20 + 1);
+}
