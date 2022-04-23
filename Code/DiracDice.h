@@ -1,6 +1,8 @@
 #pragma once
 
+#include <array>
 #include <istream>
+#include <unordered_map>
 
 namespace Dirac
 {
@@ -25,6 +27,20 @@ namespace Dirac
 	private:
 		int m_numRolls{ 0 };
 		int m_nextRoll{ 1 };
+	};
+
+	class QuantumDice
+	{
+	public:
+		static constexpr std::array<std::pair<int, uint32_t>, 9> s_moveUniversers = { {
+			{ 3, 1 }, // 111
+			{ 4, 3 }, // 112, 121, 211
+			{ 5, 6 }, // 113, 131, 311, 122, 212, 221
+			{ 6, 7 }, // 123, 132, 213, 231, 312, 221, 222
+			{ 7, 6 }, // 331, 313, 133, 322, 323, 223
+			{ 8, 3 }, // 331, 131, 133
+			{ 9, 1 }, // 333
+		} };
 	};
 
 	class Player
@@ -54,11 +70,21 @@ namespace Dirac
 		Game(int player1Space, int player2Space)
 			: m_players{ Player(player1Space), Player(player2Space) }
 		{ }
+		Game(const Player& player1, const Player& player2)
+			: m_players{ player1, player2 }
+		{ }
+
+		uint32_t GetHash() const;
 
 		int Play();
+		uint64_t PlayQuantum(int pointsLimit) const;
+		uint64_t PlayQuantumWithCache(int pointsLimit) const;
 
 	private:
-		Player m_players[2];
+		std::array<Player, 2> m_players{};
+
+		void PlayQuantum(size_t currentPlayer, uint64_t (&playerWins)[2], uint64_t universes, int pointsLimit) const;
+		std::array<uint64_t, 2> PlayQuantumWithCache(std::unordered_map<uint32_t, std::array<uint64_t, 2>>& winsCache, int pointsLimit) const;
 
 		friend std::istream& operator>>(std::istream& in, Game& game);
 	};
