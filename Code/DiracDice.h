@@ -78,13 +78,11 @@ namespace Dirac
 
 		int Play();
 		uint64_t PlayQuantum(int pointsLimit) const;
-		uint64_t PlayQuantumWithCache(int pointsLimit) const;
 
 	private:
-		std::array<Player, 2> m_players{};
+		std::array<uint64_t, 2> PlayQuantum(std::unordered_map<uint32_t, std::array<uint64_t, 2>>& winsCache, int pointsLimit) const;
 
-		void PlayQuantum(size_t currentPlayer, uint64_t (&playerWins)[2], uint64_t universes, int pointsLimit) const;
-		std::array<uint64_t, 2> PlayQuantumWithCache(std::unordered_map<uint32_t, std::array<uint64_t, 2>>& winsCache, int pointsLimit) const;
+		std::array<Player, 2> m_players{};
 
 		friend std::istream& operator>>(std::istream& in, Game& game);
 	};

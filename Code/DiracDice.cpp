@@ -32,36 +32,14 @@ int Dirac::Game::Play()
 
 uint64_t Dirac::Game::PlayQuantum(int pointsLimit) const
 {
-	uint64_t playerWins[2] = {};
-
-	PlayQuantum(0, playerWins, 1, pointsLimit);
-
-	return std::max(playerWins[0], playerWins[1]);
-}
-
-void Dirac::Game::PlayQuantum(size_t currentPlayer, uint64_t (&playerWins)[2], uint64_t universes, int pointsLimit) const
-{
-	for (const auto& moveUnivers : QuantumDice::s_moveUniversers)
-	{
-		Game gameUniverse{ *this };
-		gameUniverse.m_players[currentPlayer].Move(moveUnivers.first);
-		if (gameUniverse.m_players[currentPlayer].Score() >= pointsLimit)
-			playerWins[currentPlayer] += universes * moveUnivers.second;
-		else
-			gameUniverse.PlayQuantum((currentPlayer + 1) % 2, playerWins, universes * moveUnivers.second, pointsLimit);
-	}
-}
-
-uint64_t Dirac::Game::PlayQuantumWithCache(int pointsLimit) const
-{
 	std::unordered_map<uint32_t, std::array<uint64_t, 2>> winsCache;
 
-	const auto& playerWins = PlayQuantumWithCache(winsCache, pointsLimit);
+	const auto& playerWins = PlayQuantum(winsCache, pointsLimit);
 
 	return std::max(playerWins[0], playerWins[1]);
 }
 
-std::array<uint64_t, 2> Dirac::Game::PlayQuantumWithCache(std::unordered_map<uint32_t, std::array<uint64_t, 2>>& winsCache, int pointsLimit) const
+std::array<uint64_t, 2> Dirac::Game::PlayQuantum(std::unordered_map<uint32_t, std::array<uint64_t, 2>>& winsCache, int pointsLimit) const
 {
 	const uint32_t hash = GetHash();
 	auto foundIt = winsCache.find(hash);
@@ -79,7 +57,7 @@ std::array<uint64_t, 2> Dirac::Game::PlayQuantumWithCache(std::unordered_map<uin
 		else
 		{
 			Game nextGameUniverse(gameUniverse.m_players[1], gameUniverse.m_players[0]);
-			auto nextPlayeWins = nextGameUniverse.PlayQuantumWithCache(winsCache, pointsLimit);
+			auto nextPlayeWins = nextGameUniverse.PlayQuantum(winsCache, pointsLimit);
 			playerWins[0] += nextPlayeWins[1] * moveUnivers.second;
 			playerWins[1] += nextPlayeWins[0] * moveUnivers.second;
 		}

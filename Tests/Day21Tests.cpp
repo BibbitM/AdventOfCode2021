@@ -122,20 +122,14 @@ TEST(Day21, DiracGameLoadFromInput)
 	EXPECT_EQ(game.Play(), Dirac::Game(5, 3).Play());
 }
 
-TEST(Day21, DiracGamePlaysQuantumTill10AndReturnWinnersCount)
+TEST(Day21, DiracGamePlayQuantumTill10AndReturnWinnersCount)
 {
 	Dirac::Game game(4, 8);
 	EXPECT_EQ(game.PlayQuantum(10), 18'973'591ull);
 }
 
-TEST(Day21, DiracGamePlaysQuantumWithCacheTill10AndReturnWinnersCount)
+TEST(Day21, DiracGamePlayQuantumTill21AndReturnWinnersCount)
 {
 	Dirac::Game game(4, 8);
-	EXPECT_EQ(game.PlayQuantumWithCache(10), 18'973'591ull);
-}
-
-TEST(Day21, DiracGamePlaysQuantumWithCacheTill21AndReturnWinnersCount)
-{
-	Dirac::Game game(4, 8);
-	EXPECT_EQ(game.PlayQuantumWithCache(21), std::max(444'356'092'776'315ull, 341'960'390'180'808ull));
+	EXPECT_EQ(game.PlayQuantum(21), std::max(444'356'092'776'315ull, 341'960'390'180'808ull));
 }
