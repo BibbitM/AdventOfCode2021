@@ -492,9 +492,13 @@ int main()
 			ifile >> game;
 		}
 
+		Dirac::Game quantumGame{ game };
+
 		int gameScore = game.Play();
+		uint64_t quantumGameWinningUniverses = quantumGame.PlayQuantum(21);
 
 		std::cout << "Day21: the game score: " << gameScore << md_endl;
+		std::cout << "Day21: the game universes in which player wins: " << quantumGameWinningUniverses << md_endl;
 	}
 
 #if WRITE_OUTPUT_TO_README_FILE

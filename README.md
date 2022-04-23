@@ -49,3 +49,4 @@ Day19: the largest Manhattan distance: 13382
 Day20: lit pixels in the resulting image (x2): 5306  
 Day20: lit pixels in the resulting image (x50): 17497  
 Day21: the game score: 684495  
+Day21: the game universes in which player wins: 152587196649184  
