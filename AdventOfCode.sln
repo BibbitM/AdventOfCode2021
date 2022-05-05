@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inputs", "Inputs", "{05A18F
 		Inputs\Day2.txt = Inputs\Day2.txt
 		Inputs\Day20.txt = Inputs\Day20.txt
 		Inputs\Day21.txt = Inputs\Day21.txt
+		Inputs\Day22.txt = Inputs\Day22.txt
 		Inputs\Day3.txt = Inputs\Day3.txt
 		Inputs\Day4.txt = Inputs\Day4.txt
 		Inputs\Day5.txt = Inputs\Day5.txt
