@@ -82,3 +82,26 @@ TEST(Day22, CubeMapEmpty)
 
 	EXPECT_EQ(map.Volume(), 0);
 }
+
+TEST(Day22, CubeMapOnOff)
+{
+	CubeMap map;
+
+	map.On(Cube({ 1, 1, 1 }, { 1, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 1);
+
+	map.On(Cube({ 2, 1, 1 }, { 2, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 2);
+
+	map.On(Cube({ 1, 1, 1 }, { 2, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 2);
+
+	map.On(Cube({ 1, 1, 1 }, { 3, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 3);
+
+	map.Off(Cube({ 0, 1, 1 }, { 0, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 3);
+
+	map.Off(Cube({ 1, 1, 1 }, { 1, 1, 1 }));
+	EXPECT_EQ(map.Volume(), 2);
+}

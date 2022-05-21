@@ -2,6 +2,8 @@
 
 #include "IntVector3.h"
 
+#include <vector>
+
 class Cube
 {
 public:
@@ -33,6 +35,12 @@ std::istream& operator>>(std::istream& in, Cube& cube);
 class CubeMap
 {
 public:
+	void On(const Cube& cube);
+	void Off(const Cube& cube);
 	
-	long long int Volume() const { return 0; }
+	long long int Volume() const;
+
+private:
+	std::vector<Cube> onCubes;
+	std::vector<Cube> offCubes;
 };

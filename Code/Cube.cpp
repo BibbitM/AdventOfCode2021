@@ -39,3 +39,64 @@ Cube Cube::Intersection(const Cube& other) const
 
 	return intersection;
 }
+
+void CubeMap::On(const Cube& cube)
+{
+	std::vector<Cube> newOnCubes;
+	newOnCubes.push_back(cube);
+	std::vector<Cube> newOffCubes;
+
+	for (const Cube& onC : onCubes)
+	{
+		Cube offC = cube.Intersection(onC);
+		if (offC.Volume())
+			newOffCubes.push_back(offC);
+	}
+
+	for (const Cube& offC : offCubes)
+	{
+		Cube onC = cube.Intersection(offC);
+		if (onC.Volume())
+			newOnCubes.push_back(onC);
+	}
+
+	onCubes.insert(onCubes.end(), newOnCubes.begin(), newOnCubes.end());
+	offCubes.insert(offCubes.end(), newOffCubes.begin(), newOffCubes.end());
+}
+
+void CubeMap::Off(const Cube& cube)
+{
+	std::vector<Cube> newOnCubes;
+	std::vector<Cube> newOffCubes;
+
+	for (const Cube& onC : onCubes)
+	{
+		Cube offC = cube.Intersection(onC);
+		if (offC.Volume())
+			newOffCubes.push_back(offC);
+	}
+
+	for (const Cube& offC : offCubes)
+	{
+		Cube onC = cube.Intersection(offC);
+		if (onC.Volume())
+			newOnCubes.push_back(onC);
+	}
+
+	onCubes.insert(onCubes.end(), newOnCubes.begin(), newOnCubes.end());
+	offCubes.insert(offCubes.end(), newOffCubes.begin(), newOffCubes.end());
+}
+
+long long int CubeMap::Volume() const
+{
+	auto Accumulate = [](const std::vector<Cube>& cubes)
+	{
+		return std::accumulate(
+			cubes.begin(),
+			cubes.end(),
+			0ll,
+			[](long long int vol, const Cube& c) { return vol + c.Volume(); });
+	};
+
+	return Accumulate(onCubes) - Accumulate(offCubes);
+}
