@@ -1,5 +1,10 @@
 #include "pch.h"
 
-TEST(Day22, Empty)
+#include "../Code/Cube.h"
+
+TEST(Day22, EmptyCube)
 {
+	const Cube cube{};
+
+	EXPECT_EQ(cube.Volume(), 0);
 }

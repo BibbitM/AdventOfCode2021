@@ -164,6 +164,7 @@
     <ClInclude Include="BingoNumbers.h" />
     <ClInclude Include="Cave.h" />
     <ClInclude Include="Cavern.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="DiracDice.h" />
     <ClInclude Include="DotsPaper.h" />
     <ClInclude Include="framework.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="BingoNumbers.cpp" />
     <ClCompile Include="Cave.cpp" />
     <ClCompile Include="Cavern.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Day1.cpp" />
     <ClCompile Include="Day2.cpp" />
     <ClCompile Include="Day3.cpp" />
