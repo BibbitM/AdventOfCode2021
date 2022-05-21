@@ -19,6 +19,8 @@ public:
 			* static_cast<long long int>(max.z - min.z + 1);
 	}
 
+	Cube Intersection(const Cube& other) const;
+
 	friend std::istream& operator>>(std::istream& in, Cube& cube);
 
 private:

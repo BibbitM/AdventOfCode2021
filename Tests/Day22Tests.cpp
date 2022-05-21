@@ -26,7 +26,7 @@ TEST(Day22, BigCubeVolume)
 	EXPECT_EQ(Cube({ 1, 1, 1 }, { 10'000, 10'000, 10'000 }).Volume(), 1'000'000'000'000);
 }
 
-TEST(Day22, LoadInput)
+TEST(Day22, LoadQubeFromInput)
 {
 	std::istringstream in("on x=10..12,y=10..12,z=10..12");
 
@@ -37,4 +37,41 @@ TEST(Day22, LoadInput)
 
 	EXPECT_EQ(op, "on");
 	EXPECT_EQ(cube, Cube({ 10, 10, 10 }, { 12, 12, 12 }));
+}
+
+TEST(Day22, QubeIntersection)
+{
+	// Empty
+	EXPECT_EQ(Cube({ 1, 1, 1 }, { 1, 1, 1 }).Intersection(Cube({ 10, 10, 10 }, { 12, 12, 12 })).Volume(), 0);
+
+	// The same.
+	{
+		const Cube cube({ 1, 1, 1 }, { 10, 10, 10 });
+		EXPECT_EQ(cube.Intersection(cube), cube);
+	}
+
+	// Included.
+	{
+		const Cube inside({ 5, 5, 5 }, { 6, 7, 8 });
+		const Cube outside({ 0, 0, 0 }, { 10, 10, 10 });
+
+		EXPECT_EQ(inside.Intersection(outside), inside);
+		EXPECT_EQ(outside.Intersection(inside), inside);
+	}
+
+	// Side.
+	{
+		const Cube cube({ 0, 0, 0 }, { 5, 5, 5 });
+		const Cube right({ 1, 1, 1 }, { 10, 3, 3 });
+
+		EXPECT_EQ(cube.Intersection(right), Cube({ 1, 1, 1 }, { 5, 3, 3 }));
+	}
+
+	// Corner.
+	{
+		const Cube cube({ 0, 0, 0 }, { 5, 5, 5 });
+		const Cube right({ -5, -5, -5 }, { 1, 2, 3 });
+
+		EXPECT_EQ(cube.Intersection(right), Cube({ 0, 0, 0 }, { 1, 2, 3 }));
+	}
 }
