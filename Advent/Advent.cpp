@@ -3,6 +3,7 @@
 #include "../Code/BingoNumbers.h"
 #include "../Code/Cave.h"
 #include "../Code/Cavern.h"
+#include "../Code/Cube.h"
 #include "../Code/DiracDice.h"
 #include "../Code/DotsPaper.h"
 #include "../Code/IntLine2.h"
@@ -488,5 +489,32 @@ int main()
 
 		std::cout << "Day21: the game score: " << gameScore << md_endl;
 		std::cout << "Day21: the game universes in which player wins: " << quantumGameWinningUniverses << md_endl;
+	}
+
+	{
+		CubeMap map;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day22.txt");
+
+			std::string op;
+			Cube cube;
+
+			constexpr Cube region({ -50, -50, -50 }, { 50, 50, 50 });
+			while (ifile >> op >> cube)
+			{
+				if (region.Intersection(cube) != cube)
+					continue;
+
+				if (op == "on")
+					map.On(cube);
+				else if (op == "off")
+					map.Off(cube);
+				else
+					assert(false);
+			}
+		}
+
+		std::cout << "Day22: cubes on in -50..50 region: " << map.Volume() << md_endl;
 	}
 }

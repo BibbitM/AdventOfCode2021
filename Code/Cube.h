@@ -8,7 +8,7 @@ class Cube
 {
 public:
 	Cube() = default;
-	Cube(const IntVector3& min, const IntVector3& max)
+	constexpr Cube(const IntVector3& min, const IntVector3& max)
 		: min(min), max(max)
 	{}
 

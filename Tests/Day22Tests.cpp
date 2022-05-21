@@ -166,7 +166,7 @@ TEST(Day22, CubeMapFromExampleInput2)
 	std::string op;
 	Cube cube;
 
-	Cube region({ -50, -50, -50 }, { 50, 50, 50 });
+	constexpr Cube region({ -50, -50, -50 }, { 50, 50, 50 });
 
 	while (in >> op >> cube)
 	{
