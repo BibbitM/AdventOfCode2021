@@ -75,3 +75,10 @@ TEST(Day22, QubeIntersection)
 		EXPECT_EQ(cube.Intersection(right), Cube({ 0, 0, 0 }, { 1, 2, 3 }));
 	}
 }
+
+TEST(Day22, CubeMapEmpty)
+{
+	const CubeMap map;
+
+	EXPECT_EQ(map.Volume(), 0);
+}

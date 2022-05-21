@@ -29,3 +29,10 @@ private:
 };
 
 std::istream& operator>>(std::istream& in, Cube& cube);
+
+class CubeMap
+{
+public:
+	
+	long long int Volume() const { return 0; }
+};
