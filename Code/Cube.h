@@ -10,6 +10,8 @@ public:
 		: min(min), max(max)
 	{}
 
+	bool operator==(const Cube& other) const = default;
+
 	long long int Volume() const
 	{
 		return static_cast<long long int>(max.x - min.x + 1)
@@ -17,7 +19,11 @@ public:
 			* static_cast<long long int>(max.z - min.z + 1);
 	}
 
+	friend std::istream& operator>>(std::istream& in, Cube& cube);
+
 private:
 	IntVector3 min{};
 	IntVector3 max{};
 };
+
+std::istream& operator>>(std::istream& in, Cube& cube);

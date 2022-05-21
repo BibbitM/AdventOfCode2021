@@ -2,6 +2,9 @@
 
 #include "../Code/Cube.h"
 
+#include <sstream>
+#include <string>
+
 TEST(Day22, EmptyCube)
 {
 	const Cube cube{};
@@ -21,4 +24,17 @@ TEST(Day22, CubeCtor)
 TEST(Day22, BigCubeVolume)
 {
 	EXPECT_EQ(Cube({ 1, 1, 1 }, { 10'000, 10'000, 10'000 }).Volume(), 1'000'000'000'000);
+}
+
+TEST(Day22, LoadInput)
+{
+	std::istringstream in("on x=10..12,y=10..12,z=10..12");
+
+	std::string op;
+	Cube cube;
+
+	in >> op >> cube;
+
+	EXPECT_EQ(op, "on");
+	EXPECT_EQ(cube, Cube({ 10, 10, 10 }, { 12, 12, 12 }));
 }
