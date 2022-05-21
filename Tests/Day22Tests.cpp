@@ -17,3 +17,8 @@ TEST(Day22, CubeCtor)
 	EXPECT_EQ(Cube({ 0, 0, 0 }, { 1, 1, 1 }).Volume(), 8);
 	EXPECT_EQ(Cube({ -1, -1, -1 }, { 1, 1, 1 }).Volume(), 27);
 }
+
+TEST(Day22, BigCubeVolume)
+{
+	EXPECT_EQ(Cube({ 1, 1, 1 }, { 10'000, 10'000, 10'000 }).Volume(), 1'000'000'000'000);
+}

@@ -10,9 +10,11 @@ public:
 		: min(min), max(max)
 	{}
 
-	int Volume() const
+	long long int Volume() const
 	{
-		return (max.x - min.x + 1) * (max.y - min.y + 1) * (max.z - min.z + 1);
+		return static_cast<long long int>(max.x - min.x + 1)
+			* static_cast<long long int>(max.y - min.y + 1)
+			* static_cast<long long int>(max.z - min.z + 1);
 	}
 
 private:
