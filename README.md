@@ -51,3 +51,4 @@ Day20: lit pixels in the resulting image (x50): 17497
 Day21: the game score: 684495  
 Day21: the game universes in which player wins: 152587196649184  
 Day22: cubes on in -50..50 region: 583636  
+Day22: cubes on: 1294137045134837  

@@ -493,6 +493,7 @@ int main()
 
 	{
 		CubeMap map;
+		CubeMap mapLimited;
 
 		{
 			std::ifstream ifile("..\\Inputs\\Day22.txt");
@@ -503,18 +504,26 @@ int main()
 			constexpr Cube region({ -50, -50, -50 }, { 50, 50, 50 });
 			while (ifile >> op >> cube)
 			{
-				if (region.Intersection(cube) != cube)
-					continue;
-
 				if (op == "on")
 					map.On(cube);
 				else if (op == "off")
 					map.Off(cube);
 				else
 					assert(false);
+
+				if (region.Intersection(cube) != cube)
+					continue;
+
+				if (op == "on")
+					mapLimited.On(cube);
+				else if (op == "off")
+					mapLimited.Off(cube);
+				else
+					assert(false);
 			}
 		}
 
-		std::cout << "Day22: cubes on in -50..50 region: " << map.Volume() << md_endl;
+		std::cout << "Day22: cubes on in -50..50 region: " << mapLimited.Volume() << md_endl;
+		std::cout << "Day22: cubes on: " << map.Volume() << md_endl;
 	}
 }
