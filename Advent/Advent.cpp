@@ -170,8 +170,8 @@ int main()
 			}
 		}
 
-		std::cout << "Day7: 1478 digits count: " << count << md_endl;
-		std::cout << "Day7: decoded output: " << output << md_endl;
+		std::cout << "Day8: 1478 digits count: " << count << md_endl;
+		std::cout << "Day8: decoded output: " << output << md_endl;
 	}
 
 	{

@@ -14,8 +14,8 @@ Day6: population after 80 days: 374994
 Day6: population after 256 days: 1686252324092  
 Day7: fuel cost: 326132  
 Day7: real fuel cost: 88612508  
-Day7: 1478 digits count: 349  
-Day7: decoded output: 1070957  
+Day8: 1478 digits count: 349  
+Day8: decoded output: 1070957  
 Day9: sum of risk level: 456  
 Day9: top 3 basins multiply: 1047744  
 Day10: total syntax error score: 319329  
