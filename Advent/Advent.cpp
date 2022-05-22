@@ -16,6 +16,7 @@
 #include "../Code/Scanner.h"
 #include "../Code/ScannerImage.h"
 #include "../Code/SnailfishNumber.h"
+#include "../Code/Timer.h"
 #include "../Code/Transmission.h"
 #include "../Code/TrickShot.h"
 
@@ -62,6 +63,7 @@ int main()
 	std::cout << "# AdventOfCode2021 results\n\n";
 
 	{
+		SCOPE_TIMER("Day1");
 		std::vector<int> measurements;
 
 		{
@@ -74,6 +76,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day2");
 		std::vector<IntVector2> commands;
 
 		{
@@ -86,6 +89,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day3");
 		std::vector<int> numbers;
 
 		{
@@ -98,6 +102,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day4");
 		BingoNumbers numbers;
 		BingoCard cardOne;
 		BingoCard cardTwo;
@@ -118,6 +123,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day5");
 		std::vector<IntLine2> lines;
 
 		{
@@ -130,6 +136,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day6");
 		LanternfishPopulation population;
 
 		{
@@ -144,6 +151,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day7");
 		std::vector<int> crabs;
 
 		{
@@ -156,6 +164,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day8");
 		int count = 0;
 		uint32_t output = 0u;
 
@@ -175,6 +184,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day9");
 		Heightmap heightmap;
 
 		{
@@ -193,6 +203,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day10");
 		int totalErrorScore = 0;
 		int64_t middleCompletionScore = 0;
 		std::vector<int64_t> completionScores;
@@ -221,6 +232,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day11");
 		OctopusGrid grid;
 
 		{
@@ -239,6 +251,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day12");
 		CavesMap map;
 
 		{
@@ -252,6 +265,7 @@ int main()
 
 
 	{
+		SCOPE_TIMER("Day13");
 		DotsPaper paper;
 		std::vector<Fold> folds;
 
@@ -272,6 +286,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day14");
 		Polimer polimer;
 		std::vector<std::pair<PolimerPair, char>> instructions;
 
@@ -290,6 +305,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day15");
 		Cavern cavern;
 
 		{
@@ -304,6 +320,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day16");
 		Transmission transmission;
 
 		{
@@ -317,6 +334,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day17");
 		TrickShot::TargetArea area;
 
 		{
@@ -331,6 +349,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day18");
 		std::vector<std::string> lines;
 
 		{
@@ -376,6 +395,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day19");
 		std::vector<Scanner> unalignedScanners;
 		constexpr size_t c_numOverlappingBeacons = 12;
 
@@ -448,6 +468,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day20");
 		ScannerImage image;
 		std::vector<bool> enhacementAlgorithm;
 
@@ -474,6 +495,7 @@ int main()
 
 
 	{
+		SCOPE_TIMER("Day21");
 		Dirac::Game game;
 
 		{
@@ -492,6 +514,7 @@ int main()
 	}
 
 	{
+		SCOPE_TIMER("Day22");
 		CubeMap map;
 		CubeMap mapLimited;
 

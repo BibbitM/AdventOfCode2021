@@ -180,6 +180,7 @@
     <ClInclude Include="Scanner.h" />
     <ClInclude Include="ScannerImage.h" />
     <ClInclude Include="SnailfishNumber.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transmission.h" />
     <ClInclude Include="TrickShot.h" />
     <ClInclude Include="Utils.h" />
