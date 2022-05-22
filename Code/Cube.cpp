@@ -40,49 +40,61 @@ Cube Cube::Intersection(const Cube& other) const
 	return intersection;
 }
 
-void CubeMap::On(const Cube& cube)
-{
-	std::vector<Cube> newOnCubes;
-	newOnCubes.push_back(cube);
-	std::vector<Cube> newOffCubes;
-
-	for (const Cube& onC : onCubes)
-	{
-		Cube offC = cube.Intersection(onC);
-		if (offC.Volume())
-			newOffCubes.push_back(offC);
-	}
-
-	for (const Cube& offC : offCubes)
-	{
-		Cube onC = cube.Intersection(offC);
-		if (onC.Volume())
-			newOnCubes.push_back(onC);
-	}
-
-	onCubes.insert(onCubes.end(), newOnCubes.begin(), newOnCubes.end());
-	offCubes.insert(offCubes.end(), newOffCubes.begin(), newOffCubes.end());
-}
-
-void CubeMap::Off(const Cube& cube)
+void CubeMap::OnOff(const Cube& cube, bool addNewCube)
 {
 	std::vector<Cube> newOnCubes;
 	std::vector<Cube> newOffCubes;
 
-	for (const Cube& onC : onCubes)
+	for (auto onIt = onCubes.begin(); onIt != onCubes.end(); /* inside loop */)
 	{
+		Cube& onC = *onIt;
 		Cube offC = cube.Intersection(onC);
 		if (offC.Volume())
-			newOffCubes.push_back(offC);
+		{
+			if (offC == onC)
+			{
+				// The off cube is the same as the on cube.
+				// Remove the current cube by replacing it with the back.
+				auto onOffset = std::distance(onCubes.begin(), onIt);
+				onC = onCubes.back();
+				onCubes.pop_back();
+				onIt = onCubes.begin() + onOffset; //< To suppress DEBUG iterator check. Changed vector size during iterating.
+				continue;
+			}
+			if (addNewCube && offC == cube)
+				addNewCube = false;
+			else
+				newOffCubes.push_back(offC);
+		}
+		++onIt;
 	}
 
-	for (const Cube& offC : offCubes)
+	for (auto offIt = offCubes.begin(); offIt != offCubes.end(); /* inside loop */)
 	{
+		Cube& offC = *offIt;
 		Cube onC = cube.Intersection(offC);
 		if (onC.Volume())
-			newOnCubes.push_back(onC);
+		{
+			if (onC == offC)
+			{
+				// The off cube is the same as the on cube.
+				// Remove the current cube by replacing it with the back.
+				auto offOffset = std::distance(offCubes.begin(), offIt);
+				offC = offCubes.back();
+				offCubes.pop_back();
+				offIt = offCubes.begin() + offOffset; //< To suppress DEBUG iterator check. Changed vector size during iterating.
+				continue;
+			}
+			else
+				newOnCubes.push_back(onC);
+		}
+		++offIt;
 	}
 
+	// The exact reserve works worse than the default grows policy for vector. With this, we get 50% worse performance.
+	//onCubes.reserve(onCubes.size() + newOnCubes.size() + static_cast<size_t>(addNewCube));
+	if (addNewCube)
+		onCubes.insert(onCubes.end(), cube);
 	onCubes.insert(onCubes.end(), newOnCubes.begin(), newOnCubes.end());
 	offCubes.insert(offCubes.end(), newOffCubes.begin(), newOffCubes.end());
 }

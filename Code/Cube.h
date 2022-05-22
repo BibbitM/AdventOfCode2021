@@ -35,12 +35,14 @@ std::istream& operator>>(std::istream& in, Cube& cube);
 class CubeMap
 {
 public:
-	void On(const Cube& cube);
-	void Off(const Cube& cube);
-	
+	void On(const Cube& cube) { OnOff(cube, true); }
+	void Off(const Cube& cube) { OnOff(cube, false); }
+
 	long long int Volume() const;
 
 private:
+	void OnOff(const Cube& cube, bool addNewCube);
+
 	std::vector<Cube> onCubes;
 	std::vector<Cube> offCubes;
 };
