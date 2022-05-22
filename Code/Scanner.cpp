@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <sstream>
 #include <string>
 
@@ -17,19 +18,25 @@ std::array<IntVector3, 24> Scanner::s_transforms = {
 
 bool Scanner::ContainsBeacon(const IntVector3& beacon) const
 {
-	return std::find(m_beacons.begin(), m_beacons.end(), beacon) != m_beacons.end();
+	return std::binary_search(m_beacons.begin(), m_beacons.end(), beacon, LessBeacon{});
 }
 
 void Scanner::Merge(const Scanner& other)
 {
+	std::vector<IntVector3> beaconsToAdd;
+	beaconsToAdd.reserve(other.m_beacons.size());
 	for (size_t i = 0; i < other.m_beacons.size(); ++i)
 	{
 		IntVector3 otherBeaconInMyCoords = other.m_beacons[i] + other.m_offset - m_offset;
 		if (!ContainsBeacon(otherBeaconInMyCoords))
-			m_beacons.push_back(otherBeaconInMyCoords);
+			beaconsToAdd.push_back(otherBeaconInMyCoords);
 	}
 
-	SortBeacons();
+	if (!beaconsToAdd.empty())
+	{
+		m_beacons.insert(m_beacons.end(), beaconsToAdd.begin(), beaconsToAdd.end());
+		SortBeacons();
+	}
 }
 
 bool Scanner::OverlapWith(const Scanner& orgin, size_t count)
@@ -83,22 +90,7 @@ bool Scanner::FindOverlappingPairsWithOffset(const Scanner& orgin, size_t count,
 
 void Scanner::SortBeacons()
 {
-	std::sort(m_beacons.begin(), m_beacons.end(), [](const IntVector3& a, const IntVector3& b)
-	{
-		if (a.x < b.x)
-			return true;
-		if (a.x > b.x)
-			return false;
-
-		if (a.y < b.y)
-			return true;
-		if (a.y > b.y)
-			return false;
-
-		if (a.z < b.z)
-			return true;
-		return false;
-	});
+	std::sort(m_beacons.begin(), m_beacons.end(), LessBeacon{});
 }
 
 void Scanner::TransformBeacons(const IntVector3& transform)
@@ -122,6 +114,7 @@ std::istream& operator>>(std::istream& in, Scanner& scanner)
 		std::istringstream inLine(line);
 		inLine >> scanner.m_beacons.emplace_back();
 	}
+	scanner.SortBeacons();
 
 	return in;
 }

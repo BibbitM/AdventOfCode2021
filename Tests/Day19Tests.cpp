@@ -110,6 +110,7 @@ TEST(Day19, ScannerLoadFromInput)
 		};
 		input >> scanner;
 		EXPECT_EQ(scanner.BeaconsCount(), 1);
+		EXPECT_TRUE(scanner.ContainsBeacon({ 1, 1, 1 }));
 	}
 
 	{
@@ -125,6 +126,12 @@ TEST(Day19, ScannerLoadFromInput)
 		};
 		input >> scanner;
 		EXPECT_EQ(scanner.BeaconsCount(), 6);
+		EXPECT_TRUE(scanner.ContainsBeacon({ -1, -1, 1 }));
+		EXPECT_TRUE(scanner.ContainsBeacon({ -2, -2, 2 }));
+		EXPECT_TRUE(scanner.ContainsBeacon({ -3, -3, 3 }));
+		EXPECT_TRUE(scanner.ContainsBeacon({ -2, -3, 1 }));
+		EXPECT_TRUE(scanner.ContainsBeacon({ 5, 6, -4 }));
+		EXPECT_TRUE(scanner.ContainsBeacon({ 8, 0, 7 }));
 	}
 }
 

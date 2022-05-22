@@ -40,6 +40,27 @@ private:
 	void SortBeacons();
 	void TransformBeacons(const IntVector3& transform);
 
+	struct LessBeacon
+	{
+		bool operator()(const IntVector3& a, const IntVector3& b) const
+		{
+			if (a.x < b.x)
+				return true;
+			if (a.x > b.x)
+				return false;
+
+			if (a.y < b.y)
+				return true;
+			if (a.y > b.y)
+				return false;
+
+			if (a.z < b.z)
+				return true;
+
+			return false;
+		}
+	};
+
 	std::vector<IntVector3> m_beacons;
 	IntVector3 m_offset{};
 
