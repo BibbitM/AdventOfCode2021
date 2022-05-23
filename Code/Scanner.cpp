@@ -79,6 +79,12 @@ bool Scanner::FindOverlappingPairsWithOffset(const Scanner& orgin, size_t count,
 	int overlappingCount = 0;
 	for (size_t i = 0; i < m_beacons.size(); ++i)
 	{
+		const size_t maxIncrement = m_beacons.size() - i;
+		if (overlappingCount + maxIncrement < count)
+		{
+			break;
+		}
+
 		if (orgin.ContainsBeacon(m_beacons[i] + offset))
 		{
 			++overlappingCount;
