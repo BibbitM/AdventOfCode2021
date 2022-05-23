@@ -76,18 +76,28 @@ bool Scanner::OverlapWithTransformed(const Scanner& orgin, size_t count)
 
 bool Scanner::FindOverlappingPairsWithOffset(const Scanner& orgin, size_t count, const IntVector3& offset) const
 {
+	LessBeacon compare{};
+	size_t i = 0;
+	size_t j = 0;
 	int overlappingCount = 0;
-	for (size_t i = 0; i < m_beacons.size(); ++i)
+
+	while (i < m_beacons.size() && j < orgin.m_beacons.size())
 	{
-		const size_t maxIncrement = m_beacons.size() - i;
+		const size_t maxIncrement = std::max(m_beacons.size() - i, orgin.m_beacons.size() - j);
 		if (overlappingCount + maxIncrement < count)
 		{
 			break;
 		}
 
-		if (orgin.ContainsBeacon(m_beacons[i] + offset))
+		if (compare(m_beacons[i] + offset, orgin.m_beacons[j]))
+			++i;
+		else if (compare(orgin.m_beacons[j], m_beacons[i] + offset))
+			++j;
+		else
 		{
 			++overlappingCount;
+			++i;
+			++j;
 		}
 	}
 
