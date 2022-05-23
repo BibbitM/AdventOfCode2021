@@ -59,9 +59,9 @@ bool Scanner::OverlapWith(const Scanner& orgin, size_t count)
 
 bool Scanner::OverlapWithTransformed(const Scanner& orgin, size_t count)
 {
-	for (size_t myIdx = 0; myIdx < m_beacons.size(); ++myIdx)
+	for (size_t myIdx = 0; myIdx + count < m_beacons.size() + 1; ++myIdx)
 	{
-		for (size_t orgIdx = 0; orgIdx < orgin.m_beacons.size(); ++orgIdx)
+		for (size_t orgIdx = 0; orgIdx + count < orgin.m_beacons.size() + 1; ++orgIdx)
 		{
 			IntVector3 offset = orgin.m_beacons[orgIdx] - m_beacons[myIdx];
 			if (FindOverlappingPairsWithOffset(orgin, count, offset))
