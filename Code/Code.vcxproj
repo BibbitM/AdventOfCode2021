@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Amphipods.h" />
     <ClInclude Include="BingoBoard.h" />
     <ClInclude Include="BingoCard.h" />
     <ClInclude Include="BingoNumbers.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Amphipods.cpp" />
     <ClCompile Include="BingoBoard.cpp" />
     <ClCompile Include="BingoCard.cpp" />
     <ClCompile Include="BingoNumbers.cpp" />
