@@ -21,7 +21,7 @@ public:
 	~MeasureTimer()
 	{
 		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-		std::cerr << functionName << ' ' << std::chrono::duration<float, std::milli>(end - start).count() << "ms" << std::endl;
+		std::cerr << functionName << ' ' << std::chrono::duration<float, std::milli>(end - start).count() << "ms\n";
 	}
 
 private:

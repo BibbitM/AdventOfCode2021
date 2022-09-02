@@ -54,7 +54,7 @@ constexpr const char c_outFileName[] = "..\\README.md";
 
 inline std::ostream& md_endl(std::ostream& out)
 {
-	out << "  " << std::endl;
+	out << "  \n";
 	return out;
 }
 
