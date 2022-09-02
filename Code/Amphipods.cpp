@@ -2,6 +2,8 @@
 #include "Amphipods.h"
 
 #include <algorithm>
+#include <cmath>
+#include  <utility>
 
 Amphipods::Burrow::Burrow()
 	: m_sideRooms{ SideRoom{ 'A', 'A' }, SideRoom{ 'B', 'B' }, SideRoom{ 'C', 'C' }, SideRoom{ 'D', 'D' } }
@@ -32,4 +34,19 @@ bool Amphipods::Burrow::IsOrganized() const
 	}
 
 	return true;
+}
+
+int Amphipods::Burrow::MoveToHallway(size_t room, size_t hallwayPos)
+{
+	bool isSecondRow = false;
+	char amphipod = std::exchange(m_sideRooms[room][0], '\0');
+	if (!amphipod)
+	{
+		isSecondRow = true;
+		amphipod = std::exchange(m_sideRooms[room][1], '\0');
+	}
+
+	const int numOfSteps = std::abs(static_cast<int>(hallwayPos) - static_cast<int>(c_roomPositionInHallway[room])) + (isSecondRow ? 2 : 1);
+
+	return numOfSteps * GetEnergyPerStep(amphipod);
 }
