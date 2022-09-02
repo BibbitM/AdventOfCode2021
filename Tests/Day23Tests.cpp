@@ -109,3 +109,15 @@ TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereAreOtherAmphipodsOnTheWay)
 	EXPECT_EQ(burrow.MoveToHallway(2, 3), 0);
 	EXPECT_EQ(burrow.MoveToHallway(1, 7), 0);
 }
+
+TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereIsNoMoreAmphipodsInTheRoom)
+{
+	Amphipods::Burrow burrow("ABCD"
+		"DCBA");
+	burrow.MoveToHallway(0, 0);
+	burrow.MoveToHallway(0, 1);
+
+	const Amphipods::Burrow prevBurrow = burrow;
+	EXPECT_EQ(burrow.MoveToHallway(0, 3), 0);
+	EXPECT_EQ(burrow, prevBurrow);
+}
