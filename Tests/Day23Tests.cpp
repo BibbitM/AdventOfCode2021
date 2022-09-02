@@ -82,3 +82,14 @@ TEST(Day23, WeCanNotMoveAmphipodsInFrontOfRoomsExit)
 	EXPECT_EQ(burrow.MoveToHallway(3, 6), 0);
 	EXPECT_EQ(burrow, orgBurrow);
 }
+
+TEST(Day23, WeCanNotMoveAmphipodsIfTargetIsOccupied)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "DCBA");
+	burrow.MoveToHallway(0, 0);
+
+	const Amphipods::Burrow prevBurrow = burrow;
+	EXPECT_EQ(burrow.MoveToHallway(0, 0), 0);
+	EXPECT_EQ(burrow, prevBurrow);
+}

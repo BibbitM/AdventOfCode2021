@@ -38,6 +38,7 @@ namespace Amphipods
 		int MoveToHallway(size_t room, size_t hallwayPos);
 
 	private:
+		std::array<char, c_hallwayLength> m_hallway;
 		std::array<SideRoom, c_sideRoomsCount> m_sideRooms;
 	};
 }
