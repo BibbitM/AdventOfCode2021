@@ -38,6 +38,11 @@ bool Amphipods::Burrow::IsOrganized() const
 
 int Amphipods::Burrow::MoveToHallway(size_t room, size_t hallwayPos)
 {
+	if (std::find(c_roomPositionInHallway.begin(), c_roomPositionInHallway.end(), hallwayPos) != c_roomPositionInHallway.end())
+	{
+		return 0;
+	}
+
 	bool isSecondRow = false;
 	char amphipod = std::exchange(m_sideRooms[room][0], '\0');
 	if (!amphipod)

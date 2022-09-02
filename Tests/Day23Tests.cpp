@@ -49,3 +49,36 @@ TEST(Day23, MoveAmphipodsToHallwayReturnsUsedEnergy)
 	EXPECT_EQ(burrow.MoveToHallway(1, 3), 300);
 	EXPECT_EQ(burrow.MoveToHallway(2, 5), 30);
 }
+
+TEST(Day23, MoveAmphipodsToHallwayChangesBurrow)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "DCBA");
+	Amphipods::Burrow prevBurrow;
+
+	prevBurrow = burrow;
+	EXPECT_EQ(burrow.MoveToHallway(0, 0), 3);
+	EXPECT_NE(burrow, prevBurrow);
+
+	prevBurrow = burrow;
+	EXPECT_EQ(burrow.MoveToHallway(1, 10), 70);
+	EXPECT_NE(burrow, prevBurrow);
+}
+
+TEST(Day23, WeCanNotMoveAmphipodsInFrontOfRoomsExit)
+{
+	Amphipods::Burrow burrow("ABCD"
+		"DCBA");
+	const Amphipods::Burrow orgBurrow = burrow;
+
+	EXPECT_EQ(burrow.MoveToHallway(0, 2), 0);
+	EXPECT_EQ(burrow, orgBurrow);
+	EXPECT_EQ(burrow.MoveToHallway(0, 8), 0);
+	EXPECT_EQ(burrow, orgBurrow);
+	EXPECT_EQ(burrow.MoveToHallway(1, 4), 0);
+	EXPECT_EQ(burrow, orgBurrow);
+	EXPECT_EQ(burrow.MoveToHallway(2, 8), 0);
+	EXPECT_EQ(burrow, orgBurrow);
+	EXPECT_EQ(burrow.MoveToHallway(3, 6), 0);
+	EXPECT_EQ(burrow, orgBurrow);
+}

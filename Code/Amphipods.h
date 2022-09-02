@@ -32,6 +32,8 @@ namespace Amphipods
 		Burrow();
 		Burrow(std::string_view amphipods);
 
+		bool operator==(const Burrow&) const = default;
+
 		bool IsOrganized() const;
 		int MoveToHallway(size_t room, size_t hallwayPos);
 
