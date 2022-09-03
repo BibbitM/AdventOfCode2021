@@ -2,6 +2,18 @@
 
 #include "../Code/Amphipods.h"
 
+#include <sstream>
+#include <string_view>
+
+namespace
+{
+	constexpr const char c_exampleInput[] = R"--(#############
+#...........#
+###B#C#B#D###
+  #A#D#C#A#
+  #########)--";
+}
+
 TEST(Day23, CreateDefaultAmphipodsBurrow)
 {
 	Amphipods::Burrow burrow;
@@ -245,4 +257,15 @@ TEST(Day23, OranizationCostForTheExample)
 	Amphipods::Burrow burrow("BCBD"
 							 "ADCA");
 	EXPECT_EQ(burrow.CalculateOrganizationCost(), 12'521);
+}
+
+TEST(Day23, LoadBurrowFromInputStream)
+{
+	Amphipods::Burrow burrow;
+	std::istringstream in(c_exampleInput);
+
+	in >> burrow;
+
+	EXPECT_EQ(burrow, Amphipods::Burrow("BCBD"
+										"ADCA"));
 }

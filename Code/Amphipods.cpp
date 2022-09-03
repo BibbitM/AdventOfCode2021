@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <limits>
 
 Amphipods::Burrow::Burrow()
@@ -166,5 +167,37 @@ void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCos
 				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, lowestOrganizationCost);
 			}
 		}
+	}
+}
+
+namespace Amphipods
+{
+	std::istream& operator>>(std::istream& in, Burrow& burrow)
+	{
+		/*
+		#############
+		#...........#
+		###B#C#B#D###
+		  #A#D#C#A#
+		  #########
+		*/
+		in.ignore(31);
+		in >> burrow.m_sideRooms[0][0];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[1][0];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[2][0];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[3][0];
+		in.ignore(7);
+		in >> burrow.m_sideRooms[0][1];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[1][1];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[2][1];
+		in.ignore(1);
+		in >> burrow.m_sideRooms[3][1];
+		in.ignore(13);
+		return in;
 	}
 }

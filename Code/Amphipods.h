@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <iosfwd>
 #include <string_view>
 
 namespace Amphipods
@@ -39,6 +40,8 @@ namespace Amphipods
 		int MoveToRoom(size_t hallwayPos, size_t room);
 
 		int CalculateOrganizationCost() const;
+
+		friend std::istream& operator>>(std::istream& in, Burrow& burrow);
 
 	private:
 		void CalculateOrganizationCostRecursively(int organizationCost, int& lowestOrganizationCost) const;
