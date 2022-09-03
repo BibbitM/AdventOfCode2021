@@ -67,3 +67,39 @@ int Amphipods::Burrow::MoveToHallway(size_t room, size_t hallwayPos)
 	const int numOfSteps = std::abs(static_cast<int>(hallwayPos) - static_cast<int>(roomPos)) + (isSecondRow ? 2 : 1);
 	return numOfSteps * GetEnergyPerStep(amphipod);
 }
+
+int Amphipods::Burrow::MoveToRoom(size_t hallwayPos, size_t room)
+{
+	if (m_sideRooms[room][0] != '\0')
+	{
+		return 0;
+	}
+
+	const char amphipod = m_hallway[hallwayPos];
+	if (c_expectedTypeInRoom[room] != amphipod)
+	{
+		return 0;
+	}
+
+	bool isSecondRow = m_sideRooms[room][1] == '\0';
+	if (!isSecondRow && m_sideRooms[room][1] != amphipod)
+	{
+		return 0;
+	}
+
+	const size_t roomPos = c_roomPositionInHallway[room];
+	for (size_t i = std::min(roomPos, hallwayPos + 1), last = std::max(roomPos + 1, hallwayPos) - 1; i <= last; ++i)
+	{
+		if (m_hallway[i] != '\0')
+		{
+			return 0;
+		}
+	}
+
+	const int numOfSteps = std::abs(static_cast<int>(hallwayPos) - static_cast<int>(roomPos)) + (isSecondRow ? 2 : 1);
+
+	m_hallway[hallwayPos] = '\0';
+	m_sideRooms[room][isSecondRow ? 1 : 0] = amphipod;
+
+	return numOfSteps * GetEnergyPerStep(amphipod);
+}

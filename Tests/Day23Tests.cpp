@@ -97,7 +97,7 @@ TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfTargetIsOccupied)
 TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereAreOtherAmphipodsOnTheWay)
 {
 	Amphipods::Burrow burrow("ABCD"
-		"DCBA");
+							 "DCBA");
 
 	burrow.MoveToHallway(0, 1);
 	EXPECT_EQ(burrow.MoveToHallway(0, 0), 0);
@@ -113,11 +113,79 @@ TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereAreOtherAmphipodsOnTheWay)
 TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereIsNoMoreAmphipodsInTheRoom)
 {
 	Amphipods::Burrow burrow("ABCD"
-		"DCBA");
+							 "DCBA");
 	burrow.MoveToHallway(0, 0);
 	burrow.MoveToHallway(0, 1);
 
 	const Amphipods::Burrow prevBurrow = burrow;
 	EXPECT_EQ(burrow.MoveToHallway(0, 3), 0);
 	EXPECT_EQ(burrow, prevBurrow);
+}
+
+TEST(Day23, WeCanMoveAmphipodsToHalfEmptyRoom)
+{
+	Amphipods::Burrow burrow("ABDC"
+							 "ABCD");
+	burrow.MoveToHallway(3, 9);
+	burrow.MoveToHallway(2, 7);
+
+	EXPECT_EQ(burrow.MoveToRoom(7, 3), 2000);
+}
+
+TEST(Day23, WeCanMoveAmphipodsToEmptyRoom)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "DCBA");
+	burrow.MoveToHallway(1, 0);
+	burrow.MoveToHallway(2, 7);
+	burrow.MoveToHallway(2, 1);
+	burrow.MoveToHallway(1, 5);
+
+	EXPECT_EQ(burrow.MoveToRoom(7, 2), 300);
+	EXPECT_EQ(burrow.MoveToRoom(5, 2), 200);
+}
+
+TEST(Day23, WeCanNotMoveAmphipodsToFullRoom)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "DCBA");
+	burrow.MoveToHallway(3, 9);
+	burrow.MoveToHallway(3, 3);
+
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 0);
+}
+
+TEST(Day23, WeCanNotMoveAmphipodsToInvalidRoom)
+{
+	Amphipods::Burrow burrow("DABC"
+							 "ABCD");
+	burrow.MoveToHallway(0, 1);
+	burrow.MoveToHallway(1, 3);
+	burrow.MoveToHallway(2, 5);
+	burrow.MoveToHallway(3, 7);
+
+	EXPECT_EQ(burrow.MoveToRoom(1, 0), 0);
+	EXPECT_EQ(burrow.MoveToRoom(3, 1), 0);
+	EXPECT_EQ(burrow.MoveToRoom(5, 2), 0);
+	EXPECT_EQ(burrow.MoveToRoom(7, 3), 0);
+}
+
+TEST(Day23, WeCanNotMoveAmphipodsIfOccupiedByWrongType)
+{
+	Amphipods::Burrow burrow("DABC"
+							 "DABC");
+	burrow.MoveToHallway(0, 1);
+	burrow.MoveToHallway(1, 3);
+
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 0);
+}
+
+TEST(Day23, WeCanNotMoveAmphipodsIfRoadIsBlocked)
+{
+	Amphipods::Burrow burrow("DABC"
+							 "ABCD");
+	burrow.MoveToHallway(0, 3);
+	burrow.MoveToHallway(1, 5);
+
+	EXPECT_EQ(burrow.MoveToRoom(5, 0), 0);
 }

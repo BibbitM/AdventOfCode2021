@@ -36,6 +36,7 @@ namespace Amphipods
 
 		bool IsOrganized() const;
 		int MoveToHallway(size_t room, size_t hallwayPos);
+		int MoveToRoom(size_t hallwayPos, size_t room);
 
 	private:
 		std::array<char, c_hallwayLength> m_hallway;
