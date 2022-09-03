@@ -1,3 +1,4 @@
+#include "../Code/Amphipods.h"
 #include "../Code/BingoBoard.h"
 #include "../Code/BingoCard.h"
 #include "../Code/BingoNumbers.h"
@@ -548,5 +549,19 @@ int main()
 
 		std::cout << "Day22: cubes on in -50..50 region: " << mapLimited.Volume() << md_endl;
 		std::cout << "Day22: cubes on: " << map.Volume() << md_endl;
+	}
+
+	{
+		SCOPE_TIMER("Day23");
+		Amphipods::Burrow burrow;
+		CubeMap mapLimited;
+
+		{
+			std::ifstream ifile("..\\Inputs\\Day23.txt");
+
+			ifile >> burrow;
+			}
+
+		std::cout << "Day22: the least energy required to organize the amphipods: " << burrow.CalculateOrganizationCost() << md_endl;
 	}
 }
