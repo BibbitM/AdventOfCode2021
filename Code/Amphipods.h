@@ -38,7 +38,11 @@ namespace Amphipods
 		int MoveToHallway(size_t room, size_t hallwayPos);
 		int MoveToRoom(size_t hallwayPos, size_t room);
 
+		int CalculateOrganizationCost() const;
+
 	private:
+		void CalculateOrganizationCostRecursively(int organizationCost, int& lowestOrganizationCost) const;
+
 		std::array<char, c_hallwayLength> m_hallway;
 		std::array<SideRoom, c_sideRoomsCount> m_sideRooms;
 	};

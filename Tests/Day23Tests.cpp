@@ -226,3 +226,23 @@ TEST(Day23, TestMoveCostCalculationWithTheExample)
 
 	EXPECT_TRUE(burrow.IsOrganized());
 }
+
+TEST(Day23, OranizationCostForOrganizedIsZero)
+{
+	Amphipods::Burrow burrow;
+	EXPECT_EQ(burrow.CalculateOrganizationCost(), 0);
+}
+
+TEST(Day23, OranizationCostSimpleBurrow)
+{
+	Amphipods::Burrow burrow("BACD"
+							 "ABCD");
+	EXPECT_EQ(burrow.CalculateOrganizationCost(), 46);
+}
+
+TEST(Day23, OranizationCostForTheExample)
+{
+	Amphipods::Burrow burrow("BCBD"
+							 "ADCA");
+	EXPECT_EQ(burrow.CalculateOrganizationCost(), 12'521);
+}

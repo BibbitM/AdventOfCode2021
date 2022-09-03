@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 Amphipods::Burrow::Burrow()
 	: m_sideRooms{ SideRoom{ 'A', 'A' }, SideRoom{ 'B', 'B' }, SideRoom{ 'C', 'C' }, SideRoom{ 'D', 'D' } }
@@ -113,4 +114,57 @@ int Amphipods::Burrow::MoveToRoom(size_t hallwayPos, size_t room)
 	m_sideRooms[room][isSecondRow ? 1 : 0] = amphipod;
 
 	return numOfSteps * GetEnergyPerStep(amphipod);
+}
+
+int Amphipods::Burrow::CalculateOrganizationCost() const
+{
+	int lowestOrganizationCost = std::numeric_limits<int>::max();
+	CalculateOrganizationCostRecursively(0, lowestOrganizationCost);
+	return lowestOrganizationCost;
+}
+
+void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCost, int& lowestOrganizationCost) const
+{
+	if (IsOrganized())
+	{
+		if (organizationCost < lowestOrganizationCost)
+		{
+			lowestOrganizationCost = organizationCost;
+		}
+		return;
+	}
+
+	if (organizationCost >= lowestOrganizationCost)
+	{
+		return;
+	}
+
+	// Try all possible moves from rooms to hallway.
+	for (size_t roomIdx = 0; roomIdx < c_sideRoomsCount; ++roomIdx)
+	{
+		for (size_t hallwayIdx = 0; hallwayIdx < c_hallwayLength; ++hallwayIdx)
+		{
+			Burrow burrowCopy{ *this };
+			const int moveCost = burrowCopy.MoveToHallway(roomIdx, hallwayIdx);
+			if (moveCost)
+			{
+				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, lowestOrganizationCost);
+			}
+		}
+
+	}
+
+	// Try all possible moves from hallway to room.
+	for (size_t hallwayIdx = 0; hallwayIdx < c_hallwayLength; ++hallwayIdx)
+	{
+		for (size_t roomIdx = 0; roomIdx < c_sideRoomsCount; ++roomIdx)
+		{
+			Burrow burrowCopy{ *this };
+			const int moveCost = burrowCopy.MoveToRoom(hallwayIdx, roomIdx);
+			if (moveCost)
+			{
+				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, lowestOrganizationCost);
+			}
+		}
+	}
 }
