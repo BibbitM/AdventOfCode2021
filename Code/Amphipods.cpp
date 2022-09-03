@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include  <utility>
 
 Amphipods::Burrow::Burrow()
 	: m_sideRooms{ SideRoom{ 'A', 'A' }, SideRoom{ 'B', 'B' }, SideRoom{ 'C', 'C' }, SideRoom{ 'D', 'D' } }
@@ -40,6 +39,25 @@ bool Amphipods::Burrow::IsOrganized() const
 
 int Amphipods::Burrow::MoveToHallway(size_t room, size_t hallwayPos)
 {
+	bool isSecondRow = false;
+	char amphipod = m_sideRooms[room][0];
+	if (!amphipod)
+	{
+		isSecondRow = true;
+		amphipod = m_sideRooms[room][1];
+		if (amphipod == c_expectedTypeInRoom[room])
+		{
+			return 0;
+		}
+	}
+	else
+	{
+		if (amphipod == m_sideRooms[room][1] && amphipod == c_expectedTypeInRoom[room])
+		{
+			return 0;
+		}
+	}
+
 	if (std::find(c_roomPositionInHallway.begin(), c_roomPositionInHallway.end(), hallwayPos) != c_roomPositionInHallway.end())
 	{
 		return 0;
@@ -54,14 +72,7 @@ int Amphipods::Burrow::MoveToHallway(size_t room, size_t hallwayPos)
 		}
 	}
 
-	bool isSecondRow = false;
-	char amphipod = std::exchange(m_sideRooms[room][0], '\0');
-	if (!amphipod)
-	{
-		isSecondRow = true;
-		amphipod = std::exchange(m_sideRooms[room][1], '\0');
-	}
-
+	m_sideRooms[room][isSecondRow ? 1 : 0] = '\0';
 	m_hallway[hallwayPos] = amphipod;
 
 	const int numOfSteps = std::abs(static_cast<int>(hallwayPos) - static_cast<int>(roomPos)) + (isSecondRow ? 2 : 1);

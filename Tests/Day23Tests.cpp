@@ -190,6 +190,16 @@ TEST(Day23, WeCanNotMoveAmphipodsIfRoadIsBlocked)
 	EXPECT_EQ(burrow.MoveToRoom(5, 0), 0);
 }
 
+TEST(Day23, WeCanNotMoveAmphipodsAreOnDestination)
+{
+	Amphipods::Burrow burrow("ACBD"
+							 "ABCD");
+
+	EXPECT_EQ(burrow.MoveToHallway(0, 1), 0);
+	burrow.MoveToHallway(1, 9);
+	EXPECT_EQ(burrow.MoveToHallway(1, 3), 0);
+}
+
 TEST(Day23, TestMoveCostCalculationWithTheExample)
 {
 	Amphipods::Burrow burrow("BCBD"
