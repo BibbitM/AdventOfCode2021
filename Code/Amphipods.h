@@ -3,6 +3,7 @@
 #include <array>
 #include <iosfwd>
 #include <string_view>
+#include <unordered_map>
 
 namespace Amphipods
 {
@@ -60,7 +61,7 @@ namespace Amphipods
 		friend std::istream& operator>>(std::istream& in, Burrow& burrow);
 
 	private:
-		void CalculateOrganizationCostRecursively(int organizationCost, int& lowestOrganizationCost) const;
+		void CalculateOrganizationCostRecursively(int organizationCost, std::unordered_map<Burrow, int>& checkedBurrows, int& lowestOrganizationCost) const;
 
 		std::array<char, c_hallwayLength> m_hallway;
 		std::array<SideRoom, c_sideRoomsCount> m_sideRooms;

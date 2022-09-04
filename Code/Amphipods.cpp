@@ -120,11 +120,12 @@ int Amphipods::Burrow::MoveToRoom(size_t hallwayPos, size_t room)
 int Amphipods::Burrow::CalculateOrganizationCost() const
 {
 	int lowestOrganizationCost = std::numeric_limits<int>::max();
-	CalculateOrganizationCostRecursively(0, lowestOrganizationCost);
+	std::unordered_map<Burrow, int> checkedBurrows{};
+	CalculateOrganizationCostRecursively(0, checkedBurrows, lowestOrganizationCost);
 	return lowestOrganizationCost;
 }
 
-void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCost, int& lowestOrganizationCost) const
+void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCost, std::unordered_map<Burrow, int>& checkedBurrows, int& lowestOrganizationCost) const
 {
 	if (IsOrganized())
 	{
@@ -140,6 +141,19 @@ void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCos
 		return;
 	}
 
+	auto insertResult = checkedBurrows.insert(std::make_pair(*this, organizationCost));
+	if (!insertResult.second)
+	{
+		if (insertResult.first->second <= organizationCost)
+		{
+			return;
+		}
+		else
+		{
+			insertResult.first->second = organizationCost;
+		}
+	}
+
 	// Try all possible moves from rooms to hallway.
 	for (size_t roomIdx = 0; roomIdx < c_sideRoomsCount; ++roomIdx)
 	{
@@ -149,7 +163,7 @@ void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCos
 			const int moveCost = burrowCopy.MoveToHallway(roomIdx, hallwayIdx);
 			if (moveCost)
 			{
-				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, lowestOrganizationCost);
+				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, checkedBurrows, lowestOrganizationCost);
 			}
 		}
 
@@ -164,7 +178,7 @@ void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCos
 			const int moveCost = burrowCopy.MoveToRoom(hallwayIdx, roomIdx);
 			if (moveCost)
 			{
-				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, lowestOrganizationCost);
+				burrowCopy.CalculateOrganizationCostRecursively(organizationCost + moveCost, checkedBurrows, lowestOrganizationCost);
 			}
 		}
 	}
