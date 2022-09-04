@@ -307,6 +307,18 @@ TEST(Day23, OranizationCostForTheExample)
 	EXPECT_EQ(burrow.CalculateOrganizationCost(), 12'521);
 }
 
+TEST(Day23, OranizationCostForTheExampleWithUnfoldedRows)
+{
+	Amphipods::Burrow burrow("BCBD"
+							 "ADCA");
+	burrow.Unfold();
+	EXPECT_EQ(burrow, Amphipods::Burrow("BCBD"
+										"DCBA"
+										"DBAC"
+										"ADCA"));
+	EXPECT_EQ(burrow.CalculateOrganizationCost(), 44'169);
+}
+
 TEST(Day23, LoadBurrowFromInputStream)
 {
 	Amphipods::Burrow burrow;

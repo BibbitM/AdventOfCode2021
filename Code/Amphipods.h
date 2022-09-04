@@ -48,6 +48,8 @@ namespace Amphipods
 		Burrow();
 		Burrow(std::string_view amphipods);
 
+		void Unfold();
+
 		bool operator==(const Burrow&) const = default;
 
 		bool IsOrganized() const;

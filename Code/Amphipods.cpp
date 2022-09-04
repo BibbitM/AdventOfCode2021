@@ -14,6 +14,24 @@ Amphipods::Burrow::Burrow()
 {
 }
 
+void Amphipods::Burrow::Unfold()
+{
+	m_sideRooms[0][3] = m_sideRooms[0][1];
+	m_sideRooms[1][3] = m_sideRooms[1][1];
+	m_sideRooms[2][3] = m_sideRooms[2][1];
+	m_sideRooms[3][3] = m_sideRooms[3][1];
+
+	m_sideRooms[0][1] = 'D';
+	m_sideRooms[1][1] = 'C';
+	m_sideRooms[2][1] = 'B';
+	m_sideRooms[3][1] = 'A';
+
+	m_sideRooms[0][2] = 'D';
+	m_sideRooms[1][2] = 'B';
+	m_sideRooms[2][2] = 'A';
+	m_sideRooms[3][2] = 'C';
+}
+
 Amphipods::Burrow::Burrow(std::string_view amphipods)
 	: Burrow()
 {
