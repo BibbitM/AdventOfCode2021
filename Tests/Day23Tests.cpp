@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <string_view>
+#include <unordered_set>
 
 namespace
 {
@@ -268,4 +269,22 @@ TEST(Day23, LoadBurrowFromInputStream)
 
 	EXPECT_EQ(burrow, Amphipods::Burrow("BCBD"
 										"ADCA"));
+}
+
+TEST(Day23, WeCanPutBorrowIntoAUnorderedSet)
+{
+	Amphipods::Burrow burrow;
+	std::unordered_set<Amphipods::Burrow> set;
+
+	EXPECT_TRUE(set.insert(burrow).second);
+}
+
+TEST(Day23, HashFor2ExampleBurrowsDiffers)
+{
+	Amphipods::Burrow defaultBurrow;
+	Amphipods::Burrow exampleBurrow("BCBD"
+									"ADCA");
+
+	EXPECT_NE(defaultBurrow, exampleBurrow);
+	EXPECT_NE(std::hash<Amphipods::Burrow>()(defaultBurrow), std::hash<Amphipods::Burrow>()(exampleBurrow));
 }

@@ -10,6 +10,8 @@ namespace Amphipods
 	constexpr size_t c_sideRoomsCount = 4;
 	constexpr size_t c_hallwayLength = 11;
 
+	constexpr size_t c_hashValuesCount = 5;
+
 	constexpr std::array<char, c_sideRoomsCount> c_expectedTypeInRoom = { 'A', 'B', 'C', 'D' };
 	constexpr std::array<size_t, c_sideRoomsCount> c_roomPositionInHallway = { 2, 4, 6, 8 };
 
@@ -23,6 +25,18 @@ namespace Amphipods
 		case 'B': return 10;
 		case 'C': return 100;
 		case 'D': return 1000;
+		default:  return 0;
+		}
+	}
+
+	constexpr size_t GetHashValue(char amphipod)
+	{
+		switch (amphipod)
+		{
+		case 'A': return 1;
+		case 'B': return 2;
+		case 'C': return 3;
+		case 'D': return 4;
 		default:  return 0;
 		}
 	}
@@ -41,6 +55,8 @@ namespace Amphipods
 
 		int CalculateOrganizationCost() const;
 
+		size_t CalculateHash() const;
+
 		friend std::istream& operator>>(std::istream& in, Burrow& burrow);
 
 	private:
@@ -50,3 +66,12 @@ namespace Amphipods
 		std::array<SideRoom, c_sideRoomsCount> m_sideRooms;
 	};
 }
+
+template<>
+struct std::hash<Amphipods::Burrow>
+{
+	std::size_t operator()(const Amphipods::Burrow& burrow) const noexcept
+	{
+		return burrow.CalculateHash();
+	}
+};
