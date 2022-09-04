@@ -35,6 +35,15 @@ TEST(Day23, CreateUnorganizedAmphipodsBurrow)
 	EXPECT_FALSE(burrow.IsOrganized());
 }
 
+TEST(Day23, CreateUnorganizedAmphipodsBurrow4Rows)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "ABCD"
+							 "DABC"
+							 "ABCD");
+	EXPECT_FALSE(burrow.IsOrganized());
+}
+
 TEST(Day23, WeCanMoveAmphipodsToHallway)
 {
 	Amphipods::Burrow burrow("BCBD"
@@ -61,6 +70,19 @@ TEST(Day23, MoveAmphipodsToHallwayReturnsUsedEnergy)
 	EXPECT_EQ(burrow.MoveToHallway(0, 7), 7000);
 	EXPECT_EQ(burrow.MoveToHallway(1, 3), 300);
 	EXPECT_EQ(burrow.MoveToHallway(2, 5), 30);
+}
+
+TEST(Day23, MoveAmphipodsToHallwayReturnsUsedEnergy4Rows)
+{
+	Amphipods::Burrow burrow("ABCD"
+							 "BACD"
+							 "CBAD"
+							 "DCBA");
+
+	EXPECT_EQ(burrow.MoveToHallway(0, 0), 3);
+	EXPECT_EQ(burrow.MoveToHallway(0, 1), 30);
+	EXPECT_EQ(burrow.MoveToHallway(0, 10), 1100);
+	EXPECT_EQ(burrow.MoveToHallway(0, 9), 11000);
 }
 
 TEST(Day23, MoveAmphipodsToHallwayChangesBurrow)
@@ -126,9 +148,13 @@ TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereAreOtherAmphipodsOnTheWay)
 TEST(Day23, WeCanNotMoveAmphipodsToHallwayIfThereIsNoMoreAmphipodsInTheRoom)
 {
 	Amphipods::Burrow burrow("ABCD"
-							 "DCBA");
+							 "DCBA"
+							 "BADC"
+							 "DACB");
 	burrow.MoveToHallway(0, 0);
 	burrow.MoveToHallway(0, 1);
+	burrow.MoveToHallway(0, 10);
+	burrow.MoveToHallway(0, 9);
 
 	const Amphipods::Burrow prevBurrow = burrow;
 	EXPECT_EQ(burrow.MoveToHallway(0, 3), 0);
@@ -156,6 +182,27 @@ TEST(Day23, WeCanMoveAmphipodsToEmptyRoom)
 
 	EXPECT_EQ(burrow.MoveToRoom(7, 2), 300);
 	EXPECT_EQ(burrow.MoveToRoom(5, 2), 200);
+}
+
+TEST(Day23, WeCanMoveAmphipodsToRoom4Rows)
+{
+	Amphipods::Burrow burrow("DCBA"
+							 "DCBA"
+							 "DCBA"
+							 "DCBA");
+	burrow.MoveToHallway(0, 0);
+	burrow.MoveToHallway(0, 1);
+	burrow.MoveToHallway(0, 10);
+	burrow.MoveToHallway(0, 9);
+
+	EXPECT_EQ(burrow.MoveToHallway(3, 3), 6);
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 5);
+	EXPECT_EQ(burrow.MoveToHallway(3, 3), 7);
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 4);
+	EXPECT_EQ(burrow.MoveToHallway(3, 3), 8);
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 3);
+	EXPECT_EQ(burrow.MoveToHallway(3, 3), 9);
+	EXPECT_EQ(burrow.MoveToRoom(3, 0), 2);
 }
 
 TEST(Day23, WeCanNotMoveAmphipodsToFullRoom)

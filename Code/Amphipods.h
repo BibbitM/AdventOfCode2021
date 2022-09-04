@@ -7,7 +7,7 @@
 
 namespace Amphipods
 {
-	constexpr size_t c_sideRoomSize = 2;
+	constexpr size_t c_sideRoomSize = 4;
 	constexpr size_t c_sideRoomsCount = 4;
 	constexpr size_t c_hallwayLength = 11;
 
