@@ -32,8 +32,44 @@ TEST(Day24, IntVector4Equals)
 	EXPECT_EQ(vec, vecEq);
 	EXPECT_NE(vec, vecNe);
 }
+
+TEST(Day24, IntVector4GetCoordinateByIndex)
+{
+	IntVector4 vec{ 1, -2, 30, 400 };
+	EXPECT_EQ(vec[0], 1);
+	EXPECT_EQ(vec[1], -2);
+	EXPECT_EQ(vec[2], 30);
+	EXPECT_EQ(vec[3], 400);
+}
+
+TEST(Day24, IntVector4SetCoordinateByIndex)
+{
+	IntVector4 vec{};
+	vec[0] = 1;
+	vec[1] = -2;
+	vec[2] = 30;
+	vec[3] = 400;
+	EXPECT_EQ(vec, IntVector4(1, -2, 30, 400));
+}
+
 TEST(Day24, DefaultAluState)
 {
 	Monad::Alu alu;
 	EXPECT_EQ(alu.GetRegisters(), IntVector4());
+}
+
+TEST(Day24, AluReadsInput)
+{
+	Monad::Alu alu;
+
+	alu.Inp(0, 3);
+	EXPECT_EQ(alu.GetRegisters().x, 3);
+	alu.Inp(1, 123);
+	EXPECT_EQ(alu.GetRegisters().y, 123);
+	alu.Inp(2, -1);
+	EXPECT_EQ(alu.GetRegisters().z, -1);
+	alu.Inp(3, -100);
+	EXPECT_EQ(alu.GetRegisters().w, -100);
+
+	EXPECT_EQ(alu.GetRegisters(), IntVector4(3, 123, -1, -100));
 }
