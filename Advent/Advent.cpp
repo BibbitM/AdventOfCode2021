@@ -563,5 +563,7 @@ int main()
 			}
 
 		std::cout << "Day22: the least energy required to organize the amphipods: " << burrow.CalculateOrganizationCost() << md_endl;
+		burrow.Unfold();
+		std::cout << "Day22: the least energy required to organize the full diagram: " << burrow.CalculateOrganizationCost() << md_endl;
 	}
 }
