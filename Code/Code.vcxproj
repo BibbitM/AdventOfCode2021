@@ -174,7 +174,9 @@
     <ClInclude Include="IntLine2.h" />
     <ClInclude Include="IntVector2.h" />
     <ClInclude Include="IntVector3.h" />
+    <ClInclude Include="IntVector4.h" />
     <ClInclude Include="Lanternfish.h" />
+    <ClInclude Include="Monad.h" />
     <ClInclude Include="NavigationSyntax.h" />
     <ClInclude Include="OctopusGrid.h" />
     <ClInclude Include="pch.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="DotsPaper.cpp" />
     <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Lanternfish.cpp" />
+    <ClCompile Include="Monad.cpp" />
     <ClCompile Include="NavigationSyntax.cpp" />
     <ClCompile Include="OctopusGrid.cpp" />
     <ClCompile Include="pch.cpp">
