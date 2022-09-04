@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Amphipods.h"
 
+#include "HashBytes.h"
+
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -186,22 +188,7 @@ void Amphipods::Burrow::CalculateOrganizationCostRecursively(int organizationCos
 
 size_t Amphipods::Burrow::CalculateHash() const
 {
-	size_t hash = 0;
-
-	for (size_t hallwayIdx = 0; hallwayIdx < c_hallwayLength; ++hallwayIdx)
-	{
-		hash = hash * c_hashValuesCount + GetHashValue(m_hallway[hallwayIdx]);
-	}
-
-	for (size_t roomIdx = 0; roomIdx < c_sideRoomsCount; ++roomIdx)
-	{
-		for (size_t inRoomIdx = 0; inRoomIdx < c_sideRoomSize; ++inRoomIdx)
-		{
-			hash = hash * c_hashValuesCount + GetHashValue(m_sideRooms[roomIdx][inRoomIdx]);
-		}
-	}
-
-	return hash;
+	return hash_bytes(this, sizeof(*this));
 }
 
 namespace Amphipods

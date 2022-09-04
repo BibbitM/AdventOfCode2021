@@ -169,6 +169,7 @@
     <ClInclude Include="DiracDice.h" />
     <ClInclude Include="DotsPaper.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="HashBytes.h" />
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="IntLine2.h" />
     <ClInclude Include="IntVector2.h" />
