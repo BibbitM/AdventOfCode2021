@@ -14,6 +14,11 @@ namespace Monad
 			m_register[coord] = value;
 		}
 
+		void AddV(size_t coord, int value)
+		{
+			m_register[coord] += value;
+		}
+
 	private:
 		IntVector4 m_register{};
 	};

@@ -73,3 +73,24 @@ TEST(Day24, AluReadsInput)
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(3, 123, -1, -100));
 }
+
+TEST(Day24, AluAddsValue)
+{
+	Monad::Alu alu;
+
+	alu.AddV(0, 10);
+	EXPECT_EQ(alu.GetRegisters().x, 10);
+	alu.AddV(0, -20);
+	EXPECT_EQ(alu.GetRegisters().x, -10);
+
+	alu.AddV(1, 2);
+	EXPECT_EQ(alu.GetRegisters().y, 2);
+
+	alu.AddV(2, -333);
+	EXPECT_EQ(alu.GetRegisters().z, -333);
+
+	alu.AddV(3, 4);
+	EXPECT_EQ(alu.GetRegisters().w, 4);
+
+	EXPECT_EQ(alu.GetRegisters(), IntVector4(-10, 2, -333, 4));
+}
