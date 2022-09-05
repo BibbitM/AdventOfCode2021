@@ -27,6 +27,11 @@ namespace Monad
 			m_register[static_cast<size_t>(destination)] += value;
 		}
 
+		void Add(Register destination, Register source)
+		{
+			m_register[static_cast<size_t>(destination)] += m_register[static_cast<size_t>(source)];
+		}
+
 	private:
 		IntVector4 m_register{};
 	};
