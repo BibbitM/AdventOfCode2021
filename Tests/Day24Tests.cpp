@@ -141,3 +141,26 @@ TEST(Day24, AluMultipliesByValue)
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(7, -22, -39, 0));
 }
+
+TEST(Day24, AluMultipliesByRegister)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::Register::X, 1);
+	alu.Inp(Monad::Register::Y, -2);
+	alu.Inp(Monad::Register::Z, 3);
+	alu.Inp(Monad::Register::W, -5);
+
+	alu.Mul(Monad::Register::X, Monad::Register::X);
+	EXPECT_EQ(alu.GetRegisters().x, 1);
+	alu.Mul(Monad::Register::X, Monad::Register::Y);
+	EXPECT_EQ(alu.GetRegisters().x, -2);
+	alu.Mul(Monad::Register::Y, Monad::Register::X);
+	EXPECT_EQ(alu.GetRegisters().y, 4);
+	alu.Mul(Monad::Register::Z, Monad::Register::Y);
+	EXPECT_EQ(alu.GetRegisters().z, 12);
+	alu.Mul(Monad::Register::W, Monad::Register::Z);
+	EXPECT_EQ(alu.GetRegisters().w, -60);
+
+	EXPECT_EQ(alu.GetRegisters(), IntVector4(-2, 4, 12, -60));
+}
