@@ -4,7 +4,7 @@
 
 namespace Monad
 {
-	enum class Register : unsigned int
+	enum Register : int
 	{
 		X,
 		Y,
@@ -22,22 +22,22 @@ namespace Monad
 			m_register[static_cast<size_t>(destination)] = value;
 		}
 
-		void Add(Register destination, int value)
+		void AddV(Register destination, int value)
 		{
 			m_register[static_cast<size_t>(destination)] += value;
 		}
 
-		void Add(Register destination, Register source)
+		void AddR(Register destination, Register source)
 		{
 			m_register[static_cast<size_t>(destination)] += m_register[static_cast<size_t>(source)];
 		}
 
-		void Mul(Register destination, int value)
+		void MulV(Register destination, int value)
 		{
 			m_register[static_cast<size_t>(destination)] *= value;
 		}
 
-		void Mul(Register destination, Register source)
+		void MulR(Register destination, Register source)
 		{
 			m_register[static_cast<size_t>(destination)] *= m_register[static_cast<size_t>(source)];
 		}

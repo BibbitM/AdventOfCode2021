@@ -62,13 +62,13 @@ TEST(Day24, AluReadsInput)
 {
 	Monad::Alu alu;
 
-	alu.Inp(Monad::Register::X, 3);
+	alu.Inp(Monad::X, 3);
 	EXPECT_EQ(alu.GetRegisters().x, 3);
-	alu.Inp(Monad::Register::Y, 123);
+	alu.Inp(Monad::Y, 123);
 	EXPECT_EQ(alu.GetRegisters().y, 123);
-	alu.Inp(Monad::Register::Z, -1);
+	alu.Inp(Monad::Z, -1);
 	EXPECT_EQ(alu.GetRegisters().z, -1);
-	alu.Inp(Monad::Register::W, -100);
+	alu.Inp(Monad::W, -100);
 	EXPECT_EQ(alu.GetRegisters().w, -100);
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(3, 123, -1, -100));
@@ -78,18 +78,18 @@ TEST(Day24, AluAddsValue)
 {
 	Monad::Alu alu;
 
-	alu.Add(Monad::Register::X, 10);
+	alu.AddV(Monad::X, 10);
 	EXPECT_EQ(alu.GetRegisters().x, 10);
-	alu.Add(Monad::Register::X, -20);
+	alu.AddV(Monad::X, -20);
 	EXPECT_EQ(alu.GetRegisters().x, -10);
 
-	alu.Add(Monad::Register::Y, 2);
+	alu.AddV(Monad::Y, 2);
 	EXPECT_EQ(alu.GetRegisters().y, 2);
 
-	alu.Add(Monad::Register::Z, -333);
+	alu.AddV(Monad::Z, -333);
 	EXPECT_EQ(alu.GetRegisters().z, -333);
 
-	alu.Add(Monad::Register::W, 4);
+	alu.AddV(Monad::W, 4);
 	EXPECT_EQ(alu.GetRegisters().w, 4);
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(-10, 2, -333, 4));
@@ -99,21 +99,21 @@ TEST(Day24, AluAddsRegister)
 {
 	Monad::Alu alu;
 
-	alu.Inp(Monad::Register::X, 1);
-	alu.Inp(Monad::Register::Y, 20);
-	alu.Inp(Monad::Register::Z, -30);
-	alu.Inp(Monad::Register::W, -400);
+	alu.Inp(Monad::X, 1);
+	alu.Inp(Monad::Y, 20);
+	alu.Inp(Monad::Z, -30);
+	alu.Inp(Monad::W, -400);
 
-	alu.Add(Monad::Register::X, Monad::Register::X);
+	alu.AddR(Monad::X, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().x, 2);
-	alu.Add(Monad::Register::Y, Monad::Register::X);
+	alu.AddR(Monad::Y, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().x, 2);
 	EXPECT_EQ(alu.GetRegisters().y, 22);
-	alu.Add(Monad::Register::Z, Monad::Register::Y);
+	alu.AddR(Monad::Z, Monad::Y);
 	EXPECT_EQ(alu.GetRegisters().z, -8);
-	alu.Add(Monad::Register::Z, Monad::Register::W);
+	alu.AddR(Monad::Z, Monad::W);
 	EXPECT_EQ(alu.GetRegisters().z, -408);
-	alu.Add(Monad::Register::W, Monad::Register::Z);
+	alu.AddR(Monad::W, Monad::Z);
 	EXPECT_EQ(alu.GetRegisters().w, -808);
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(2, 22, -408, -808));
@@ -123,20 +123,20 @@ TEST(Day24, AluMultipliesByValue)
 {
 	Monad::Alu alu;
 
-	alu.Inp(Monad::Register::X, 1);
-	alu.Inp(Monad::Register::Y, -2);
-	alu.Inp(Monad::Register::Z, 3);
-	alu.Inp(Monad::Register::W, -5);
+	alu.Inp(Monad::X, 1);
+	alu.Inp(Monad::Y, -2);
+	alu.Inp(Monad::Z, 3);
+	alu.Inp(Monad::W, -5);
 
-	alu.Mul(Monad::Register::X, 7);
+	alu.MulV(Monad::X, 7);
 	EXPECT_EQ(alu.GetRegisters().x, 7);
-	alu.Mul(Monad::Register::Y, 11);
+	alu.MulV(Monad::Y, 11);
 	EXPECT_EQ(alu.GetRegisters().y, -22);
-	alu.Mul(Monad::Register::Z, -13);
+	alu.MulV(Monad::Z, -13);
 	EXPECT_EQ(alu.GetRegisters().z, -39);
-	alu.Mul(Monad::Register::W, -17);
+	alu.MulV(Monad::W, -17);
 	EXPECT_EQ(alu.GetRegisters().w, 85);
-	alu.Mul(Monad::Register::W, 0);
+	alu.MulV(Monad::W, 0);
 	EXPECT_EQ(alu.GetRegisters().w, 0);
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(7, -22, -39, 0));
@@ -146,20 +146,20 @@ TEST(Day24, AluMultipliesByRegister)
 {
 	Monad::Alu alu;
 
-	alu.Inp(Monad::Register::X, 1);
-	alu.Inp(Monad::Register::Y, -2);
-	alu.Inp(Monad::Register::Z, 3);
-	alu.Inp(Monad::Register::W, -5);
+	alu.Inp(Monad::X, 1);
+	alu.Inp(Monad::Y, -2);
+	alu.Inp(Monad::Z, 3);
+	alu.Inp(Monad::W, -5);
 
-	alu.Mul(Monad::Register::X, Monad::Register::X);
+	alu.MulR(Monad::X, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().x, 1);
-	alu.Mul(Monad::Register::X, Monad::Register::Y);
+	alu.MulR(Monad::X, Monad::Y);
 	EXPECT_EQ(alu.GetRegisters().x, -2);
-	alu.Mul(Monad::Register::Y, Monad::Register::X);
+	alu.MulR(Monad::Y, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().y, 4);
-	alu.Mul(Monad::Register::Z, Monad::Register::Y);
+	alu.MulR(Monad::Z, Monad::Y);
 	EXPECT_EQ(alu.GetRegisters().z, 12);
-	alu.Mul(Monad::Register::W, Monad::Register::Z);
+	alu.MulR(Monad::W, Monad::Z);
 	EXPECT_EQ(alu.GetRegisters().w, -60);
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(-2, 4, 12, -60));
