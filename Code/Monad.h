@@ -17,6 +17,8 @@ namespace Monad
 	public:
 		const IntVector4& GetRegisters() const { return m_register; }
 
+		bool IsCrashed() const { return m_isCrashed; }
+
 		void Inp(Register destination, int value)
 		{
 			m_register[static_cast<size_t>(destination)] = value;
@@ -44,21 +46,43 @@ namespace Monad
 
 		void DivV(Register destination, int value)
 		{
+			if (value == 0)
+			{
+				m_isCrashed = true;
+				return;
+			}
 			m_register[static_cast<size_t>(destination)] /= value;
 		}
 
 		void DivR(Register destination, Register source)
 		{
+			if (m_register[static_cast<size_t>(source)] == 0)
+			{
+				m_isCrashed = true;
+				return;
+			}
 			m_register[static_cast<size_t>(destination)] /= m_register[static_cast<size_t>(source)];
 		}
 
 		void ModV(Register destination, int value)
 		{
+			if (m_register[static_cast<size_t>(destination)] < 0 ||
+				value <= 0)
+			{
+				m_isCrashed = true;
+				return;
+			}
 			m_register[static_cast<size_t>(destination)] %= value;
 		}
 
 		void ModR(Register destination, Register source)
 		{
+			if (m_register[static_cast<size_t>(destination)] < 0 ||
+				m_register[static_cast<size_t>(source)] <= 0)
+			{
+				m_isCrashed = true;
+				return;
+			}
 			m_register[static_cast<size_t>(destination)] %= m_register[static_cast<size_t>(source)];
 		}
 
@@ -74,5 +98,6 @@ namespace Monad
 
 	private:
 		IntVector4 m_register{};
+		bool m_isCrashed = false;
 	};
 }

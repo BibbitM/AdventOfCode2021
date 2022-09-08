@@ -344,3 +344,116 @@ TEST(Day24, AluComparesWithRegister)
 	alu.EqlR(Monad::Y, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().y, 1);
 }
+
+TEST(Day24, AluIsNotCrashedAtStart)
+{
+	Monad::Alu alu;
+
+	EXPECT_FALSE(alu.IsCrashed());
+}
+
+TEST(Day24, AluValidOperationsDoesNotCrash)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 1);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.AddV(Monad::Y, 10);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.AddR(Monad::W, Monad::Z);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.MulV(Monad::Y, -1);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.MulR(Monad::Y, Monad::X);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.EqlV(Monad::Z, 0);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.EqlR(Monad::W, Monad::Z);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.DivV(Monad::W, 100);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.DivR(Monad::W, Monad::Z);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.ModV(Monad::W, 100);
+	EXPECT_FALSE(alu.IsCrashed());
+	alu.ModR(Monad::W, Monad::X);
+	EXPECT_FALSE(alu.IsCrashed());
+}
+
+TEST(Day24, AluDivByZeroCrashes)
+{
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::X, 1);
+		alu.DivV(Monad::X, 0);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::Y, 1);
+		alu.DivR(Monad::Y, Monad::W);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+}
+
+TEST(Day24, AluModNegativeValueCrashes)
+{
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::X, -1);
+		alu.ModV(Monad::X, 10);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::Z, -11);
+		alu.Inp(Monad::Y, 11);
+		alu.ModR(Monad::Z, Monad::Y);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+}
+
+TEST(Day24, AluModByZeroCrashes)
+{
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::X, 1);
+		alu.ModV(Monad::X, 0);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::Y, 1);
+		alu.ModR(Monad::Y, Monad::W);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+}
+
+TEST(Day24, AluModByNegativeCrashes)
+{
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::W, 1);
+		alu.ModV(Monad::W, -1);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+
+	{
+		Monad::Alu alu;
+
+		alu.Inp(Monad::Y, 10);
+		alu.Inp(Monad::Z, -10);
+		alu.ModR(Monad::Y, Monad::Z);
+		EXPECT_TRUE(alu.IsCrashed());
+	}
+}
