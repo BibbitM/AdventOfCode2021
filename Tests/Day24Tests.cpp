@@ -460,7 +460,11 @@ TEST(Day24, AluModByNegativeCrashes)
 
 TEST(Day24, ProcessorDefaultState)
 {
-	const Monad::Processor processor;
+	const Monad::Program program{};
+	const Monad::Memory memory{};
+	Monad::Processor processor(program, memory);
+
+	processor.Run();
 
 	EXPECT_EQ(processor.GetAlu().GetRegisters(), IntVector4());
 	EXPECT_FALSE(processor.GetAlu().IsCrashed());

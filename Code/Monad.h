@@ -101,10 +101,17 @@ namespace Monad
 		bool m_isCrashed = false;
 	};
 
+	struct Program {};
+	struct Memory {};
+
 	class Processor
 	{
 	public:
+		Processor(const Program& program, const Memory& memory) {}
+
 		const Alu& GetAlu() const { return m_alu; }
+
+		void Run() {}
 
 	private:
 		Alu m_alu;
