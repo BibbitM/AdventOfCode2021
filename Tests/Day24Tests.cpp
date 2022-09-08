@@ -187,3 +187,44 @@ TEST(Day24, AluDividesByValue)
 	alu.DivV(Monad::W, -3);
 	EXPECT_EQ(alu.GetRegisters().w, 5);
 }
+
+TEST(Day24, AluDividesByRegister)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 0);
+	alu.Inp(Monad::Y, -2);
+	alu.Inp(Monad::Z, 5);
+	alu.DivR(Monad::X, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	EXPECT_EQ(alu.GetRegisters().y, -2);
+	alu.DivR(Monad::X, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.DivR(Monad::Y, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().y, 1);
+
+	alu.Inp(Monad::Z, 15);
+	alu.Inp(Monad::W, 5);
+	alu.DivR(Monad::Z, Monad::W);
+	EXPECT_EQ(alu.GetRegisters().z, 3);
+	EXPECT_EQ(alu.GetRegisters().w, 5);
+	alu.Inp(Monad::Z, 15);
+	alu.DivR(Monad::W, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().w, 0);
+
+	alu.Inp(Monad::X, -11);
+	alu.Inp(Monad::Z, 37);
+	alu.DivR(Monad::X, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.Inp(Monad::X, -11);
+	alu.DivR(Monad::Z, Monad::X);
+	EXPECT_EQ(alu.GetRegisters().z, -3);
+
+	alu.Inp(Monad::X, 7);
+	alu.Inp(Monad::W, -73);
+	alu.DivR(Monad::X, Monad::W);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.Inp(Monad::X, 7);
+	alu.DivR(Monad::W, Monad::X);
+	EXPECT_EQ(alu.GetRegisters().w, -10);
+}
