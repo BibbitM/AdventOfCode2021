@@ -100,4 +100,13 @@ namespace Monad
 		IntVector4 m_register{};
 		bool m_isCrashed = false;
 	};
+
+	class Processor
+	{
+	public:
+		const Alu& GetAlu() const { return m_alu; }
+
+	private:
+		Alu m_alu;
+	};
 }

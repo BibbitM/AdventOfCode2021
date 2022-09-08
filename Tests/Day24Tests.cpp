@@ -457,3 +457,11 @@ TEST(Day24, AluModByNegativeCrashes)
 		EXPECT_TRUE(alu.IsCrashed());
 	}
 }
+
+TEST(Day24, ProcessorDefaultState)
+{
+	const Monad::Processor processor;
+
+	EXPECT_EQ(processor.GetAlu().GetRegisters(), IntVector4());
+	EXPECT_FALSE(processor.GetAlu().IsCrashed());
+}
