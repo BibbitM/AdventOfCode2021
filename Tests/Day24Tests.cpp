@@ -317,3 +317,30 @@ TEST(Day24, AluComparesWithValue)
 	alu.EqlV(Monad::W, -5);
 	EXPECT_EQ(alu.GetRegisters().w, 1);
 }
+
+TEST(Day24, AluComparesWithRegister)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 0);
+	alu.Inp(Monad::Y, 2);
+	alu.EqlR(Monad::X, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	EXPECT_EQ(alu.GetRegisters().y, 2);
+
+	alu.Inp(Monad::Z, 15);
+	alu.Inp(Monad::W, -5);
+	alu.EqlR(Monad::Z, Monad::W);
+	EXPECT_EQ(alu.GetRegisters().z, 0);
+	alu.Inp(Monad::Z, -5);
+	alu.EqlR(Monad::W, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().w, 1);
+
+	alu.Inp(Monad::X, -12);
+	alu.Inp(Monad::Y, 12);
+	alu.EqlR(Monad::X, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.Inp(Monad::X, 12);
+	alu.EqlR(Monad::Y, Monad::X);
+	EXPECT_EQ(alu.GetRegisters().y, 1);
+}
