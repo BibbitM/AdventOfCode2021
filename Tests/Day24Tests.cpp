@@ -294,3 +294,26 @@ TEST(Day24, AluModulosByRegister)
 	alu.ModR(Monad::W, Monad::X);
 	EXPECT_EQ(alu.GetRegisters().w, 0);
 }
+
+TEST(Day24, AluComparesWithValue)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 1);
+	alu.Inp(Monad::Y, -2);
+	alu.Inp(Monad::Z, 0);
+	alu.Inp(Monad::W, -5);
+
+	alu.EqlV(Monad::X, 7);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.EqlV(Monad::Y, -2);
+	EXPECT_EQ(alu.GetRegisters().y, 1);
+	alu.EqlV(Monad::Y, -2);
+	EXPECT_EQ(alu.GetRegisters().y, 0);
+	alu.EqlV(Monad::Z, 1);
+	EXPECT_EQ(alu.GetRegisters().z, 0);
+	alu.EqlV(Monad::Z, 0);
+	EXPECT_EQ(alu.GetRegisters().z, 1);
+	alu.EqlV(Monad::W, -5);
+	EXPECT_EQ(alu.GetRegisters().w, 1);
+}
