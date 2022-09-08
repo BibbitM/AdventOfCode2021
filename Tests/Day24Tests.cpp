@@ -52,9 +52,9 @@ TEST(Day24, IntVector4SetCoordinateByIndex)
 	EXPECT_EQ(vec, IntVector4(1, -2, 30, 400));
 }
 
-TEST(Day24, DefaultAluState)
+TEST(Day24, AluDefaultState)
 {
-	Monad::Alu alu;
+	const Monad::Alu alu;
 	EXPECT_EQ(alu.GetRegisters(), IntVector4());
 }
 
