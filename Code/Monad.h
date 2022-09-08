@@ -52,6 +52,11 @@ namespace Monad
 			m_register[static_cast<size_t>(destination)] /= m_register[static_cast<size_t>(source)];
 		}
 
+		void ModV(Register destination, int value)
+		{
+			m_register[static_cast<size_t>(destination)] %= value;
+		}
+
 	private:
 		IntVector4 m_register{};
 	};
