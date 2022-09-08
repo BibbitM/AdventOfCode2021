@@ -253,3 +253,44 @@ TEST(Day24, AluModulosByValue)
 	alu.ModV(Monad::W, 3);
 	EXPECT_EQ(alu.GetRegisters().w, 2);
 }
+
+TEST(Day24, AluModulosByRegister)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 0);
+	alu.Inp(Monad::Y, 2);
+	alu.Inp(Monad::Z, 5);
+	alu.ModR(Monad::X, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	EXPECT_EQ(alu.GetRegisters().y, 2);
+	alu.ModR(Monad::X, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+	alu.ModR(Monad::Y, Monad::Y);
+	EXPECT_EQ(alu.GetRegisters().y, 0);
+
+	alu.Inp(Monad::Z, 15);
+	alu.Inp(Monad::W, 5);
+	alu.ModR(Monad::Z, Monad::W);
+	EXPECT_EQ(alu.GetRegisters().z, 0);
+	EXPECT_EQ(alu.GetRegisters().w, 5);
+	alu.Inp(Monad::Z, 15);
+	alu.ModR(Monad::W, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().w, 5);
+
+	alu.Inp(Monad::X, 11);
+	alu.Inp(Monad::Z, 37);
+	alu.ModR(Monad::X, Monad::Z);
+	EXPECT_EQ(alu.GetRegisters().x, 11);
+	alu.Inp(Monad::X, 11);
+	alu.ModR(Monad::Z, Monad::X);
+	EXPECT_EQ(alu.GetRegisters().z, 4);
+
+	alu.Inp(Monad::X, 7);
+	alu.Inp(Monad::W, 77);
+	alu.ModR(Monad::X, Monad::W);
+	EXPECT_EQ(alu.GetRegisters().x, 7);
+	alu.Inp(Monad::X, 7);
+	alu.ModR(Monad::W, Monad::X);
+	EXPECT_EQ(alu.GetRegisters().w, 0);
+}
