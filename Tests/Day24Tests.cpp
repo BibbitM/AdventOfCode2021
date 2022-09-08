@@ -164,3 +164,26 @@ TEST(Day24, AluMultipliesByRegister)
 
 	EXPECT_EQ(alu.GetRegisters(), IntVector4(-2, 4, 12, -60));
 }
+
+TEST(Day24, AluDividesByValue)
+{
+	Monad::Alu alu;
+
+	alu.Inp(Monad::X, 1);
+	alu.DivV(Monad::X, 1);
+	EXPECT_EQ(alu.GetRegisters().x, 1);
+	alu.DivV(Monad::X, 2);
+	EXPECT_EQ(alu.GetRegisters().x, 0);
+
+	alu.Inp(Monad::Y, 5);
+	alu.DivV(Monad::Y, -3);
+	EXPECT_EQ(alu.GetRegisters().y, -1);
+
+	alu.Inp(Monad::Z, -11);
+	alu.DivV(Monad::Z, 5);
+	EXPECT_EQ(alu.GetRegisters().z, -2);
+
+	alu.Inp(Monad::W, -17);
+	alu.DivV(Monad::W, -3);
+	EXPECT_EQ(alu.GetRegisters().w, 5);
+}
