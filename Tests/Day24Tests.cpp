@@ -458,6 +458,24 @@ TEST(Day24, AluModByNegativeCrashes)
 	}
 }
 
+TEST(Day24, ProgramCreatedFromAllInstructions)
+{
+	Monad::Program program
+	{
+		{ Monad::Inp, Monad::X },
+		{ Monad::AddV, Monad::Y, 1 },
+		{ Monad::AddR, Monad::Z, Monad::W },
+		{ Monad::MulV, Monad::Y, 1 },
+		{ Monad::MulR, Monad::Z, Monad::W },
+		{ Monad::DivV, Monad::Y, 1 },
+		{ Monad::DivR, Monad::Z, Monad::Y },
+		{ Monad::ModV, Monad::Y, 1 },
+		{ Monad::ModR, Monad::Z, Monad::Y },
+		{ Monad::EqlV, Monad::Y, 100 },
+		{ Monad::EqlR, Monad::Z, Monad::Y },
+	};
+}
+
 TEST(Day24, ProcessorDefaultState)
 {
 	const Monad::Program program{};

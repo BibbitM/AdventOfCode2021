@@ -2,6 +2,8 @@
 
 #include "IntVector4.h"
 
+#include <vector>
+
 namespace Monad
 {
 	enum Register : int
@@ -10,6 +12,21 @@ namespace Monad
 		Y,
 		Z,
 		W
+	};
+
+	enum Inst : int
+	{
+		Inp,
+		AddV,
+		AddR,
+		MulV,
+		MulR,
+		DivV,
+		DivR,
+		ModV,
+		ModR,
+		EqlV,
+		EqlR
 	};
 
 	class Alu
@@ -101,7 +118,14 @@ namespace Monad
 		bool m_isCrashed = false;
 	};
 
-	struct Program {};
+	struct Instruction
+	{
+		Inst inst{};
+		int a{};
+		int b{};
+	};
+
+	using Program = std::vector<Instruction>;
 	struct Memory {};
 
 	class Processor
